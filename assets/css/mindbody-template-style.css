@@ -1,0 +1,19 @@
+.mindbody-container{
+    max-width: 1440px;
+    margin: 100px auto;
+    padding: 0 40px 0 40px;
+}
+
+
+@media (max-width: 768px) {
+    .mindbody-container{
+        padding: 0 20px 0 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mindbody-container{
+        padding: 0 10px 0 10px;
+    }
+}
+

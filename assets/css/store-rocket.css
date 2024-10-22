@@ -1,0 +1,32 @@
+@font-face {
+    font-family: 'Joyride';
+    src: url('../fonts/Joyride.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#storerocket-widget {
+    position: relative;
+    max-height: 632px;
+}
+
+.location-title{
+    color: #181818;
+    font-weight: 700;
+    font-size: 48px;
+    font-style: normal;
+    text-align: center;
+    letter-spacing: 0em;
+    line-height: 1.3;
+    margin: 50px 0 50px 0;
+    font-family: Joyride, serif;
+    text-transform: uppercase;
+}
+
+.locations-find{
+
+}
+
+
+
+

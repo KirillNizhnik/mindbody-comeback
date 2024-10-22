@@ -1,0 +1,293 @@
+@font-face {
+    font-family: 'SfPro';
+    src: url('../fonts/SFProText-Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF Pro Text';
+    src: url('../fonts/SFProText-Bold.ttf');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF Pro Text';
+    src: url('../fonts/SFProText-Semibold.ttf');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF Pro Text';
+    src: url('../fonts/SFProText-Medium.ttf');
+    font-weight: 500;
+    font-style: normal;
+}
+
+.mindbody-payment{
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.mindbody-payment .logo{
+    max-width: 462px;
+    margin: 56px auto 0 auto;
+    display: block;
+}
+
+.mindbody-payment .address{
+    margin-top: 8px;
+    color: #181818;
+    text-align: center;
+    font-family: "SF Pro Text", sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.mindbody-payment .location{
+    margin-top: 40px;
+    color: #181818;
+    text-align: center;
+    font-family: "SF Pro Text", sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.payment-discount{
+    color: #181818;
+    font-family: "SF Pro Text", sans-serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: uppercase;
+    margin: 80px auto 0 auto;
+    text-align: center;
+}
+
+.payment-time{
+    display: flex;
+    flex-direction: column;
+    margin-top: 24px;
+}
+
+.payment-time .class-name{
+    font-size: 26px;
+    color: #181818;
+    font-family: "SF Pro Text", sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+    text-align: center;
+}
+.payment-time .date{
+    color: #181818;
+    font-family: "SF Pro Text", sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 4px;
+}
+
+.payment-time .time{
+    color: #181818;
+    text-align: center;
+    font-family: "SF Pro Text", sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-top: 4px;
+}
+
+.payment-time .change-time{
+    margin-top: 24px;
+    color: #94E522;
+    text-align: center;
+    font-family: "Heading Pro Wide Trial", sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-decoration-line: underline;
+    text-transform: uppercase;
+}
+
+.payment-time .change-time a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.payment-time .change-time a:hover, a:focus {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+.mindbody-payment-description{
+    margin-top: 80px;
+    color: #181818;
+    text-align: center;
+    font-family: "SF Pro Text", sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+
+
+.payment-method-info-title{
+    color: #181818;
+    text-align: center;
+    font-family: "SF Pro Text", sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 24px 0 0 0;
+}
+
+.mindbody-payment-form input{
+    padding: 18px 24px;
+    color: #000000;
+    font-family: "SF Pro Text", sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border-radius: 10px;
+    border: 1px solid #9F9F9F;
+    width: 100%;
+}
+
+.mindbody-payment-form input::placeholder{
+    color: #9F9F9F;
+    font-family: "SF Pro Text", sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+
+.card-pictures{
+    margin: 16px auto 0 auto;
+    width: fit-content;
+}
+.card-details{
+    margin-top: 12px;
+    display: flex;
+    gap: 12px;
+}
+
+.card-expiration{
+    width: 100%;
+}
+
+.card-cvv{
+    width: 100%;
+}
+
+#cc-number{
+    margin-top: 28px;
+}
+
+#cc-name{
+     margin-top: 12px;
+}
+
+.total-and-submit{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    align-items: center;
+}
+
+
+
+.total{
+    color: #181818;
+    font-family: "SF Pro Text", sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.book-now{
+    border-radius: 10px;
+    background: #94E522;
+    padding: 16px 40px;
+    border: 0;
+    color: #181818;
+    font-family: "SF Pro Text", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+.mindbody-payment-form{
+    margin-bottom: 40px;
+}
+
+
+
+@media (max-width: 600px) {
+
+    .logo{
+        width: 80%;
+    }
+    .payment-discount{
+        margin-top: 30px;
+        font-size: 24px;
+    }
+
+    .payment-time{
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
+    .payment-time .date{
+        font-size: 16px;
+    }
+
+    .payment-time .class-name{
+        font-size: 18px;
+    }
+
+    .payment-time .time{
+        font-size: 16px;
+    }
+
+    .mindbody-payment-description{
+        margin-top: 30px;
+        font-size: 16px;
+    }
+
+    .payment-method-info-title{
+        font-size: 16px;
+    }
+
+    .book-now{
+        padding: 10px 20px;
+    }
+
+    .text{
+        font-size: 16px;
+    }
+
+
+}
