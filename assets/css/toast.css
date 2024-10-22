@@ -1,0 +1,37 @@
+.toast-error {
+    background-color: #f44336; /* Красный фон для ошибок */
+    color: #ffffff; /* Белый текст */
+    font-family: 'SF Pro Text', sans-serif; /* Настройка шрифта */
+    font-size: 14px; /* Размер шрифта */
+}
+
+.toast-success {
+    background-color: #4CAF50;
+    color: #ffffff;
+    font-family: 'SF Pro Text', sans-serif;
+    font-size: 14px;
+}
+
+.toast-warning {
+    background-color: #ff9800;
+    color: #ffffff;
+    font-family: 'SF Pro Text', sans-serif;
+    font-size: 14px;
+}
+
+.toast-info {
+    background-color: #2196F3;
+    color: #ffffff;
+    font-family: 'SF Pro Text', sans-serif;
+    font-size: 14px;
+
+}
+
+.toast-close-button {
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.toast-progress {
+    background-color: #ffffff;
+}
