@@ -43,14 +43,20 @@ $id = get_post_id_by_mindbody_location_id($location_id);
             </div>
             <div class="form-group">
                 <input type="email" name="email" placeholder="Email" required>
-                <input type="tel" name="phone" placeholder="Phone" required>
-            </div>
+                <input type="tel" pattern="\+1\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}" name="phone" id="phone" placeholder="Phone (+1...)" required>            </div>
         </div>
 
         <button type="submit" class="submit-btn">CONTINUE</button>
     </form>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 <link rel="stylesheet" href="<?php echo plugin_dir_url(MINDBODY_PLUGIN_FILE); ?>assets/css/form.css " type="text/css"/>
+<link rel="stylesheet" href="<?php echo plugin_dir_url(MINDBODY_PLUGIN_FILE); ?>assets/css/toast.css " type="text/css"/>
+
 <script src="<?php echo plugin_dir_url(MINDBODY_PLUGIN_FILE); ?>assets/js/form.js"></script>
 
 

@@ -29,12 +29,19 @@ if (!isset($_GET['first_name']) || !isset($_GET['last_name']) || !isset($_GET['e
     exit;
 }
 
-$first_name = sanitize_text_field($_GET['first_name']);
-$last_name = sanitize_text_field($_GET['last_name']);
-$email = sanitize_email($_GET['email']);
-$phone = sanitize_text_field($_GET['phone']);
+$first_name = sanitize_text_field(trim($_GET['first_name']));
+$last_name = sanitize_text_field(trim($_GET['last_name']));
+$email = sanitize_email(trim($_GET['email']));
+$phone = sanitize_text_field(trim($_GET['phone']));
+
+$phone = preg_replace('/[^\d\+]/', '', $phone);
 
 if (!is_email($email) || empty($phone)) {
+    wp_redirect($redirect_url);
+    exit;
+}
+
+if (empty($first_name) || empty($last_name) || empty($email)) {
     wp_redirect($redirect_url);
     exit;
 }

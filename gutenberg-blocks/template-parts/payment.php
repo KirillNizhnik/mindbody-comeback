@@ -29,15 +29,18 @@ if (!isset($_GET['first_name']) || !isset($_GET['last_name']) || !isset($_GET['e
     exit;
 }
 
-$first_name = sanitize_text_field($_GET['first_name']);
-$last_name = sanitize_text_field($_GET['last_name']);
-$email = sanitize_email($_GET['email']);
-$phone = sanitize_text_field($_GET['phone']);
+$first_name = sanitize_text_field(trim($_GET['first_name']));
+$last_name = sanitize_text_field(trim($_GET['last_name']));
+$email = sanitize_email(trim($_GET['email']));
+$phone = sanitize_text_field(trim($_GET['phone']));
+
+$phone = preg_replace('/[^\d\+]/', '', $phone);
 
 if (!is_email($email) || empty($phone)) {
     wp_redirect($redirect_url);
     exit;
 }
+
 
 
 
@@ -86,6 +89,7 @@ if (!empty($class[0])) {
 
     $class_name = $class_info['ClassDescription']['Name'] ?? 'Class Name Unknown';
     $instructor_name = $class_info['Staff']['DisplayName'] ?? 'Instructor Unknown';
+    $training_id = $class_info['Id'];
 
 }
 
@@ -99,13 +103,21 @@ $staff_token = $staff_token['AccessToken'];
 
 
 $user_info = get_mindbody_user_by_email($email);
+
 if ($user_info === 'User not found') {
     $user_info = register_mindbody_user($first_name, $last_name, $email, $phone);
+    $user_id = $user_info["Client"]["UniqueId"];
+}else{
+    $user_id = $user_info['Id'];
 }
-$class_schedule_id = $class_id;
+var_dump($user_id);
+//var_dump($user_info);
+
+$services = get_mindbody_services($training_id, $staff_token);
+//echo '<pre>';
+//var_dump($services);
+//echo '</pre>';
 //var_dump($class_info);
-$services = get_mindbody_services($class_schedule_id, $staff_token);
-var_dump($services);
 ?>
 
 <div  class="mindbody-payment">
