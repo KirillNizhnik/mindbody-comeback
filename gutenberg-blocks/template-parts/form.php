@@ -31,7 +31,7 @@ $id = get_post_id_by_mindbody_location_id($location_id);
          alt="ISI Elite Training">
     <div class="mindbody-form-text">
         <div class="location">Location Name</div>
-        <div class="address"><?= get_field('location_address', $id) . ', ' . get_field('location_city', $id) . ', ' . get_field('location_state', $id) ?></div>
+        <div class="address"><?= get_field('location_address', $id) . ', ' . get_field('location_city', $id) ?></div>
         <div class="heading">BOOK YOUR FIRST VISIT FOR FREE</div>
         <div class="subheading">Start training for life with the best 50 minute, coach-led, strength-based workout</div>
     </div>

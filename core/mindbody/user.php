@@ -77,7 +77,7 @@ function register_mindbody_user($first_name, $last_name, $email, $phone, $birthd
             'Authorization: Bearer ' . $staff_token['AccessToken'], // Токен для авторизации
             'api-key: ' . $api_key, // Добавляем API ключ в заголовок
             'Accept: application/json',
-            'siteId: -99', // Ваш Site ID для Mindbody
+            'siteId:' . get_field('mindbody_site_id', 'option'),
             'Content-Type: application/json',
         ],
     ]);

@@ -103,20 +103,23 @@ $staff_token = $staff_token['AccessToken'];
 
 
 $user_info = get_mindbody_user_by_email($email);
-
+//var_dump($user_info);
 if ($user_info === 'User not found') {
     $user_info = register_mindbody_user($first_name, $last_name, $email, $phone);
+    var_dump($user_info);
     $user_id = $user_info["Client"]["UniqueId"];
 }else{
     $user_id = $user_info['Id'];
 }
 
-echo '<pre>';
-var_dump($user_id);
-echo '</pre>';
-//var_dump($user_info);
 
-$services = get_mindbody_services($training_id, $staff_token);
+//var_dump($user_info);
+//var_dump($training_id, $staff_token);
+//$services = get_mindbody_services($training_id, $staff_token);
+
+//echo '<pre>';
+//var_dump($services);
+//echo '</pre>';
 
 //var_dump($services);
 //echo '</pre>';

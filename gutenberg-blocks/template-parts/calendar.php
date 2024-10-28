@@ -59,7 +59,7 @@ $id = get_post_id_by_mindbody_location_id($location_id);
          alt="ISI Elite Training">
     <div class="mindbody-calendar-text">
         <div class="location">Location Name</div>
-        <div class="address"><?= get_field('location_address', $id) . ', ' . get_field('location_city', $id) . ', ' . get_field('location_state', $id) ?></div>
+        <div class="address"><?= get_field('location_address', $id) . ', ' . get_field('location_city', $id) ?></div>
     </div>
     <div class="mindbody-calendar-container">
         <h2 class="mindbody-calendar-title">
