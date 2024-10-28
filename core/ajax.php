@@ -44,7 +44,6 @@ function get_calendar_classes_by_date(): void
 //            echo '</pre>';
 
             foreach ($classes as $class) {
-
                 $start_time = date('g:i A', strtotime($class['StartDateTime']));
                 $start_datetime = $class['StartDateTime'];
                 $end_datetime = $class['EndDateTime'];

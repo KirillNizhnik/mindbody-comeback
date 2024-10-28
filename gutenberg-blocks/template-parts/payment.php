@@ -110,11 +110,14 @@ if ($user_info === 'User not found') {
 }else{
     $user_id = $user_info['Id'];
 }
+
+echo '<pre>';
 var_dump($user_id);
+echo '</pre>';
 //var_dump($user_info);
 
 $services = get_mindbody_services($training_id, $staff_token);
-//echo '<pre>';
+
 //var_dump($services);
 //echo '</pre>';
 //var_dump($class_info);

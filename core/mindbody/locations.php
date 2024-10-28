@@ -19,6 +19,7 @@ function get_mindbody_locations() : array
             'Content-Type' => 'application/json',
             'API-Key' => $api_key,
             'SiteId' => $site_id,
+
         )
     ));
 
