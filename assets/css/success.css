@@ -1,0 +1,132 @@
+@font-face {
+    font-family: 'SfPro';
+    src: url('../fonts/SFProText-Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF Pro Text';
+    src: url('../fonts/SFProText-Bold.ttf');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF Pro Text';
+    src: url('../fonts/SFProText-Semibold.ttf');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF Pro Text';
+    src: url('../fonts/SFProText-Medium.ttf');
+    font-weight: 500;
+    font-style: normal;
+}
+
+.mindbody-success {
+    max-width: 920px;
+    margin: 0 auto;
+
+}
+
+.mindbody-success .logo {
+    max-width: 462px;
+    margin: 56px auto 0 auto;
+    display: block;
+}
+
+.mindbody-heading {
+    margin-top: 160px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.success-heading {
+    color: #181818;
+    font-family: "SF Pro Text", sans-serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+.mindbody-success .subheading {
+    margin-top: 12px;
+    color: #181818;
+    text-align: center;
+    font-family: "SF Pro Text", sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.mindbody-add-to-calendar-btn {
+    height: 60px;
+    padding: 16px 40px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: #181818;
+    font-family: "SF Pro Text", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: uppercase;
+    border-radius: 10px;
+    background: #94E522;
+    margin: 40px auto 0 auto;
+    display: block;
+    cursor: pointer;
+}
+
+
+
+@media (max-width: 600px) {
+
+    .mindbody-success .logo {
+        max-width: 300px;
+        margin: 30px auto 0 auto;
+        display: block;
+        width: 100%;
+
+    }
+
+    .mindbody-add-to-calendar-btn {
+        height: 60px;
+        padding: 16px 20px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        color: #181818;
+        font-family: "SF Pro Text", sans-serif;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        text-transform: uppercase;
+        border-radius: 10px;
+        background: #94E522;
+        margin: 40px auto 0 auto;
+        display: block;
+    }
+
+    .success-heading {
+        color: #181818;
+        font-family: "SF Pro Text", sans-serif;
+        font-size: 30px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        text-transform: uppercase;
+    }
+
+
+}

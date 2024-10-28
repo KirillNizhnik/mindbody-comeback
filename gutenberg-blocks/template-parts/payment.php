@@ -201,3 +201,6 @@ $services = get_mindbody_services($training_id, $staff_token);
 
 <link rel="stylesheet" href="<?php echo plugin_dir_url(MINDBODY_PLUGIN_FILE); ?>assets/css/payment.css"
       type="text/css"/>
+
+
+
