@@ -113,13 +113,8 @@ if ($user_info === 'User not found') {
 }
 
 
-//var_dump($user_info);
-//var_dump($training_id, $staff_token);
-//$services = get_mindbody_services($training_id, $staff_token);
 
-//echo '<pre>';
-//var_dump($services);
-//echo '</pre>';
+$services = get_mindbody_services($training_id, $staff_token);
 
 //var_dump($services);
 //echo '</pre>';
@@ -130,7 +125,7 @@ if ($user_info === 'User not found') {
     <img src="<?= plugin_dir_url(MINDBODY_PLUGIN_FILE) . 'assets/images/isi-elite.svg'; ?>" class="logo"
          alt="ISI Elite Training">
     <div class="mindbody-payment-text">
-        <div class="location"><?php echo htmlspecialchars($location_name, ENT_QUOTES, 'UTF-8'); ?></div>
+        <div class="location">Location</div>
         <div class="address"><?php echo htmlspecialchars($full_address, ENT_QUOTES, 'UTF-8'); ?></div>
     </div>
     <div class="mindbody-payment-info">
