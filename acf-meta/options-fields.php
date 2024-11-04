@@ -48,6 +48,23 @@ function register_acf_fields_for_mindbody(): void
                     'required' => 1,
                 ),
 
+                array(
+                    'key' => 'field_mindbody_service_id_payment',
+                    'label' => 'Mindbody Service Id Payment',
+                    'name' => 'mindbody_service_id_payment',
+                    'type' => 'text',
+                    'instructions' => 'Enter Service ID for Mindbody.(One sessions)',
+                    'required' => 1,
+                ),
+
+                array(
+                    'key' => 'field_mindbody_service_id_free',
+                    'label' => 'Mindbody Service Id Free',
+                    'name' => 'mindbody_service_id_free',
+                    'type' => 'text',
+                    'instructions' => 'Enter Service ID for Mindbody.(One sessions free)',
+                    'required' => 1,
+                ),
             ),
             'location' => array(
                 array(

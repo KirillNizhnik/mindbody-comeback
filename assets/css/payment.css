@@ -243,6 +243,19 @@
     margin-bottom: 40px;
 }
 
+.session-free-container{
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.free-session-submit{
+    margin: 40px auto 0 auto;
+    cursor: pointer;
+}
+
+
+
 
 
 @media (max-width: 600px) {

@@ -103,22 +103,34 @@ $staff_token = $staff_token['AccessToken'];
 
 
 $user_info = get_mindbody_user_by_email($email);
-//var_dump($user_info);
 if ($user_info === 'User not found') {
     $user_info = register_mindbody_user($first_name, $last_name, $email, $phone);
-    var_dump($user_info);
     $user_id = $user_info["Client"]["UniqueId"];
 }else{
     $user_id = $user_info['Id'];
 }
 
+$has_user_activity = hasUserActivity($user_id);
 
 
-$services = get_mindbody_services($training_id, $staff_token);
 
-//var_dump($services);
-//echo '</pre>';
-//var_dump($class_info);
+if ($has_user_activity){
+    $services = get_mindbody_services($training_id, $staff_token, get_field('mindbody_service_id_payment', 'option'));
+
+    $service_id = $services[0]['Id'];
+    $service_name = $services[0]['Name'];
+    $service_price = $services[0]['Price'];
+    $service_price = number_format($service_price, 2);
+    $service_price = str_replace('.', '', $service_price);
+    $service_price = str_replace(',', '', $service_price);
+    $service_price = str_replace(' ', '', $service_price);
+}
+
+echo '<pre>';
+var_dump(get_mindbody_services($training_id, $staff_token));
+echo '</pre>';
+
+
 ?>
 
 <div  class="mindbody-payment">
@@ -130,7 +142,12 @@ $services = get_mindbody_services($training_id, $staff_token);
     </div>
     <div class="mindbody-payment-info">
         <div class="payment-discount">
+            <?php if ($has_user_activity){ ?>
             2 for $20
+            <?php }
+            else { ?>
+                FIRST TRAINING SESSION FREE
+            <?php } ?>
         </div>
         <div class="payment-time">
             <div class="class-name"><?php echo $class_name ?></div>
@@ -141,6 +158,7 @@ $services = get_mindbody_services($training_id, $staff_token);
         </div>
     </div>
 
+    <?php if ($has_user_activity){ ?>
     <div class="mindbody-payment-description">
         To finish booking your first session, complete the payment below and the appropriate credits will be added to your account.
     </div>
@@ -166,9 +184,11 @@ $services = get_mindbody_services($training_id, $staff_token);
             </svg>
         </div>
     </div>
+    <?php } ?>
 
     <div class="mindbody-payment-form">
-        <form action="" method="post">
+        <?php if ($has_user_activity){ ?>
+        <form id="session-buy" action="" method="post">
             <label for="cc-number"></label><input placeholder="Credit Card Number" type="text" id="cc-number" name="cc-number" required>
 
             <div class="card-details">
@@ -193,14 +213,26 @@ $services = get_mindbody_services($training_id, $staff_token);
                 <button type="submit" class="button book-now">Book Now</button>
             </div>
              </form>
+        <?php }
+        else{ ?>
+        <for data-ajax-url="<?= admin_url('admin-ajax.php') ?>" data-user-id="<?= $user_id ?>" id="session-free" action="" method="post">
+            <div class="session-free-container">
+            <button id="free-session-submit" type="submit" class="button book-now free-session-submit">Book Now</button>
+            </div>
+        <form>
+
+
+        <?php } ?>
     </div>
 </div>
 
 
 
-
 <link rel="stylesheet" href="<?php echo plugin_dir_url(MINDBODY_PLUGIN_FILE); ?>assets/css/payment.css"
       type="text/css"/>
+<script src="<?php echo plugin_dir_url(MINDBODY_PLUGIN_FILE); ?>assets/js/payment.js">
+
+</script>
 
 
 

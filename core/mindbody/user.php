@@ -130,3 +130,67 @@ function get_mindbody_required_client_fields() {
         return 'Error: ' . $response;
     }
 }
+
+
+function hasUserActivity($user_id): bool
+{
+    $api_key = get_field('mindbody_api_key', 'option');
+    $site_id = get_field('mindbody_site_id', 'option');
+    $token = get_mindbody_token();
+
+    if (!isset($token['AccessToken'])) {
+        error_log("AccessToken отсутствует");
+        return false;
+    }
+
+    $attendance_url = "https://api.mindbodyonline.com/public/v6/client/clientvisits";
+    $schedule_url = "https://api.mindbodyonline.com/public/v6/client/clientschedule";
+
+    $params = [
+        'clientId' => $user_id,
+    ];
+
+    $headers = [
+        'Authorization: Bearer ' . $token['AccessToken'],
+        'Api-Key: ' . $api_key,
+        'Accept: application/json',
+        'SiteId: ' . $site_id,
+    ];
+
+    function executeCurlRequest($url, $params, $headers)
+    {
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => $url . '?' . http_build_query($params),
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => $headers,
+        ]);
+
+        $response = curl_exec($curl);
+        $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+
+        if ($httpcode === 200) {
+            return json_decode($response, true);
+        } else {
+            error_log("MindBody API Error ($httpcode): $response");
+            return null;
+        }
+    }
+
+    $attendance_result = executeCurlRequest($attendance_url, $params, $headers);
+
+    if ($attendance_result !== null && isset($attendance_result['Visits']) && count($attendance_result['Visits']) > 0) {
+        return true;
+    }
+
+    $schedule_result = executeCurlRequest($schedule_url, $params, $headers);
+
+
+
+    if ($schedule_result !== null && isset($schedule_result['Classes']) && count($schedule_result['Classes']) > 0) {
+        return true;
+    }
+
+    return false;
+}

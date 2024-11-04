@@ -91,3 +91,23 @@ function get_calendar_classes_by_date(): void
 
 add_action('wp_ajax_get_calendar_classes_by_date', 'get_calendar_classes_by_date');
 add_action('wp_ajax_nopriv_get_calendar_classes_by_date', 'get_calendar_classes_by_date');
+
+
+add_action('wp_ajax_free_payment', 'handle_free_payment');
+add_action('wp_ajax_nopriv_free_payment', 'handle_free_payment');
+
+add_action('wp_ajax_single_payment', 'handle_single_payment');
+add_action('wp_ajax_nopriv_single_payment', 'handle_single_payment');
+
+function handle_free_payment()
+{
+    $services_id = get_field('mindbody_service_id_free', 'option');
+    $user_id =
+    wp_send_json_success(['message' => 'Free payment processed successfully!']);
+}
+
+function handle_single_payment() {
+
+
+    wp_send_json_success(['message' => 'Single payment processed successfully!']);
+}
