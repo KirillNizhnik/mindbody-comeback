@@ -190,10 +190,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        alert("Payment successful!");
+                        const urlParams = new URLSearchParams({
+                            start_time: response.data.data.start_time,
+                            end_time: response.data.data.end_time,
+                            class_name: response.data.data.class_name,
+                            location_id: locationId,
+                            class_id: classId,
+                        });
+                        redirectUrl = `${redirectUrl}?${urlParams.toString()}`;
+                        window.location.href = redirectUrl;
 
                     } else {
-                        alert("Payment failed: " + data.message);
+                        alert(data.data.message);
                     }
                 })
                 .catch(error => {
