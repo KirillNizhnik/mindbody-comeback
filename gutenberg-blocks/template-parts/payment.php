@@ -109,26 +109,24 @@ if ($user_info === 'User not found') {
 }else{
     $user_id = $user_info['Id'];
 }
-
 $has_user_activity = hasUserActivity($user_id);
-
-
-
+$post_location_id = get_post_id_by_mindbody_location_id($location_id);
+$location_package_id = get_field('package_dropdown', $post_location_id);
 if ($has_user_activity){
-    $services = get_mindbody_services($training_id, $staff_token, get_field('mindbody_service_id_payment', 'option'));
+    if ($location_package_id){
+        $services = get_mindbody_services($training_id, $staff_token, $location_package_id);
+    }else{
+        $services = get_mindbody_services($training_id, $staff_token, get_field('mindbody_service_id_payment', 'option'));
+    }
+    $service = $services['Services'][0];
+    $service_id = $service['Id'];
+    $service_name = $service['Name'];
+    $service_price = $service['Price'];
+    }
 
-    $service_id = $services[0]['Id'];
-    $service_name = $services[0]['Name'];
-    $service_price = $services[0]['Price'];
-    $service_price = number_format($service_price, 2);
-    $service_price = str_replace('.', '', $service_price);
-    $service_price = str_replace(',', '', $service_price);
-    $service_price = str_replace(' ', '', $service_price);
-}
-
-echo '<pre>';
-var_dump(get_mindbody_services($training_id, $staff_token));
-echo '</pre>';
+//echo '<pre>';
+//var_dump(get_mindbody_services($training_id, $staff_token));
+//echo '</pre>';
 
 
 ?>
@@ -143,7 +141,7 @@ echo '</pre>';
     <div class="mindbody-payment-info">
         <div class="payment-discount">
             <?php if ($has_user_activity){ ?>
-            2 for $20
+                <?= $service_name ?>
             <?php }
             else { ?>
                 FIRST TRAINING SESSION FREE
@@ -159,9 +157,6 @@ echo '</pre>';
     </div>
 
     <?php if ($has_user_activity){ ?>
-    <div class="mindbody-payment-description">
-        To finish booking your first session, complete the payment below and the appropriate credits will be added to your account.
-    </div>
     <div class="payment-method-info">
         <p class="payment-method-info-title">
             Please enter your credit card information below.
@@ -193,12 +188,12 @@ echo '</pre>';
 
             <div class="card-details">
                 <div class="card-expiration">
-                    <label for="cc-expiration"></label>
-                    <input placeholder="MM / YY" type="text" id="cc-expiration" name="cc-expiration" required>
+                    <label for="expiry-date"></label>
+                    <input placeholder="MM / YY" type="text" id="expiry-date" name="cc-expiration" required>
                 </div>
                 <div class="card-cvv">
-                    <label for="cc-cvv"></label>
-                    <input placeholder="CVV" type="text" id="cc-cvv" name="cc-cvv" required>
+                    <label for="cvv"></label>
+                    <input placeholder="CVV" type="text" id="cvv" name="cc-cvv" required>
                 </div>
             </div>
 
@@ -207,7 +202,7 @@ echo '</pre>';
 
             <div class="total-and-submit">
                 <div class="total">
-                    <strong>Total:</strong> $25.00
+                    <strong>Total:</strong> $<?= $service_price ?>
                 </div>
 
                 <button type="submit" class="button book-now">Book Now</button>
@@ -215,7 +210,7 @@ echo '</pre>';
              </form>
         <?php }
         else{ ?>
-        <for data-ajax-url="<?= admin_url('admin-ajax.php') ?>" data-user-id="<?= $user_id ?>" id="session-free" action="" method="post">
+        <for data-redirect-url="<?= get_field('mindbody_success_page','option') ?>" data-ajax-url="<?= admin_url('admin-ajax.php') ?>" data-user-id="<?= $user_id ?>" data-training-id="<?= $training_id ?>" data-class-id="<?= $class_id ?>" data-location-id="<?= $location_id ?>" data-redirect-url="<?=  get_field('','option') ?>" id="session-free" action="" method="post">
             <div class="session-free-container">
             <button id="free-session-submit" type="submit" class="button book-now free-session-submit">Book Now</button>
             </div>

@@ -102,8 +102,26 @@ add_action('wp_ajax_nopriv_single_payment', 'handle_single_payment');
 function handle_free_payment()
 {
     $services_id = get_field('mindbody_service_id_free', 'option');
-    $user_id =
-    wp_send_json_success(['message' => 'Free payment processed successfully!']);
+    $user_id = isset($_POST['user_id']) ? intval($_POST['user_id']) : 0;
+    $training_id = isset($_POST['training_id']) ? intval($_POST['training_id']) : 0;
+    $class_id = isset($_POST['class_id']) ? intval($_POST['class_id']) : 0;
+    $location_id = isset($_POST['location_id']) ? intval($_POST['location_id']) : 0;
+    if (!$user_id) {
+        wp_send_json_error(['message' => 'Sorry, you must be logged in to make a booking.']);
+    }
+    $token = get_mindbody_token();
+
+    $data = mindbody_free_service_purchase($user_id, $services_id, $location_id);
+    $response = mindbody_add_client_to_class($user_id, $training_id, $token['AccessToken']);
+    $data_response = [
+        'start_time' => $response['Visit']['StartDateTime'],
+        'end_time' => $response['Visit']['EndDateTime'],
+        'class_name' => $response['Visit']['Name'],
+    ];
+
+
+
+    wp_send_json_success(['message' => 'Free payment processed successfully!', 'data' => $data_response]);
 }
 
 function handle_single_payment() {

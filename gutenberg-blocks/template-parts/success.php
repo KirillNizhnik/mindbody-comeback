@@ -1,10 +1,32 @@
 <?php
 
+if (is_admin() || (defined('REST_REQUEST') && REST_REQUEST)) {
+    return;
+}
+if (!isset($_GET['start_time'], $_GET['end_time'], $_GET['class_name'], $_GET['location_id'], $_GET['class_id'])) {
+    wp_redirect(home_url());
+    exit;
+}
 
-$start_time = "20240101T120000Z";
-$end_time = "20240101T130000Z";
-$training_name = "Test Training Session";
-$location = "Gym, 123 Example St, New York";
+$start_time = sanitize_text_field($_GET['start_time']);
+$end_time = sanitize_text_field($_GET['end_time']);
+$training_name = sanitize_text_field($_GET['class_name']);
+$location_id= sanitize_text_field($_GET['location_id']);
+$class_id = sanitize_text_field($_GET['class_id']);
+$class = get_mindbody_classes_by_location($location_id, $start_time, $end_time, $class_id);
+
+
+if (!empty($class[0])) {
+    $class_info = $class[0];
+
+    $location_name = $class_info['Location']['Name'] ?? 'Unknown Location';
+    $address_line_1 = $class_info['Location']['Address'] ?? 'Unknown Address';
+    $address_line_2 = $class_info['Location']['Address2'] ?? '';
+    $full_address = $address_line_1;
+
+
+}
+
 ?>
 
 
@@ -26,9 +48,10 @@ $location = "Gym, 123 Example St, New York";
         </svg>
         <p class="success-heading">You’re booked</p>
     </div>
-    <div class="subheading">Wednesday, September 16 at 9:00 AM</div>
-    <button data-start-time="<?= $start_time ?>" data-end-time="<?= $end_time ?>" data-name="<?= $training_name ?>"
-            data-location="<?= $location ?>" id="add-to-calendar" class="mindbody-add-to-calendar-btn">Add to calendar
+    <div class="subheading"><?= date("l, F j, Y", strtotime($start_time)); ?> at <?= date("g:i A", strtotime($start_time)); ?></div>
+    <button data-start-time="<?= esc_attr($start_time); ?>" data-end-time="<?= esc_attr($end_time); ?>" data-name="<?= esc_attr($training_name); ?>"
+            data-location="<?= esc_attr($full_address); ?>" id="add-to-calendar" class="mindbody-add-to-calendar-btn">
+        Add to calendar
     </button>
 </div>
 

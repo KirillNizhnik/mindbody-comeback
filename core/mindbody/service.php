@@ -77,3 +77,53 @@ function get_mindbody_services($class_id, $staff_token, $service_id = null) {
         return 'Error: ' . $response;
     }
 }
+
+
+function mindbody_free_service_purchase($user_id, $service_id, $location_id) {
+    $access_token = get_mindbody_token();
+
+    $url = 'https://api.mindbodyonline.com/public/v6/sale/checkoutshoppingcart';
+
+    $data = [
+        'ClientId' => $user_id,
+        'Test' => false,
+        "LocationId" => $location_id,
+        'Items' => [
+            [
+                'Quantity' => 1,
+                'Item' => [
+                    'Type' => 'Service',
+                    "Metadata" => [
+                            "Id" => $service_id
+                    ],
+                ],
+            ],
+        ],
+        'Payments' => [
+            [
+                'Type' => 'Comp',
+                'Metadata' => [
+                    'Amount' => 0,
+                ],
+            ],
+        ],
+    ];
+    $api_key = get_field('mindbody_api_key', 'option');
+    $site_id = get_field('mindbody_site_id', 'option');
+    $app_name = get_field('mindbody_source_name', 'option');
+    $response = wp_remote_post($url, [
+        'headers' => [
+            'Api-Key' => $api_key,
+            'Authorization' => 'Bearer ' . $access_token['AccessToken'],
+            'Content-Type' => 'application/json',
+            'SiteId' => $site_id,
+            'App-Name' => $app_name
+        ],
+        'body' => json_encode($data),
+    ]);
+
+    $body = wp_remote_retrieve_body($response);
+    $data = json_decode($body, true);
+
+    return $data;
+}

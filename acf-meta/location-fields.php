@@ -101,6 +101,22 @@ function register_location_acf_fields(): void
                     'instructions' => 'The unique location ID from Store Rocket (filled during the import process).',
                     'readonly' => 1,
                 ),
+                array(
+                    'key' => 'field_package_dropdown',
+                    'label' => 'Select Package',
+                    'name' => 'package_dropdown',
+                    'type' => 'select',
+                    'instructions' => "Select a package from the list.",
+                    'choices' => array(
+                        '102232' => '2 Sessions for $20',
+                        '102233' => '7 Days for $14',
+                    ),
+                    'required' => 1,
+                    'allow_null' => 1,
+                    'default_value' => '',
+                    'ui' => 1,
+                    'return_format' => 'value',
+                ),
             ),
             'location' => array(
                 array(
@@ -117,3 +133,5 @@ function register_location_acf_fields(): void
 }
 
 add_action('acf/init', 'register_location_acf_fields');
+
+

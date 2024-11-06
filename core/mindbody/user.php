@@ -139,7 +139,6 @@ function hasUserActivity($user_id): bool
     $token = get_mindbody_token();
 
     if (!isset($token['AccessToken'])) {
-        error_log("AccessToken отсутствует");
         return false;
     }
 
@@ -148,6 +147,8 @@ function hasUserActivity($user_id): bool
 
     $params = [
         'clientId' => $user_id,
+        'StartDate' => '1990-01-01T00:00:00Z',
+        'EndDate' => '2050-12-31T23:59:59Z',
     ];
 
     $headers = [
@@ -179,13 +180,11 @@ function hasUserActivity($user_id): bool
     }
 
     $attendance_result = executeCurlRequest($attendance_url, $params, $headers);
-
     if ($attendance_result !== null && isset($attendance_result['Visits']) && count($attendance_result['Visits']) > 0) {
         return true;
     }
 
     $schedule_result = executeCurlRequest($schedule_url, $params, $headers);
-
 
 
     if ($schedule_result !== null && isset($schedule_result['Classes']) && count($schedule_result['Classes']) > 0) {
