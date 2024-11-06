@@ -69,7 +69,6 @@ $class_id = intval($_GET['class_id']);
 $class = get_mindbody_classes_by_location($location_id, $start_datetime, $end_datetime, $class_id);
 
 
-
 if (!empty($class[0])) {
     $class_info = $class[0];
 
@@ -110,9 +109,18 @@ if ($user_info === 'User not found') {
     $user_id = $user_info['Id'];
 }
 $has_user_activity = hasUserActivity($user_id);
+if ($has_user_activity){
+    wp_redirect($redirect_url);
+}
 $post_location_id = get_post_id_by_mindbody_location_id($location_id);
 $location_package_id = get_field('package_dropdown', $post_location_id);
-if ($has_user_activity){
+
+
+
+
+
+if (isset($_GET['ads']) && ($_GET['ads'] === 'true' || $_GET['ads'] === '1')) {
+    $ads=true;
     if ($location_package_id){
         $services = get_mindbody_services($training_id, $staff_token, $location_package_id);
     }else{
@@ -122,11 +130,12 @@ if ($has_user_activity){
     $service_id = $service['Id'];
     $service_name = $service['Name'];
     $service_price = $service['Price'];
-    }
+} else {
 
-//echo '<pre>';
-//var_dump(get_mindbody_services($training_id, $staff_token));
-//echo '</pre>';
+    $ads=false;
+}
+
+
 
 
 ?>
@@ -140,7 +149,7 @@ if ($has_user_activity){
     </div>
     <div class="mindbody-payment-info">
         <div class="payment-discount">
-            <?php if ($has_user_activity){ ?>
+            <?php if ($ads){ ?>
                 <?= $service_name ?>
             <?php }
             else { ?>
@@ -156,7 +165,7 @@ if ($has_user_activity){
         </div>
     </div>
 
-    <?php if ($has_user_activity){ ?>
+    <?php if ($ads){ ?>
     <div class="payment-method-info">
         <p class="payment-method-info-title">
             Please enter your credit card information below.
@@ -182,8 +191,9 @@ if ($has_user_activity){
     <?php } ?>
 
     <div class="mindbody-payment-form">
-        <?php if ($has_user_activity){ ?>
-        <form id="session-buy" action="" method="post">
+        <?php if ($ads){ ?>
+        <form data-redirect-url="<?= get_field('mindbody_success_page','option') ?>" data-ajax-url="<?= admin_url('admin-ajax.php') ?>" data-user-id="<?= $user_id ?>" data-training-id="<?= $training_id ?>" data-class-id="<?= $class_id ?>" data-location-id="<?= $location_id ?>"
+                id="session-buy" action="" method="post">
             <label for="cc-number"></label><input placeholder="Credit Card Number" type="text" id="cc-number" name="cc-number" required>
 
             <div class="card-details">
@@ -205,7 +215,7 @@ if ($has_user_activity){
                     <strong>Total:</strong> $<?= $service_price ?>
                 </div>
 
-                <button type="submit" class="button book-now">Book Now</button>
+                <button type="submit" id="payment-session-submit" class="button book-now">Book Now</button>
             </div>
              </form>
         <?php }

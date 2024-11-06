@@ -47,8 +47,29 @@ if (empty($first_name) || empty($last_name) || empty($email)) {
 }
 
 
+
 $location_id = intval($_GET['location']);
 $id = get_post_id_by_mindbody_location_id($location_id);
+
+$user_info = get_mindbody_user_by_email($email);
+if ($user_info === 'User not found') {
+    $user_info = register_mindbody_user($first_name, $last_name, $email, $phone);
+    $user_id = $user_info["Client"]["UniqueId"];
+}else{
+    $user_id = $user_info['Id'];
+}
+$has_user_activity = hasUserActivity($user_id);
+if ($has_user_activity) {
+    wp_redirect($redirect_url);
+}
+
+if (isset($_GET['ads']) && ($_GET['ads'] === 'true' || $_GET['ads'] === '1')) {
+    $ads=1;
+} else {
+
+    $ads='';
+}
+
 
 
 
@@ -166,7 +187,7 @@ $id = get_post_id_by_mindbody_location_id($location_id);
         </div>
     </div>
     <button id="submit-training" class="submit-btn-calendar">CONTINUE</button>
-    <div data-redirect-url="<?= get_field('mindbody_payment_page','option') ?>" data-first-name="<?= $first_name ?>" data-last-name="<?= $last_name ?>" data-email="<?= $email ?>" data-phone="<?= $phone ?>" data-location-id="<?= $location_id ?>" id="info-calendar">
+    <div data-redirect-url="<?= get_field('mindbody_payment_page','option') ?>" data-first-name="<?= $first_name ?>" data-last-name="<?= $last_name ?>" data-email="<?= $email ?>" data-phone="<?= $phone ?>" data-location-id="<?= $location_id ?>" data-ads="<?= $ads ?>" id="info-calendar">
     </div>
 
 </div>

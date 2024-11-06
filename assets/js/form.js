@@ -17,13 +17,14 @@ const PhoneValidator = {
 document.getElementById('locationForm').addEventListener('submit', function (e) {
     e.preventDefault();
 
+    let ajaxUrl = document.getElementById('locationForm').getAttribute('data-ajax-url');
     let firstName = document.querySelector('input[name="first_name"]').value.trim();
     let lastName = document.querySelector('input[name="last_name"]').value.trim();
     let email = document.querySelector('input[name="email"]').value.trim();
     let phone = document.querySelector('input[name="phone"]').value.trim();
     let locationId = document.getElementById('locationForm').getAttribute('data-location-id');
     let redirectUrl = document.getElementById('locationForm').getAttribute('data-redirect_url');
-
+    let ads = document.getElementById('locationForm').getAttribute('data-ads');
     if (!firstName || !lastName || !email || !phone) {
         toastr.error('Please fill out all required fields', 'Missing Information', {
             positionClass: 'toast-bottom-right',
@@ -34,23 +35,59 @@ document.getElementById('locationForm').addEventListener('submit', function (e) 
     }
 
     if (!PhoneValidator.validatePhone(phone)) {
-        return; // Прекращаем выполнение, если телефон невалидный
+        return;
     }
 
-    window.location.href = redirectUrl + "?location=" + locationId
-        + "&first_name=" + encodeURIComponent(firstName)
-        + "&last_name=" + encodeURIComponent(lastName)
-        + "&email=" + encodeURIComponent(email)
-        + "&phone=" + encodeURIComponent(phone);
-});
+    const formData = new FormData();
+    formData.append('action', 'check_activity');
+    formData.append('first_name', firstName);
+    formData.append('last_name', lastName);
+    formData.append('email', email);
+    formData.append('phone', phone);
 
+    fetch(ajaxUrl, {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                toastr.success('User has no activity', 'Success', {
+                    positionClass: 'toast-bottom-right',
+                    closeButton: true,
+                    progressBar: true
+                });
+
+                window.location.href = redirectUrl + "?location=" + locationId
+                    + "&first_name=" + encodeURIComponent(firstName)
+                    + "&last_name=" + encodeURIComponent(lastName)
+                    + "&email=" + encodeURIComponent(email)
+                    + "&phone=" + encodeURIComponent(phone)
+                    + "&ads=" + encodeURIComponent(ads);
+            } else {
+                toastr.error('User has activity', 'Error', {
+                    positionClass: 'toast-bottom-right',
+                    closeButton: true,
+                    progressBar: true
+                });
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            toastr.error('There was an error processing your request. Please try again.', 'Error', {
+                positionClass: 'toast-bottom-right',
+                closeButton: true,
+                progressBar: true
+            });
+        });
+});
 
 document.addEventListener('DOMContentLoaded', function() {
     const phoneInput = document.getElementById('phone');
 
     if (phoneInput) {
         phoneInput.addEventListener('input', function(event) {
-            let input = event.target.value.replace(/\D/g, ''); // Удаляем все, кроме цифр
+            let input = event.target.value.replace(/\D/g, '');
 
             if (!input.startsWith('1')) {
                 input = '1' + input;

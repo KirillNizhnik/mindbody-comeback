@@ -62,7 +62,8 @@ jQuery(document).ready(function($) {
         let lastName = infoCalendar.data('last-name');
         let email = infoCalendar.data('email');
         let phone = infoCalendar.data('phone');
-
+        let ads = infoCalendar.data('ads');
+        console.log(ads)
         console.log(classId, descr_id, startDateTime, endDateTime, redirectUrl, locationId, firstName, lastName, email, phone);
 
         let newUrl = redirectUrl +
@@ -73,8 +74,10 @@ jQuery(document).ready(function($) {
             '&last_name=' + encodeURIComponent(lastName) +
             '&email=' + encodeURIComponent(email) +
             '&phone=' + encodeURIComponent(phone) +
-            '&start_time=' + encodeURIComponent(startDateTime) +  // Добавляем время начала
-            '&end_time=' + encodeURIComponent(endDateTime);       // Добавляем время конца
+            '&start_time=' + encodeURIComponent(startDateTime) +
+            '&end_time=' + encodeURIComponent(endDateTime) +
+            '&ads=' + encodeURIComponent(ads);
+        ;
 
         console.log('Redirecting to:', newUrl);
 

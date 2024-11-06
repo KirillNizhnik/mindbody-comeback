@@ -52,6 +52,7 @@ function process_and_create_location_posts(array $locations): void
             update_field('location_longitude', $location_longitude, $post_id);
             update_field('map_link', $map_link, $post_id);
             update_field('store_rocket_location_id', $store_rocket_location_id, $post_id);
+            update_field('ads_url', $map_link . '&ads=true', $post_id);
             error_log("Created post for location: {$location_name} (LocationId: {$location_id})");
         } else {
             error_log("Failed to create post for location: {$location_name}");

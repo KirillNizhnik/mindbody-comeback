@@ -102,6 +102,14 @@ function register_location_acf_fields(): void
                     'readonly' => 1,
                 ),
                 array(
+                    'key' => 'field_ads_url',
+                    'label' => 'Ads Url',
+                    'name' => 'ads_url',
+                    'type' => 'text',
+                    'instructions' => 'The URL for the ads (filled during the import process).',
+                    'readonly' => 1,
+                ),
+                array(
                     'key' => 'field_package_dropdown',
                     'label' => 'Select Package',
                     'name' => 'package_dropdown',

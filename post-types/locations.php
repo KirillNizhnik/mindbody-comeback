@@ -38,16 +38,17 @@ function create_locations_post_type() {
         'hierarchical'          => false,
         'public'                => true,
         'show_ui'               => true,
+        'has_archive'           => 'all-locations',
         'show_in_menu'          => true,
         'menu_position'         => 5,
-        'menu_icon'             => 'dashicons-location-alt', // Custom icon for the Locations menu
+        'menu_icon'             => 'dashicons-location-alt',
         'show_in_admin_bar'     => true,
         'show_in_nav_menus'     => true,
         'can_export'            => true,
-        'has_archive'           => true,
         'exclude_from_search'   => false,
         'publicly_queryable'    => true,
         'capability_type'       => 'post',
+        'rewrite'               => array('slug' => 'location-example'),
     );
     register_post_type( 'locations', $args );
 }

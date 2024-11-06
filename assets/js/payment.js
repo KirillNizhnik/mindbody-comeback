@@ -134,4 +134,74 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         console.warn('Element with ID "credit-card-name" not found on the page.');
     }
+
+    const formSessionBuy = document.getElementById('session-buy');
+    const submitButton = document.getElementById('payment-session-submit');
+
+    if (formSessionBuy) {
+        formSessionBuy.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const ccNumber = cardInput.value.replace(/\s/g, '');
+            const expiryDate = expiryDateInput.value;
+            const cvv = cvvInput.value;
+            const ccName = nameInput.value;
+
+            const userId = formSessionBuy.getAttribute('data-user-id');
+            const trainingId = formSessionBuy.getAttribute('data-training-id');
+            const classId = formSessionBuy.getAttribute('data-class-id');
+            const ajaxUrl = formSessionBuy.getAttribute('data-ajax-url');
+            const locationId = formSessionBuy.getAttribute('data-location-id');
+            let redirectUrl = formSessionBuy.getAttribute('data-redirect-url');
+
+            if (!/^\d{16}$/.test(ccNumber)) {
+                alert("Please enter a valid 16-digit credit card number.");
+                return;
+            }
+            if (!/^\d{2}\/\d{2}$/.test(expiryDate)) {
+                alert("Please enter a valid expiration date in MM/YY format.");
+                return;
+            }
+            if (!/^\d{3,4}$/.test(cvv)) {
+                alert("Please enter a valid CVV.");
+                return;
+            }
+            if (!/^[a-zA-Z\s]+$/.test(ccName)) {
+                alert("Please enter a valid name on the credit card.");
+                return;
+            }
+            console.log(ccName, cvv, expiryDate, ccNumber);
+
+            const formData = new FormData();
+            formData.append('action', 'single_payment');
+            formData.append('cc-number', ccNumber);
+            formData.append('cc-expiration', expiryDate);
+            formData.append('cc-cvv', cvv);
+            formData.append('cc-name', ccName);
+            formData.append('user_id', userId);
+            formData.append('training_id', trainingId);
+            formData.append('class_id', classId);
+            formData.append('location_id', locationId);
+
+            fetch(ajaxUrl, {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Payment successful!");
+
+                    } else {
+                        alert("Payment failed: " + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("There was an error processing your payment. Please try again.");
+                });
+        });
+    } else {
+        console.warn('Form with ID "session-buy" not found on the page.');
+    }
 });
