@@ -170,10 +170,15 @@ function handle_single_payment()
         "billing_postal_code" => ""
     ];
 
-    $response = checkout_shopping_cart($user_id, $location_id, $service_id,$services_amount, $credit_card_info, $token , $api_key, $site_id, $app_name);
-    if (!$response['Error']){
-        $add_to_class_response = mindbody_add_client_to_class($user_id, $class_id, $token);
-        wp_send_json_success(['message' => 'Payment processed successfully!']);
+    $response_check = checkout_shopping_cart($user_id, $location_id, $service_id,$services_amount, $credit_card_info, $token , $api_key, $site_id, $app_name);
+    if (!$response_check['Error']){
+        $response = mindbody_add_client_to_class($user_id, $class_id, $token);
+        $data_response = [
+            'start_time' => $response['Visit']['StartDateTime'],
+            'end_time' => $response['Visit']['EndDateTime'],
+            'class_name' => $response['Visit']['Name'],
+        ];
+        wp_send_json_success($data_response);
     }else{
         wp_send_json_error(['message' => 'Payment failed.']);
     }
