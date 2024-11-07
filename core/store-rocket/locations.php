@@ -70,22 +70,22 @@ function generateLocationForStoreRocket(
         $payload['name'] = $location_name;
     }
 
-    if ($location_address === 'No Address') {
+    if ($location_address !== 'No Address') {
         $payload['address_line_1'] = $location_address;
         $payload['visible'] = true;
     } else {
         $payload['visible'] = false;
     }
 
-    if ($location_city === 'No City') {
+    if ($location_city !== 'No City') {
         $payload['city'] = $location_city;
     }
 
-    if ($location_state === 'No State') {
+    if ($location_state !== 'No State') {
         $payload['state'] = $location_state;
     }
 
-    if ($location_postal_code === 'No Postal Code') {
+    if ($location_postal_code !== 'No Postal Code') {
         $payload['postcode'] = $location_postal_code;
     }
 
@@ -97,7 +97,7 @@ function generateLocationForStoreRocket(
         $payload['lng'] = $location_longitude;
     }
 
-    if ($location_phone === 'No Phone') {
+    if ($location_phone !== 'No Phone') {
         $payload['phone'] = $location_phone;
     }
 
