@@ -62,21 +62,50 @@ function generateLocationForStoreRocket(
     $url = 'https://storerocket.io/api/v2/projects/' . $store_rocket_map . '/locations';
 
     $payload = array(
-        'name' => $location_name,
-        'address_line_1' => $location_address,
-        'city' => $location_city,
-        'state' => $location_state,
-        'visible' => true,
-        'postcode' => $location_postal_code,
         'country' => 'US',
-        'marker_id' => (string)$location_id,
-        'lat' => $location_latitude,
-        'lng' => $location_longitude,
-        'phone' => $location_phone,
-        'callsToAction' => array(
-            'SIGN UP OF TRAINING' => $map_link
-        )
+        'marker_id' => 7062
     );
+
+    if (!empty($location_name)) {
+        $payload['name'] = $location_name;
+    }
+
+    if (!empty($location_address)) {
+        $payload['address_line_1'] = $location_address;
+        $payload['visible'] = true;
+    } else {
+        $payload['visible'] = false;
+    }
+
+    if (!empty($location_city)) {
+        $payload['city'] = $location_city;
+    }
+
+    if (!empty($location_state)) {
+        $payload['state'] = $location_state;
+    }
+
+    if (!empty($location_postal_code)) {
+        $payload['postcode'] = $location_postal_code;
+    }
+
+    if (!empty($location_latitude)) {
+        $payload['lat'] = $location_latitude;
+    }
+
+    if (!empty($location_longitude)) {
+        $payload['lng'] = $location_longitude;
+    }
+
+    if (!empty($location_phone)) {
+        $payload['phone'] = $location_phone;
+    }
+
+    if (!empty($map_link)) {
+        $payload['callsToAction'] = array(
+            'SIGN UP OF TRAINING' => $map_link
+        );
+    }
 
     $response = wp_remote_post($url, array(
         'headers' => array(
