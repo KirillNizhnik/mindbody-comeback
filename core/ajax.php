@@ -1,28 +1,35 @@
 <?php
-function mindbody_handle_ajax_update_locations(): void
+function mindbody_get_site_ids(): void
 {
-    $success = true;
+    $minbody_api_key = get_field('mindbody_api_key', 'option');
+    if (!$minbody_api_key){
+        wp_send_json_error('Mindbody API Key is missing');
+    }
+    $sites_ids = get_mindbody_all_sites_ids($minbody_api_key);
+    wp_send_json_success($sites_ids);
+}
+add_action('wp_ajax_mindbody_get_site_ids', 'mindbody_get_site_ids');
+
+
+
+add_action('wp_ajax_mindbody_update_location', 'mindbody_update_location');
+function mindbody_update_location(): void
+{
+    $site_id = sanitize_text_field($_POST['site_id']);
     $api_key = get_field('store_rocket_api_key', 'option');
     $unique_id = get_field('map_unique_id', 'option');
-    delete_all_store_locations_from_api($api_key, $unique_id);
-    delete_all_posts_by_type('locations');
-    try {
-        $locations = get_mindbody_locations();
-        process_and_create_location_posts($locations);
+    $minbody_api_key = get_field('mindbody_api_key', 'option');
 
+    try {
+        $locations = get_mindbody_locations($site_id);
+        process_and_create_location_posts($locations, $site_id);
     } catch (Exception $e) {
         wp_send_json_error('Failed to retrieve locations: ' . $e->getMessage());
     }
 
 
-    if ($success) {
-        wp_send_json_success('Locations updated successfully.');
-    } else {
-        wp_send_json_error('Failed to update locations.');
-    }
+    wp_send_json_success('Locations updated successfully.');
 }
-add_action('wp_ajax_mindbody_update_locations', 'mindbody_handle_ajax_update_locations');
-
 
 function get_calendar_classes_by_date(): void
 {
@@ -150,7 +157,7 @@ function handle_single_payment()
     if (!preg_match('/^[a-zA-Z\s]+$/', $cc_name)) {
         wp_send_json_error(['message' => 'Invalid name on the credit card.']);
     }
-    $location_post_id = get_post_id_by_mindbody_location_id($location_id);
+    $location_post_id = get_post_id_by_mindbody_location_id_and_site_id($location_id);
     $service_id = get_field('package_dropdown', $location_post_id);
     $token = get_mindbody_token()['AccessToken'];
     $services = get_mindbody_services($class_id, $token, $service_id);
@@ -253,18 +260,29 @@ add_action('wp_ajax_check_activity', 'checkActivity');
 add_action('wp_ajax_nopriv_check_activity', 'checkActivity');
 
 function checkActivity(){
+
+    $api_key = get_field('mindbody_api_key', 'option');
     $email = $_POST['email'];
     $first_name = $_POST['first_name'];
     $last_name = $_POST['last_name'];
     $phone = $_POST['phone'];
-    $user_info = get_mindbody_user_by_email($email);
+    $location_id= $_POST['locationId'];
+    $site_id = $_POST['siteId'];
+
+    $id = get_post_id_by_mindbody_location_id_and_site_id($location_id, $site_id);
+    $login = get_field('stuff_login', $id);
+    $password = get_field('stuff_password', $id);
+
+
+    $staff_token = generate_mindbody_stuff_token($login, $password, $api_key , $site_id);
+    $user_info = get_mindbody_user_by_email($email, $staff_token, $api_key, $site_id);
     if ($user_info === 'User not found') {
         $user_info = register_mindbody_user($first_name, $last_name, $email, $phone);
         $user_id = $user_info["Client"]["UniqueId"];
     }else{
         $user_id = $user_info['Id'];
     }
-    $has_user_activity = hasUserActivity($user_id);
+    $has_user_activity = hasUserActivity($user_id, $staff_token, $api_key, $site_id);
     if ($has_user_activity) {
         wp_send_json_error(['message' => 'User has activity', 'user_id' => $user_id]);
     }else{

@@ -23,14 +23,14 @@ function register_acf_fields_for_mindbody(): void
                     'instructions' => 'Enter the Source Name for Mindbody.',
                     'required' => 1,
                 ),
-                array(
-                    'key' => 'field_mindbody_site_id',
-                    'label' => 'Mindbody Site ID',
-                    'name' => 'mindbody_site_id',
-                    'type' => 'text',
-                    'instructions' => 'Enter the Site ID for Mindbody.',
-                    'required' => 1,
-                ),
+//                array(
+//                    'key' => 'field_mindbody_site_id',
+//                    'label' => 'Mindbody Site ID',
+//                    'name' => 'mindbody_site_id',
+//                    'type' => 'text',
+//                    'instructions' => 'Enter the Site ID for Mindbody.',
+//                    'required' => 1,
+//                ),
                 array(
                     'key' => 'field_mindbody_staff_name',
                     'label' => 'Mindbody Staff Name',

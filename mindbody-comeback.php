@@ -37,6 +37,8 @@ require_once plugin_dir_path(__FILE__) . '/core/mindbody/classes.php';
 require_once plugin_dir_path(__FILE__) . '/core/mindbody/token.php';
 require_once plugin_dir_path(__FILE__) . '/core/mindbody/user.php';
 require_once plugin_dir_path(__FILE__) . '/core/mindbody/service.php';
+require_once plugin_dir_path(__FILE__) . '/core/mindbody/allsites.php';
+
 
 require_once plugin_dir_path(__FILE__) . '/core/store-rocket/locations.php';
 require_once plugin_dir_path(__FILE__) . '/core/locations-post-type/locations-post-type.php';

@@ -25,6 +25,8 @@ document.getElementById('locationForm').addEventListener('submit', function (e) 
     let locationId = document.getElementById('locationForm').getAttribute('data-location-id');
     let redirectUrl = document.getElementById('locationForm').getAttribute('data-redirect_url');
     let ads = document.getElementById('locationForm').getAttribute('data-ads');
+    let siteId = document.getElementById('locationForm').getAttribute('data-site-id');
+
     if (!firstName || !lastName || !email || !phone) {
         toastr.error('Please fill out all required fields', 'Missing Information', {
             positionClass: 'toast-bottom-right',
@@ -44,6 +46,8 @@ document.getElementById('locationForm').addEventListener('submit', function (e) 
     formData.append('last_name', lastName);
     formData.append('email', email);
     formData.append('phone', phone);
+    formData.append('siteId', siteId)
+    formData.append('locationId', locationId);
 
     fetch(ajaxUrl, {
         method: 'POST',
@@ -59,11 +63,12 @@ document.getElementById('locationForm').addEventListener('submit', function (e) 
                 });
 
                 window.location.href = redirectUrl + "?location=" + locationId
+                    + "&siteId=" + encodeURIComponent(siteId)
                     + "&first_name=" + encodeURIComponent(firstName)
                     + "&last_name=" + encodeURIComponent(lastName)
                     + "&email=" + encodeURIComponent(email)
                     + "&phone=" + encodeURIComponent(phone)
-                    + "&ads=" + encodeURIComponent(ads);
+                    + "&ads=" + ads;
             } else {
                 toastr.error('User has activity', 'Error', {
                     positionClass: 'toast-bottom-right',

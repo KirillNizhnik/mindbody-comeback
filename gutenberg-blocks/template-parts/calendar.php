@@ -4,28 +4,22 @@ if (is_admin() || (defined('REST_REQUEST') && REST_REQUEST)) {
     return;
 }
 
-if (!isset($_GET['location'])) {
-    $location_page = get_field('mindbody_locations_page', 'option');
+$location_page = get_field('mindbody_locations_page', 'option') ?: home_url();
 
-    if ($location_page) {
-        wp_redirect($location_page);
-        exit;
-    }
-} else {
-    $location_id = intval($_GET['location']);
-    if (!does_post_exist_by_mindbody_location_id($location_id)) {
-        $location_page = get_field('mindbody_locations_page', 'option');
-        if ($location_page) {
-            wp_redirect($location_page);
-            exit;
-        }
-    }
+
+if (!isset($_GET['location']) || !isset($_GET['siteId']) || !get_post_id_by_mindbody_location_id_and_site_id($_GET['location'], $_GET['siteId'])) {
+    wp_redirect($location_page);
+    exit;
 }
 
-$redirect_url = get_field('mindbody_form_page', 'option') . '?location=' . $location_id;
+$location_id = intval($_GET['location']);
+$site_id = intval($_GET['siteId']);
+
+
+$form_page = get_field('mindbody_form_page', 'option') . '?location=' . $location_id . '&siteId=' . $_GET['siteId'];
 
 if (!isset($_GET['first_name']) || !isset($_GET['last_name']) || !isset($_GET['email']) || !isset($_GET['phone'])) {
-    wp_redirect($redirect_url);
+    wp_redirect($form_page);
     exit;
 }
 
@@ -33,40 +27,47 @@ $first_name = sanitize_text_field(trim($_GET['first_name']));
 $last_name = sanitize_text_field(trim($_GET['last_name']));
 $email = sanitize_email(trim($_GET['email']));
 $phone = sanitize_text_field(trim($_GET['phone']));
-
 $phone = preg_replace('/[^\d\+]/', '', $phone);
 
+
 if (!is_email($email) || empty($phone)) {
-    wp_redirect($redirect_url);
+    wp_redirect($form_page);
     exit;
 }
 
 if (empty($first_name) || empty($last_name) || empty($email)) {
-    wp_redirect($redirect_url);
+    wp_redirect($form_page);
     exit;
 }
 
 
-
+$api_key = get_field('mindbody_api_key', 'option');
 $location_id = intval($_GET['location']);
-$id = get_post_id_by_mindbody_location_id($location_id);
+$id = get_post_id_by_mindbody_location_id_and_site_id($location_id, $site_id);
+$login = get_field('stuff_login', $id);
+$password = get_field('stuff_password', $id);
 
-$user_info = get_mindbody_user_by_email($email);
+$stuff_token = generate_mindbody_stuff_token($login, $password, $api_key, $site_id);
+if (!$stuff_token){
+    wp_redirect($location_page);
+}
+
+$user_info = get_mindbody_user_by_email($email, $stuff_token, $api_key, $site_id);
 if ($user_info === 'User not found') {
     $user_info = register_mindbody_user($first_name, $last_name, $email, $phone);
     $user_id = $user_info["Client"]["UniqueId"];
 }else{
     $user_id = $user_info['Id'];
 }
-$has_user_activity = hasUserActivity($user_id);
+$has_user_activity = hasUserActivity($user_id, $stuff_token, $api_key, $site_id);
+
 if ($has_user_activity) {
-    wp_redirect($redirect_url);
+    wp_redirect($form_page);
 }
 
 if (isset($_GET['ads']) && ($_GET['ads'] === 'true' || $_GET['ads'] === '1')) {
     $ads=1;
 } else {
-
     $ads='';
 }
 

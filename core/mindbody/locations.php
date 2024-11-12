@@ -4,10 +4,9 @@
 /**
  * @throws Exception
  */
-function get_mindbody_locations() : array
+function get_mindbody_locations($site_id) : array
 {
     $api_key = get_field('mindbody_api_key', 'option');
-    $site_id = get_field('mindbody_site_id', 'option');
     $url = 'https://api.mindbodyonline.com/public/v6/site/locations';
 
     if (empty($api_key) || empty($site_id)) {
@@ -31,7 +30,6 @@ function get_mindbody_locations() : array
     $body = wp_remote_retrieve_body($response);
 
     $data = json_decode($body, true);
-
     if (!empty($data['Locations'])) {
         $locations = [];
         foreach ($data['Locations'] as $location) {

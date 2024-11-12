@@ -41,6 +41,70 @@ function get_mindbody_services_with_filters( $class_schedule_id, $authorization_
     }
 }
 
+function get_all_mindbody_services($staff_token, $api_key, $site_id, $location_id) {
+    $url = 'https://api.mindbodyonline.com/public/v6/sale/services';
+
+    $curl = curl_init();
+    $params = [
+        'LocationId' => $location_id,
+    ];
+
+    curl_setopt_array($curl, [
+        CURLOPT_URL => $url . '?' . http_build_query($params),
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_HTTPHEADER => [
+            'Api-Key: ' . $api_key,
+            'Authorization: Bearer ' . $staff_token,
+            'SiteId: ' . $site_id,
+            'Accept: application/json',
+        ],
+    ]);
+    $response = curl_exec($curl);
+    $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+    curl_close($curl);
+
+    if ($httpcode == 200) {
+        return json_decode($response, true)['Services'];
+    } else {
+        return 'Error: ' . $response;
+    }
+}
+
+function get_mindbody_service($staff_token, $api_key, $site_id, $location_id, $service_id) {
+    $url = 'https://api.mindbodyonline.com/public/v6/sale/services/';
+
+    $curl = curl_init();
+
+    $params = [
+        'LocationId' => $location_id,
+        'serviceIds' => [$service_id]
+    ];
+
+    curl_setopt_array($curl, [
+        CURLOPT_URL => $url . '?' . http_build_query($params),
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_HTTPHEADER => [
+            'Api-Key: ' . $api_key,
+            'Authorization: Bearer ' . $staff_token,
+            'SiteId: ' . $site_id,
+            'Accept: application/json',
+        ],
+    ]);
+
+    $response = curl_exec($curl);
+    $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+    curl_close($curl);
+
+    if ($httpcode == 200) {
+        return json_decode($response, true)['Services'][0];
+    } else {
+        return null;
+    }
+}
+
+
 function get_mindbody_services($class_id, $staff_token, $service_id = null) {
     $url = 'https://api.mindbodyonline.com/public/v6/sale/services';
 

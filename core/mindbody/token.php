@@ -1,5 +1,48 @@
 <?php
 
+function generate_mindbody_stuff_token($login, $password, $api_key, $site_id) {
+    $url = 'https://api.mindbodyonline.com/public/v6/usertoken/issue';
+
+    $data = [
+        'Username' => $login,
+        'Password' => $password
+    ];
+
+    $curl = curl_init();
+
+    curl_setopt_array($curl, [
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS => json_encode($data),
+        CURLOPT_HTTPHEADER => [
+            'Accept: application/json',
+            'Content-Type: application/json',
+            'Api-Key: ' . $api_key,
+            'siteId: ' . $site_id,
+        ],
+    ]);
+
+    $response = curl_exec($curl);
+    $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+    if ($response === false) {
+        $error = curl_error($curl);
+        curl_close($curl);
+        return "Error: " . $error;
+    }
+
+    curl_close($curl);
+
+    if ($httpcode == 200) {
+        $responseData = json_decode($response, true);
+        return $responseData['AccessToken'];
+    } else {
+        return "Error: " . $response;
+    }
+}
+
+
 function get_mindbody_token() {
     $url = 'https://api.mindbodyonline.com/public/v6/usertoken/issue';
 

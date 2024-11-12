@@ -1,8 +1,6 @@
 <?php
-function get_mindbody_user_by_email($email) {
+function get_mindbody_user_by_email($email, $staff_token, $api_key, $site_id) {
     $url = 'https://api.mindbodyonline.com/public/v6/client/clients';
-
-    $staff_token = get_mindbody_token();
     if (is_wp_error($staff_token)) {
         return 'Error: unable to get token';
     }
@@ -11,17 +9,16 @@ function get_mindbody_user_by_email($email) {
         'SearchText' => $email
     ];
 
-    $api_key = get_field('mindbody_api_key', 'option');
 
     $curl = curl_init();
     curl_setopt_array($curl, [
         CURLOPT_URL => $url . '?' . http_build_query($data),
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_HTTPHEADER => [
-            'Authorization: Bearer ' . $staff_token['AccessToken'],
+            'Authorization: Bearer ' . $staff_token,
             'Accept: application/json',
             'Api-Key: ' . $api_key,
-            'siteId:' . get_field('mindbody_site_id', 'option'),
+            'siteId:' . $site_id,
             'Content-Type: application/json',
         ],
     ]);
@@ -35,12 +32,12 @@ function get_mindbody_user_by_email($email) {
         $responseData = json_decode($response, true);
 
         if (!empty($responseData['Clients'])) {
-            return $responseData['Clients'][0];  // Можно вернуть весь массив, если нужно
+            return $responseData['Clients'][0];
         } else {
-            return 'User not found';  // Клиент не найден
+            return 'User not found';
         }
     } else {
-        return 'Error: ' . $response;  // Ошибка запроса
+        return 'Error: ' . $response;
     }
 }
 
@@ -132,11 +129,10 @@ function get_mindbody_required_client_fields() {
 }
 
 
-function hasUserActivity($user_id): bool
+function hasUserActivity($user_id, $staff_token, $api_key, $site_id): bool
 {
-    $api_key = get_field('mindbody_api_key', 'option');
-    $site_id = get_field('mindbody_site_id', 'option');
-    $token = get_mindbody_token();
+
+    $token = $staff_token;
 
     if (!isset($token['AccessToken'])) {
         return false;
@@ -152,7 +148,7 @@ function hasUserActivity($user_id): bool
     ];
 
     $headers = [
-        'Authorization: Bearer ' . $token['AccessToken'],
+        'Authorization: Bearer ' . $token,
         'Api-Key: ' . $api_key,
         'Accept: application/json',
         'SiteId: ' . $site_id,

@@ -132,3 +132,88 @@ function generateLocationForStoreRocket(
         return false;
     }
 }
+
+function updateLocationForStoreRocket(
+    $location_id,
+    $location_name,
+    $location_address,
+    $location_city,
+    $location_state,
+    $location_postal_code,
+    $location_phone,
+    $location_latitude,
+    $location_longitude,
+    $map_link,
+    $store_rocket_map,
+    $store_rocket_api,
+    $store_rocket_location_id
+) {
+    $url = 'https://storerocket.io/api/v2/projects/' . $store_rocket_map . '/locations/' . $store_rocket_location_id;
+
+
+    $payload = array(
+        'country' => 'US',
+        'marker_id' => 7062
+    );
+
+    if (!empty($location_name)) {
+        $payload['name'] = $location_name;
+    }
+
+    if ($location_address !== 'No Address') {
+        $payload['address_line_1'] = $location_address;
+        $payload['visible'] = true;
+    } else {
+        $payload['visible'] = false;
+    }
+
+    if ($location_city !== 'No City') {
+        $payload['city'] = $location_city;
+    }
+
+    if ($location_state !== 'No State') {
+        $payload['state'] = $location_state;
+    }
+
+    if ($location_postal_code !== 'No Postal Code') {
+        $payload['postcode'] = $location_postal_code;
+    }
+
+    if (!empty($location_latitude)) {
+        $payload['lat'] = $location_latitude;
+    }
+
+    if (!empty($location_longitude)) {
+        $payload['lng'] = $location_longitude;
+    }
+
+    if ($location_phone !== 'No Phone') {
+        $payload['phone'] = $location_phone;
+    }
+
+    if (!empty($map_link)) {
+        $payload['callsToAction'] = array(
+            'SIGN UP OF TRAINING' => $map_link
+        );
+    }
+
+    $response = wp_remote_request($url, array(
+        'method' => 'PUT',
+        'headers' => array(
+            'Authorization' => 'Bearer ' . $store_rocket_api,
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json'
+        ),
+        'body' => json_encode($payload)
+    ));
+
+    if (is_wp_error($response)) {
+        error_log('StoreRocket API error: ' . $response->get_error_message());
+        return false;
+    }
+
+    $body = wp_remote_retrieve_body($response);
+    $data = json_decode($body, true);
+    return $data['data']['id'];
+
+}

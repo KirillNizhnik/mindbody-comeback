@@ -4,43 +4,47 @@ if (is_admin() || (defined('REST_REQUEST') && REST_REQUEST)) {
     return;
 }
 
-if (!isset($_GET['location'])) {
-    $location_page = get_field('mindbody_locations_page', 'option');
-    if ($location_page) {
-        wp_redirect($location_page);
-        exit;
-    }
-} else {
-    $location_id = intval($_GET['location']);
-    if (!does_post_exist_by_mindbody_location_id($location_id)) {
-        $location_page = get_field('mindbody_locations_page', 'option');
-        if ($location_page) {
-            wp_redirect($location_page);
-            exit;
-        }
-    }
+$location_page = get_field('mindbody_locations_page', 'option') ?: home_url();
+
+
+
+if (!isset($_GET['location']) || !isset($_GET['siteId']) || !get_post_id_by_mindbody_location_id_and_site_id($_GET['location'], $_GET['siteId'])) {
+    wp_redirect($location_page);
+    exit;
 }
+
+
 $location_id = intval($_GET['location']);
-$id = get_post_id_by_mindbody_location_id($location_id);
+$site_id = intval($_GET['siteId']);
+$id = get_post_id_by_mindbody_location_id_and_site_id($location_id, $site_id);
+$login = get_field('stuff_login', $id);
+$password = get_field('stuff_password', $id);
+$api_key = get_field('mindbody_api_key', 'option');
+
+
+if (empty($login) && empty($password)){
+    wp_redirect($location_page);
+}
+
+$stuff_token = generate_mindbody_stuff_token($login, $password, $api_key, $site_id);
+if (!$stuff_token){
+    wp_redirect($location_page);
+}
+
 
 if (isset($_GET['ads']) && $_GET['ads'] === 'true') {
-    $ads=true;
-    $service_id= get_field('package_dropdown', $id);
-    if (!$service_id){
-        $service_id= get_field('mindbody_source_name', 'option');
+    $ads= true;
+    $service_id = get_field('package_dropdown', $id);
+    $service_name = get_mindbody_service($stuff_token, $api_key, $site_id, $location_id, $service_id)['Name'];
+    if (!$service_name && !$service_id){
+        $ads= false;
     }
-
-    if ($service_id === '102232'){
-        $service_name = '2 Sessions for $20';
-    }elseif ($service_id === '102233'){
-        $service_name = '7 Days for $14';
-    }else{
-        $service_name ='Base package';
-    }
-
-} else {
-    $ads=false;
+}else{
+    $ads= false;
 }
+
+
+
 
 ?>
 
@@ -60,7 +64,7 @@ if (isset($_GET['ads']) && $_GET['ads'] === 'true') {
             <div class="subheading">Start training for life with the best 50 minute, coach-led, strength-based workout</div>
         <?php } ?>
           </div>
-    <form data-ads="<?= $ads ?>" data-ajax-url="<?= admin_url('admin-ajax.php'); ?>" class="mindbody-form-form" id="locationForm" action="#" method="post" data-location-id="<?= $location_id ?>" data-redirect_url="<?= get_field('mindbody_calendar_page','option') ?>">
+    <form data-ads="<?= $ads ?>" data-site-id="<?= $site_id ?>" data-ajax-url="<?= admin_url('admin-ajax.php'); ?>" class="mindbody-form-form" id="locationForm" action="#" method="post" data-location-id="<?= $location_id ?>" data-redirect_url="<?= get_field('mindbody_calendar_page','option') ?>">
         <div class="form-groups">
             <div class="form-group">
                 <input type="text" name="first_name" placeholder="First Name" required>

@@ -45,7 +45,7 @@ if (!is_email($email) || empty($phone)) {
 
 
 $location_id = intval($_GET['location']);
-$id = get_post_id_by_mindbody_location_id($location_id);
+$id = get_post_id_by_mindbody_location_id_and_site_id($location_id);
 
 
 $training_redirect_url = get_field('mindbody_calendar_page', 'option') . '?location=' . $location_id . '&first_name=' . $first_name . '&last_name=' . $last_name . '&email=' . $email . '&phone=' . $phone;
@@ -112,7 +112,7 @@ $has_user_activity = hasUserActivity($user_id);
 if ($has_user_activity){
     wp_redirect($redirect_url);
 }
-$post_location_id = get_post_id_by_mindbody_location_id($location_id);
+$post_location_id = get_post_id_by_mindbody_location_id_and_site_id($location_id);
 $location_package_id = get_field('package_dropdown', $post_location_id);
 
 
