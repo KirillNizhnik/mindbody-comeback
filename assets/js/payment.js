@@ -193,9 +193,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(data => {
                     if (data.success) {
                         const urlParams = new URLSearchParams({
-                            start_time: response.data.data.start_time,
-                            end_time: response.data.data.end_time,
-                            class_name: response.data.data.class_name,
+                            start_time: response.data.start_time,
+                            end_time: response.data.end_time,
+                            class_name: response.data.class_name,
                             location_id: locationId,
                             class_id: classId,
                             siteId: siteId
