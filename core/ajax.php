@@ -190,9 +190,10 @@ function handle_single_payment()
         "billing_postal_code" => ""
     ];
 
-    $response_check = checkout_shopping_cart($user_id, $location_id, $service_id,$services_amount, $credit_card_info, $staff_token , $api_key, $site_id, $app_name);
-    if (!$response_check['Error']){
-        $response = mindbody_add_client_to_class($user_id, $class_id, $staff_token, $api_key, $site_id);
+    //#todo  response_check['success']
+//    $response_check = checkout_shopping_cart($user_id, $location_id, $service_id,$services_amount, $credit_card_info, $staff_token , $api_key, $site_id, $app_name);
+    if (true){
+        $response = mindbody_add_client_to_class($user_id, $training_id, $staff_token, $api_key, $site_id);
         $data_response = [
             'start_time' => $response['Visit']['StartDateTime'],
             'end_time' => $response['Visit']['EndDateTime'],

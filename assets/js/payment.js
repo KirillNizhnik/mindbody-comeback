@@ -208,7 +208,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 })
                 .catch(error => {
-                    console.error("Error:", error);
                     alert("There was an error processing your payment. Please try again.");
                 });
         });
