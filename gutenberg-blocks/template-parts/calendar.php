@@ -192,7 +192,7 @@ if (isset($_GET['ads']) && ($_GET['ads'] === 'true' || $_GET['ads'] === '1')) {
          data-last-name="<?= $last_name ?>" data-email="<?= $email ?>" data-phone="<?= $phone ?>"
          data-location-id="<?= $location_id ?>" data-site-id="<?= $site_id ?>" data-ads="<?= $ads ?>"
          data-ajax-url="<?= admin_url('admin-ajax.php') ?>" data-user-id="<?= $user_id ?>"
-         data-address=<?= get_field('location_address', $id) . ', ' . get_field('location_city', $id) ?>id="info-calendar" >
+         data-address="<?= get_field('location_address', $id) . ', ' . get_field('location_city', $id) ?>" id="info-calendar" >
     </div>
 
 </div>
