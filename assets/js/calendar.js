@@ -70,7 +70,7 @@ jQuery(document).ready(function($) {
         let siteId = infoCalendar.data('site-id');
         let ajaxUrl = infoCalendar.data('ajax-url');
         let userId = infoCalendar.data('user-id');
-
+        let address = infoCalendar.data('address');
         if (ads) {
             let newUrl = redirectUrl +
                 '?class_id=' + encodeURIComponent(classId) +
@@ -112,8 +112,9 @@ jQuery(document).ready(function($) {
                             end_time: response.data.data.end_time,
                             class_name: response.data.data.class_name,
                             location_id: locationId,
-                            site_id: siteId,
+                            siteId: siteId,
                             class_id: classId,
+                            address: address,
                         });
                         redirectUrl = `${response.data.data.redirectUrl}?${urlParams.toString()}`;
                         window.location.href = redirectUrl;

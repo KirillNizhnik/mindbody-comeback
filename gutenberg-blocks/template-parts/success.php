@@ -3,7 +3,7 @@
 if (is_admin() || (defined('REST_REQUEST') && REST_REQUEST)) {
     return;
 }
-if (!isset($_GET['start_time'], $_GET['end_time'], $_GET['class_name'], $_GET['location_id'], $_GET['class_id'])) {
+if (!isset($_GET['start_time'], $_GET['end_time'], $_GET['class_name'], $_GET['location_id'], $_GET['class_id'], $_GET['siteId'])) {
     wp_redirect(home_url());
     exit;
 }
@@ -13,7 +13,11 @@ $end_time = sanitize_text_field($_GET['end_time']);
 $training_name = sanitize_text_field($_GET['class_name']);
 $location_id= sanitize_text_field($_GET['location_id']);
 $class_id = sanitize_text_field($_GET['class_id']);
-$class = get_mindbody_classes_by_location($location_id, $start_time, $end_time, $class_id);
+$site_id = sanitize_text_field($_GET['siteId']);
+
+$api_key = get_field('mindbody_api_key', 'option');
+
+$class = get_mindbody_classes_by_location($api_key, $site_id, $location_id, $start_time, $end_time, $class_id);
 
 
 if (!empty($class[0])) {

@@ -198,6 +198,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             class_name: response.data.data.class_name,
                             location_id: locationId,
                             class_id: classId,
+                            siteId: siteId
                         });
                         redirectUrl = `${redirectUrl}?${urlParams.toString()}`;
                         window.location.href = redirectUrl;
