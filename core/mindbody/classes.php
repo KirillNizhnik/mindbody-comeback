@@ -156,13 +156,13 @@ function get_class_description_by_id_and_location($classDescriptionId, $location
     return $class_description;
 }
 
-function mindbody_add_client_to_class($user_id, $class_id, $staff_token, $api_key, $site_id,): array
+function mindbody_add_client_to_class($user_id, $training_id, $staff_token, $api_key, $site_id): array
 {
 
     $url = 'https://api.mindbodyonline.com/public/v6/class/addclienttoclass';
     $data = [
         'ClientId' => $user_id,
-        'ClassId' => $class_id,
+        'ClassId' => $training_id,
         'Test' => false,
     ];
 

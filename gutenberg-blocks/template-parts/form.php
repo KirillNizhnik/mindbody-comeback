@@ -35,9 +35,10 @@ if (!$stuff_token){
 if (isset($_GET['ads']) && $_GET['ads'] === 'true') {
     $ads= true;
     $service_id = get_field('package_dropdown', $id);
+
     $service_name = get_mindbody_service($stuff_token, $api_key, $site_id, $location_id, $service_id)['Name'];
     if (!$service_name && !$service_id){
-        $ads= false;
+        wp_redirect($location_page);
     }
 }else{
     $ads= false;

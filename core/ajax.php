@@ -6,6 +6,7 @@ function mindbody_get_site_ids(): void
         wp_send_json_error('Mindbody API Key is missing');
     }
     $sites_ids = get_mindbody_all_sites_ids($minbody_api_key);
+
     wp_send_json_success($sites_ids);
 }
 add_action('wp_ajax_mindbody_get_site_ids', 'mindbody_get_site_ids');
@@ -72,6 +73,7 @@ function get_calendar_classes_by_date(): void
 
                 $html .= '<div class="time-item ' . $active_class . '" ' .
                     'data-class-id="' . $scheduleId . '" ' .
+                    'data-class-schedule-id="' . $class['Id'] . '"' .
                     'data-description-id="' . $class_description . '" ' .
                     'data-class-name="' . htmlspecialchars($class_name, ENT_QUOTES, 'UTF-8') . '" ' .
                     'data-start-datetime="' . htmlspecialchars($start_datetime, ENT_QUOTES, 'UTF-8') . '" ' .
@@ -122,8 +124,10 @@ function handle_free_payment()
     if (!$user_id) {
         wp_send_json_error(['message' => 'Sorry, you must be logged in to make a booking.']);
     }
-
     $response = mindbody_add_client_to_class($user_id, $training_id, $staff_token, $api_key, $site_id);
+    if ($response['Error']){
+        wp_send_json_error('Sorry we could not process your booking. Please try again later.');
+    }
     $data_response = [
         'start_time' => $response['Visit']['StartDateTime'],
         'end_time' => $response['Visit']['EndDateTime'],
