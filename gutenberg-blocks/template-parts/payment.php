@@ -4,31 +4,34 @@ if (is_admin() || (defined('REST_REQUEST') && REST_REQUEST)) {
     return;
 }
 
-if (!isset($_GET['location'])) {
-    $location_page = get_field('mindbody_locations_page', 'option');
 
-    if ($location_page) {
-        wp_redirect($location_page);
-        exit;
-    }
-} else {
-    $location_id = intval($_GET['location']);
-    if (!does_post_exist_by_mindbody_location_id($location_id)) {
-        $location_page = get_field('mindbody_locations_page', 'option');
-        if ($location_page) {
-            wp_redirect($location_page);
-            exit;
-        }
-    }
-}
+$location_page = get_field('mindbody_locations_page', 'option') ?: home_url();
 
-$redirect_url = get_field('mindbody_form_page', 'option') . '?location=' . $location_id;
-
-if (!isset($_GET['first_name']) || !isset($_GET['last_name']) || !isset($_GET['email']) || !isset($_GET['phone'])) {
-    wp_redirect($redirect_url);
+if (!isset($_GET['location']) || !isset($_GET['siteId']) || !get_post_id_by_mindbody_location_id_and_site_id($_GET['location'], $_GET['siteId'])) {
+    wp_redirect($location_page);
     exit;
 }
 
+$location_id = intval($_GET['location']);
+$site_id = intval($_GET['siteId']);
+$api_key = get_field('mindbody_api_key', 'option');
+$id = get_post_id_by_mindbody_location_id_and_site_id($location_id, $site_id);
+$login = get_field('stuff_login', $id);
+$password = get_field('stuff_password', $id);
+
+$stuff_token = generate_mindbody_stuff_token($login, $password, $api_key, $site_id);
+if (!$stuff_token) {
+    wp_redirect($location_page);
+}
+
+$form_page = get_field('mindbody_form_page', 'option') . '?location=' . $location_id . '&siteId=' . $_GET['siteId'];
+
+
+$form_page = get_field('mindbody_form_page', 'option') . '?location=' . $location_id;
+if (!isset($_GET['first_name']) || !isset($_GET['last_name']) || !isset($_GET['email']) || !isset($_GET['phone'])) {
+    wp_redirect($form_page);
+    exit;
+}
 $first_name = sanitize_text_field(trim($_GET['first_name']));
 $last_name = sanitize_text_field(trim($_GET['last_name']));
 $email = sanitize_email(trim($_GET['email']));
@@ -37,16 +40,9 @@ $phone = sanitize_text_field(trim($_GET['phone']));
 $phone = preg_replace('/[^\d\+]/', '', $phone);
 
 if (!is_email($email) || empty($phone)) {
-    wp_redirect($redirect_url);
+    wp_redirect($form_page);
     exit;
 }
-
-
-
-
-$location_id = intval($_GET['location']);
-$id = get_post_id_by_mindbody_location_id_and_site_id($location_id);
-
 
 $training_redirect_url = get_field('mindbody_calendar_page', 'option') . '?location=' . $location_id . '&first_name=' . $first_name . '&last_name=' . $last_name . '&email=' . $email . '&phone=' . $phone;
 if (!isset($_GET['class_id']) || !is_numeric($_GET['class_id'])) {
@@ -66,7 +62,7 @@ if (!$start_datetime || !$end_datetime) {
 
 
 $class_id = intval($_GET['class_id']);
-$class = get_mindbody_classes_by_location($location_id, $start_datetime, $end_datetime, $class_id);
+$class = get_mindbody_classes_by_location($api_key, $site_id, $location_id, $start_datetime, $end_datetime, $class_id);
 
 
 if (!empty($class[0])) {
@@ -92,46 +88,37 @@ if (!empty($class[0])) {
 
 }
 
-$staff_token = get_mindbody_token();
-if (is_wp_error($staff_token)) {
-    wp_redirect($training_redirect_url);
-    exit;
-}
-
-$staff_token = $staff_token['AccessToken'];
 
 
-$user_info = get_mindbody_user_by_email($email);
+
+$user_info = get_mindbody_user_by_email($email, $stuff_token, $api_key, $site_id);
 if ($user_info === 'User not found') {
-    $user_info = register_mindbody_user($first_name, $last_name, $email, $phone);
-    $user_id = $user_info["Client"]["UniqueId"];
+    wp_redirect($form_page);
 }else{
     $user_id = $user_info['Id'];
 }
-$has_user_activity = hasUserActivity($user_id);
+$has_user_activity = hasUserActivity($user_id, $stuff_token, $api_key, $site_id);
 if ($has_user_activity){
-    wp_redirect($redirect_url);
+    wp_redirect($form_page);
 }
-$post_location_id = get_post_id_by_mindbody_location_id_and_site_id($location_id);
-$location_package_id = get_field('package_dropdown', $post_location_id);
+$location_package_id = get_field('package_dropdown', $id);
 
 
-
-
+$staff_token = $stuff_token;
 
 if (isset($_GET['ads']) && ($_GET['ads'] === 'true' || $_GET['ads'] === '1')) {
     $ads=true;
-    if ($location_package_id){
-        $services = get_mindbody_services($training_id, $staff_token, $location_package_id);
-    }else{
-        $services = get_mindbody_services($training_id, $staff_token, get_field('mindbody_service_id_payment', 'option'));
+    $location_package_id = get_field('package_dropdown', $id);
+    $service = get_mindbody_service($staff_token, $api_key, $site_id, $location_id, $location_package_id);
+    if (!$service){
+        wp_redirect($location_page);
     }
-    $service = $services['Services'][0];
+
     $service_id = $service['Id'];
     $service_name = $service['Name'];
     $service_price = $service['Price'];
 } else {
-
+    wp_redirect($form_page);
     $ads=false;
 }
 
@@ -192,7 +179,7 @@ if (isset($_GET['ads']) && ($_GET['ads'] === 'true' || $_GET['ads'] === '1')) {
 
     <div class="mindbody-payment-form">
         <?php if ($ads){ ?>
-        <form data-redirect-url="<?= get_field('mindbody_success_page','option') ?>" data-ajax-url="<?= admin_url('admin-ajax.php') ?>" data-user-id="<?= $user_id ?>" data-training-id="<?= $training_id ?>" data-class-id="<?= $class_id ?>" data-location-id="<?= $location_id ?>"
+        <form data-site-id="<?= $site_id ?>" data-redirect-url="<?= get_field('mindbody_success_page','option') ?>" data-ajax-url="<?= admin_url('admin-ajax.php') ?>" data-user-id="<?= $user_id ?>" data-training-id="<?= $training_id ?>" data-class-id="<?= $class_id ?>" data-location-id="<?= $location_id ?>"
                 id="session-buy" action="" method="post">
             <label for="cc-number"></label><input placeholder="Credit Card Number" type="text" id="cc-number" name="cc-number" required>
 
@@ -220,7 +207,7 @@ if (isset($_GET['ads']) && ($_GET['ads'] === 'true' || $_GET['ads'] === '1')) {
              </form>
         <?php }
         else{ ?>
-        <for data-redirect-url="<?= get_field('mindbody_success_page','option') ?>" data-ajax-url="<?= admin_url('admin-ajax.php') ?>" data-user-id="<?= $user_id ?>" data-training-id="<?= $training_id ?>" data-class-id="<?= $class_id ?>" data-location-id="<?= $location_id ?>" data-redirect-url="<?=  get_field('','option') ?>" id="session-free" action="" method="post">
+        <for data-site-id="<?= $site_id ?>" data-redirect-url="<?= get_field('mindbody_success_page','option') ?>" data-ajax-url="<?= admin_url('admin-ajax.php') ?>" data-user-id="<?= $user_id ?>" data-training-id="<?= $training_id ?>" data-class-id="<?= $class_id ?>" data-location-id="<?= $location_id ?>" data-redirect-url="<?=  get_field('','option') ?>" id="session-free" action="" method="post">
             <div class="session-free-container">
             <button id="free-session-submit" type="submit" class="button book-now free-session-submit">Book Now</button>
             </div>

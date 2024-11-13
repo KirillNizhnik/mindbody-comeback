@@ -38,10 +38,13 @@ function get_calendar_classes_by_date(): void
 
         $date = sanitize_text_field($_POST['date']);
         $location_id = sanitize_text_field($_POST['location_id']);
+        $site_id = sanitize_text_field($_POST['site_id']);
+
         $start_date = $date . 'T00:00:00';
         $end_date = $date . 'T23:59:59';
+        $api_key = get_field('mindbody_api_key', 'option');
 
-        $classes = get_mindbody_classes_by_location($location_id, $start_date, $end_date);
+        $classes = get_mindbody_classes_by_location($api_key, $site_id, $location_id, $start_date, $end_date);
         if (!empty($classes) && is_array($classes)) {
             $html = '<div class="mindbody-calendar-time">';
             $is_first = true;
@@ -105,24 +108,28 @@ add_action('wp_ajax_nopriv_single_payment', 'handle_single_payment');
 
 function handle_free_payment()
 {
-    $services_id = get_field('mindbody_service_id_free', 'option');
     $user_id = isset($_POST['user_id']) ? intval($_POST['user_id']) : 0;
     $training_id = isset($_POST['training_id']) ? intval($_POST['training_id']) : 0;
     $class_id = isset($_POST['class_id']) ? intval($_POST['class_id']) : 0;
     $location_id = isset($_POST['location_id']) ? intval($_POST['location_id']) : 0;
+    $site_id = isset($_POST['site_id']) ? intval($_POST['site_id']) : 0;
+    $api_key = get_field('mindbody_api_key', 'option');
+
+    $id = get_post_id_by_mindbody_location_id_and_site_id($location_id, $site_id);
+    $login = get_field('stuff_login', $id);
+    $password = get_field('stuff_password', $id);
+    $staff_token = generate_mindbody_stuff_token($login, $password, $api_key, $site_id);
     if (!$user_id) {
         wp_send_json_error(['message' => 'Sorry, you must be logged in to make a booking.']);
     }
-    $token = get_mindbody_token();
 
-    $data = mindbody_free_service_purchase($user_id, $services_id, $location_id);
-    $response = mindbody_add_client_to_class($user_id, $training_id, $token['AccessToken']);
+    $response = mindbody_add_client_to_class($user_id, $training_id, $staff_token, $api_key, $site_id);
     $data_response = [
         'start_time' => $response['Visit']['StartDateTime'],
         'end_time' => $response['Visit']['EndDateTime'],
         'class_name' => $response['Visit']['Name'],
+        'redirectUrl' => get_field('mindbody_success_page', 'option')
     ];
-
 
 
     wp_send_json_success(['message' => 'Free payment processed successfully!', 'data' => $data_response]);
@@ -139,10 +146,10 @@ function handle_single_payment()
     $class_id = sanitize_text_field($_POST['class_id']);
     $location_id = sanitize_text_field($_POST['location_id']);
 
-    $api_key = get_field('mindbody_api_key', 'option');
-    $site_id = get_field('mindbody_site_id', 'option');
-    $app_name = get_field('mindbody_source_name', 'option');
 
+    $api_key = get_field('mindbody_api_key', 'option');
+    $site_id = sanitize_text_field($_POST['site_id']);
+    $app_name = get_field('mindbody_source_name', 'option');
 
 
     if (!preg_match('/^\d{16}$/', $cc_number)) {
@@ -157,11 +164,13 @@ function handle_single_payment()
     if (!preg_match('/^[a-zA-Z\s]+$/', $cc_name)) {
         wp_send_json_error(['message' => 'Invalid name on the credit card.']);
     }
-    $location_post_id = get_post_id_by_mindbody_location_id_and_site_id($location_id);
+    $location_post_id = get_post_id_by_mindbody_location_id_and_site_id($location_id, $site_id);
     $service_id = get_field('package_dropdown', $location_post_id);
-    $token = get_mindbody_token()['AccessToken'];
-    $services = get_mindbody_services($class_id, $token, $service_id);
-    $services_amount = $services['Services'][0]['OnlinePrice'];
+    $login = get_field('stuff_login', $location_post_id);
+    $password = get_field('stuff_password', $location_post_id);
+    $staff_token = generate_mindbody_stuff_token($login, $password, $api_key, $site_id);
+    $services = get_mindbody_service($staff_token, $api_key, $site_id, $location_id, $service_id);
+    $services_amount = $services['OnlinePrice'];
     $cc_expiration = sanitize_text_field($_POST['cc-expiration']);
     list($exp_month, $exp_year) = explode('/', $cc_expiration);
     $exp_year = '20' . $exp_year;
@@ -177,9 +186,9 @@ function handle_single_payment()
         "billing_postal_code" => ""
     ];
 
-    $response_check = checkout_shopping_cart($user_id, $location_id, $service_id,$services_amount, $credit_card_info, $token , $api_key, $site_id, $app_name);
+    $response_check = checkout_shopping_cart($user_id, $location_id, $service_id,$services_amount, $credit_card_info, $staff_token , $api_key, $site_id, $app_name);
     if (!$response_check['Error']){
-        $response = mindbody_add_client_to_class($user_id, $class_id, $token);
+        $response = mindbody_add_client_to_class($user_id, $class_id, $staff_token, $api_key, $site_id);
         $data_response = [
             'start_time' => $response['Visit']['StartDateTime'],
             'end_time' => $response['Visit']['EndDateTime'],
@@ -277,7 +286,7 @@ function checkActivity(){
     $staff_token = generate_mindbody_stuff_token($login, $password, $api_key , $site_id);
     $user_info = get_mindbody_user_by_email($email, $staff_token, $api_key, $site_id);
     if ($user_info === 'User not found') {
-        $user_info = register_mindbody_user($first_name, $last_name, $email, $phone);
+        $user_info = register_mindbody_user($api_key, $staff_token, $site_id, $first_name, $last_name, $email, $phone);
         $user_id = $user_info["Client"]["UniqueId"];
     }else{
         $user_id = $user_info['Id'];

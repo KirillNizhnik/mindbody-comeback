@@ -41,7 +41,7 @@ function get_mindbody_user_by_email($email, $staff_token, $api_key, $site_id) {
     }
 }
 
-function register_mindbody_user($first_name, $last_name, $email, $phone, $birthdate = '1990-01-01') {
+function register_mindbody_user($api_key, $staff_token, $site_id, $first_name, $last_name, $email, $phone, $birthdate = '1990-01-01') {
     $url = 'https://api.mindbodyonline.com/public/v6/client/addclient';
 
     $data = [
@@ -54,16 +54,6 @@ function register_mindbody_user($first_name, $last_name, $email, $phone, $birthd
 
     ];
 
-    $staff_token = get_mindbody_token();
-    if (is_wp_error($staff_token)) {
-        return 'Error: Unable to get token';
-    }
-
-    $api_key = get_field('mindbody_api_key', 'option');
-    if (!$api_key) {
-        return 'Error: API key missing';
-    }
-
     $curl = curl_init();
     curl_setopt_array($curl, [
         CURLOPT_URL => $url,
@@ -71,10 +61,10 @@ function register_mindbody_user($first_name, $last_name, $email, $phone, $birthd
         CURLOPT_CUSTOMREQUEST => 'POST',
         CURLOPT_POSTFIELDS => json_encode($data),
         CURLOPT_HTTPHEADER => [
-            'Authorization: Bearer ' . $staff_token['AccessToken'], // Токен для авторизации
-            'api-key: ' . $api_key, // Добавляем API ключ в заголовок
+            'Authorization: Bearer ' . $staff_token,
+            'api-key: ' . $api_key,
             'Accept: application/json',
-            'siteId:' . get_field('mindbody_site_id', 'option'),
+            'siteId:' . $site_id,
             'Content-Type: application/json',
         ],
     ]);
@@ -134,9 +124,7 @@ function hasUserActivity($user_id, $staff_token, $api_key, $site_id): bool
 
     $token = $staff_token;
 
-    if (!isset($token['AccessToken'])) {
-        return false;
-    }
+
 
     $attendance_url = "https://api.mindbodyonline.com/public/v6/client/clientvisits";
     $schedule_url = "https://api.mindbodyonline.com/public/v6/client/clientschedule";
@@ -181,7 +169,6 @@ function hasUserActivity($user_id, $staff_token, $api_key, $site_id): bool
     }
 
     $schedule_result = executeCurlRequest($schedule_url, $params, $headers);
-
 
     if ($schedule_result !== null && isset($schedule_result['Classes']) && count($schedule_result['Classes']) > 0) {
         return true;

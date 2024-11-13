@@ -14,9 +14,17 @@ if (!isset($_GET['location']) || !isset($_GET['siteId']) || !get_post_id_by_mind
 
 $location_id = intval($_GET['location']);
 $site_id = intval($_GET['siteId']);
-
+$api_key = get_field('mindbody_api_key', 'option');
+$id = get_post_id_by_mindbody_location_id_and_site_id($location_id, $site_id);
+$login = get_field('stuff_login', $id);
+$password = get_field('stuff_password', $id);
 
 $form_page = get_field('mindbody_form_page', 'option') . '?location=' . $location_id . '&siteId=' . $_GET['siteId'];
+
+$stuff_token = generate_mindbody_stuff_token($login, $password, $api_key, $site_id);
+if (!$stuff_token) {
+    wp_redirect($location_page);
+}
 
 if (!isset($_GET['first_name']) || !isset($_GET['last_name']) || !isset($_GET['email']) || !isset($_GET['phone'])) {
     wp_redirect($form_page);
@@ -41,42 +49,31 @@ if (empty($first_name) || empty($last_name) || empty($email)) {
 }
 
 
-$api_key = get_field('mindbody_api_key', 'option');
-$location_id = intval($_GET['location']);
-$id = get_post_id_by_mindbody_location_id_and_site_id($location_id, $site_id);
-$login = get_field('stuff_login', $id);
-$password = get_field('stuff_password', $id);
-
-$stuff_token = generate_mindbody_stuff_token($login, $password, $api_key, $site_id);
-if (!$stuff_token){
-    wp_redirect($location_page);
-}
-
 $user_info = get_mindbody_user_by_email($email, $stuff_token, $api_key, $site_id);
 if ($user_info === 'User not found') {
-    $user_info = register_mindbody_user($first_name, $last_name, $email, $phone);
-    $user_id = $user_info["Client"]["UniqueId"];
+    wp_redirect($form_page);
 }else{
     $user_id = $user_info['Id'];
 }
-$has_user_activity = hasUserActivity($user_id, $stuff_token, $api_key, $site_id);
 
+$has_user_activity = hasUserActivity($user_id, $stuff_token, $api_key, $site_id);
 if ($has_user_activity) {
     wp_redirect($form_page);
 }
 
+
+
+
 if (isset($_GET['ads']) && ($_GET['ads'] === 'true' || $_GET['ads'] === '1')) {
-    $ads=1;
+    $ads = 1;
 } else {
-    $ads='';
+    $ads = '';
 }
-
-
 
 
 ?>
 
-<div  class="mindbody-calendar">
+<div class="mindbody-calendar">
     <img src="<?= plugin_dir_url(MINDBODY_PLUGIN_FILE) . 'assets/images/isi-elite.svg'; ?>" class="logo"
          alt="ISI Elite Training">
     <div class="mindbody-calendar-text">
@@ -134,9 +131,10 @@ if (isset($_GET['ads']) && ($_GET['ads'] === 'true' || $_GET['ads'] === '1')) {
         <?php
         $start_date = date('Y-m-d') . 'T00:00:00';
         $end_date = date('Y-m-d') . 'T23:59:59';
-        $classes = get_mindbody_classes_by_location($location_id, $start_date, $end_date);
+        $classes = get_mindbody_classes_by_location($api_key, $site_id, $location_id, $start_date, $end_date);
         ?>
-        <div data-location-id="<?= $location_id?>"  data-ajax-url="<?= admin_url('admin-ajax.php') ?>" id="calendar-container" class="mindbody-calendar-time-wrapper">
+        <div data-site-id="<?= $site_id?>" data-location-id="<?= $location_id ?>" data-ajax-url="<?= admin_url('admin-ajax.php') ?>"
+             id="calendar-container" class="mindbody-calendar-time-wrapper">
             <?php
             if (!empty($classes) && is_array($classes)) {
                 ?>
@@ -153,9 +151,9 @@ if (isset($_GET['ads']) && ($_GET['ads'] === 'true' || $_GET['ads'] === '1')) {
                         } else {
                             continue;
                         }
-                        if (isset($class['ClassScheduleId'])){
+                        if (isset($class['ClassScheduleId'])) {
                             $scheduleId = $class['ClassScheduleId'];
-                        } else{
+                        } else {
                             continue;
                         }
                         if (!$class['IsAvailable']) {
@@ -166,6 +164,7 @@ if (isset($_GET['ads']) && ($_GET['ads'] === 'true' || $_GET['ads'] === '1')) {
 
                         echo '<div class="time-item ' . $active_class . '" ' .
                             'data-class-id="' . $scheduleId . '" ' .
+                            'data-class-schedule-id="' . $class['Id'] . '" ' .
                             'data-description-id="' . $class_description . '" ' .
                             'data-start-datetime="' . htmlspecialchars($start_datetime, ENT_QUOTES, 'UTF-8') . '" ' .
                             'data-end-datetime="' . htmlspecialchars($end_datetime, ENT_QUOTES, 'UTF-8') . '" ' .
@@ -187,8 +186,12 @@ if (isset($_GET['ads']) && ($_GET['ads'] === 'true' || $_GET['ads'] === '1')) {
             ?>
         </div>
     </div>
+
     <button id="submit-training" class="submit-btn-calendar">CONTINUE</button>
-    <div data-redirect-url="<?= get_field('mindbody_payment_page','option') ?>" data-first-name="<?= $first_name ?>" data-last-name="<?= $last_name ?>" data-email="<?= $email ?>" data-phone="<?= $phone ?>" data-location-id="<?= $location_id ?>" data-ads="<?= $ads ?>" id="info-calendar">
+    <div data-redirect-url="<?= get_field('mindbody_payment_page', 'option') ?>" data-first-name="<?= $first_name ?>"
+         data-last-name="<?= $last_name ?>" data-email="<?= $email ?>" data-phone="<?= $phone ?>"
+         data-location-id="<?= $location_id ?>" data-site-id="<?= $site_id ?>" data-ads="<?= $ads ?>"
+         data-ajax-url="<?= admin_url('admin-ajax.php') ?>" data-user-id="<?= $user_id ?>"  id="info-calendar" >
     </div>
 
 </div>

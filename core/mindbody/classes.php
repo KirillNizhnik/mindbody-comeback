@@ -1,10 +1,8 @@
 <?php
 
-function get_mindbody_classes_by_location($location_id, $start_date = null, $end_date = null, $class_id = null, $classDescr =null)
+function get_mindbody_classes_by_location($api_key, $site_id, $location_id, $start_date = null, $end_date = null, $class_id = null, $classDescr =null, )
 {
-    $api_key = get_field('mindbody_api_key', 'option');
-    $site_id = get_field('mindbody_site_id', 'option');
-    $url = 'https://api.mindbodyonline.com/public/v6/class/classes';
+     $url = 'https://api.mindbodyonline.com/public/v6/class/classes';
 
     $params = array(
         'locationIds' => $location_id,
@@ -158,12 +156,9 @@ function get_class_description_by_id_and_location($classDescriptionId, $location
     return $class_description;
 }
 
-function mindbody_add_client_to_class($user_id, $class_id, $access_token): array
+function mindbody_add_client_to_class($user_id, $class_id, $staff_token, $api_key, $site_id,): array
 {
 
-    if (!$access_token) {
-        return ['success' => false, 'message' => 'Failed to obtain access token'];
-    }
     $url = 'https://api.mindbodyonline.com/public/v6/class/addclienttoclass';
     $data = [
         'ClientId' => $user_id,
@@ -171,12 +166,10 @@ function mindbody_add_client_to_class($user_id, $class_id, $access_token): array
         'Test' => false,
     ];
 
-    $api_key = get_field('mindbody_api_key', 'option');
-    $site_id = get_field('mindbody_site_id', 'option');
 
     $response = wp_remote_post($url, [
         'headers' => [
-            'Authorization' => 'Bearer ' . $access_token,
+            'Authorization' => 'Bearer ' . $staff_token,
             'Content-Type' => 'application/json',
             'SiteId' => $site_id,
             'Api-Key' => $api_key,

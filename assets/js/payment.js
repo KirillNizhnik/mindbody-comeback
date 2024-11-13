@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const ajaxUrl = form.getAttribute('data-ajax-url');
             const locationId = form.getAttribute('data-location-id');
             let redirectUrl = form.getAttribute('data-redirect-url');
+
             console.log(redirectUrl)
             console.log('User ID:', userId);
             console.log('AJAX URL:', ajaxUrl);
@@ -152,8 +153,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const classId = formSessionBuy.getAttribute('data-class-id');
             const ajaxUrl = formSessionBuy.getAttribute('data-ajax-url');
             const locationId = formSessionBuy.getAttribute('data-location-id');
+            const siteId = formSessionBuy.getAttribute('data-site-id');
             let redirectUrl = formSessionBuy.getAttribute('data-redirect-url');
-
             if (!/^\d{16}$/.test(ccNumber)) {
                 alert("Please enter a valid 16-digit credit card number.");
                 return;
@@ -182,6 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
             formData.append('training_id', trainingId);
             formData.append('class_id', classId);
             formData.append('location_id', locationId);
+            formData.append('site_id', siteId);
 
             fetch(ajaxUrl, {
                 method: 'POST',
