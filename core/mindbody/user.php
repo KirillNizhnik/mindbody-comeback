@@ -41,7 +41,7 @@ function get_mindbody_user_by_email($email, $staff_token, $api_key, $site_id) {
     }
 }
 
-function register_mindbody_user($api_key, $staff_token, $site_id, $first_name, $last_name, $email, $phone, $birthdate = '1990-01-01') {
+function register_mindbody_user($api_key, $staff_token, $site_id, $first_name, $last_name, $email, $phone) {
     $url = 'https://api.mindbodyonline.com/public/v6/client/addclient';
 
     $data = [
@@ -49,8 +49,6 @@ function register_mindbody_user($api_key, $staff_token, $site_id, $first_name, $
         'LastName' => $last_name,
         'Email' => $email,
         'MobilePhone' => $phone,
-        'BirthDate' => $birthdate,
-
 
     ];
 
