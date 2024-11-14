@@ -201,7 +201,7 @@ function handle_single_payment()
         ];
         wp_send_json_success($data_response);
     }else{
-        wp_send_json_error(['message' => 'Payment failed.']);
+        wp_send_json_error(['message' => $response_check['Error']['Message']]);
     }
 
 
