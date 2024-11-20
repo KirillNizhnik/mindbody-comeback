@@ -132,10 +132,10 @@
     flex-shrink: 0;
     align-self: stretch;
     border-radius: 1000px;
-    border: 1px solid #9F9F9F;
+    border: 1px solid #181818;
     aspect-ratio: 1 / 1;
     width: 100%;
-    color: #9F9F9F;
+    color: #181818;
     text-align: center;
     font-family: "SF Pro Text", sans-serif;
     font-size: 18px;
@@ -156,7 +156,7 @@
 
 
 .mindbody-calendar .active-day .calendar-item-day {
-    border: 1px solid #94E522 ;
+    border: 1px solid #181818 ;
     background: #94E522;
     color: #181818;
     margin: 0 auto;
