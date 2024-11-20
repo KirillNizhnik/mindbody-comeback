@@ -202,6 +202,15 @@
     line-height: normal;
 }
 
+.mindbody-calendar-time {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Выравнивание на случай меньшего числа элементов */
+}
+
+.mindbody-calendar-time .time-item:nth-last-child(-n+3) {
+    justify-self: center; /* Центрирование последних трех элементов */
+}
+
+
 .time-item.active{
     border: 1px solid #9F9F9F;
     background: #94E522;
