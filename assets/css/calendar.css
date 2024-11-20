@@ -203,7 +203,7 @@
 }
 
 .time-item.active{
-    border: 1px solid #94E522;
+    border: 1px solid #9F9F9F;
     background: #94E522;
     color: #181818;
 }
@@ -213,7 +213,7 @@
     display: block;
     border-radius: 10px;
     background: #94E522;
-    border: none;
+    border: 1px solid #9F9F9F;
     padding: 16px 24px;
     color: #181818;
     text-align: center;
@@ -237,7 +237,7 @@
 }
 
 .time-item.active{
-    cursor: none;
+    cursor: auto;
 }
 
 #submit-training{
