@@ -93,9 +93,13 @@ if ($disclaimer === '1'){
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <link rel="stylesheet" href="<?php echo plugin_dir_url(MINDBODY_PLUGIN_FILE); ?>assets/css/form.css " type="text/css"/>
+
 <link rel="stylesheet" href="<?php echo plugin_dir_url(MINDBODY_PLUGIN_FILE); ?>assets/css/toast.css " type="text/css"/>
 
 <script src="<?php echo plugin_dir_url(MINDBODY_PLUGIN_FILE); ?>assets/js/form.js"></script>
-<script src="<?php echo plugin_dir_url(MINDBODY_PLUGIN_FILE); ?>assets/js/disclaimer.js"></script>
+
+<?php if ($ads){ ?>
+    <script src="<?php echo plugin_dir_url(MINDBODY_PLUGIN_FILE); ?>assets/js/disclaimer.js"></script>
+<?php } ?>
 
 
