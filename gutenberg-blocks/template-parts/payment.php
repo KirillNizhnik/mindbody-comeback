@@ -218,7 +218,21 @@ if (isset($_GET['ads']) && ($_GET['ads'] === 'true' || $_GET['ads'] === '1')) {
     </div>
 </div>
 
+<?php if ($ads){
+    $disclaimer = get_field('mindbody_disclaimer', $id);
+    if ($disclaimer === '1'){
+        $disclaimer = '*The 7 days for $14 is open only to first-time visitors and local residents aged 18 years and older; however, minors aged 12 and above may participate if special conditions are met. Valid at participating facilities only. Voucher must be redeemed at location of purchase. Offer is non-refundable, non-transferable, and cannot be combined with other promotions.';
+    }elseif ($disclaimer === '2') {
+        $disclaimer = '*The 2 for $20 is open only to first-time visitors and local residents aged 18 years and older; however, minors aged 12 and above may participate if special conditions are met. Valid at participating facilities only. Voucher must be redeemed at location of purchase. Offer is non-refundable, non-transferable, and cannot be combined with other promotions.';
+    }else{
+        $disclaimer = '';
+    }
+    ?>
+    <div id="disclaimer" style="display: none;" data-content='<?= $disclaimer ?>' class="disclaimer">
 
+    </div>
+    <script src="<?php echo plugin_dir_url(MINDBODY_PLUGIN_FILE); ?>assets/js/disclaimer.js"></script>
+<?php } ?>
 
 <link rel="stylesheet" href="<?php echo plugin_dir_url(MINDBODY_PLUGIN_FILE); ?>assets/css/payment.css"
       type="text/css"/>

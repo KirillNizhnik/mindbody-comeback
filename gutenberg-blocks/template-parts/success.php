@@ -60,6 +60,8 @@ if (!empty($class[0])) {
 </div>
 
 
+
+
 <link rel="stylesheet" href="<?php echo plugin_dir_url(MINDBODY_PLUGIN_FILE); ?>assets/css/success.css"
       type="text/css"/>
 
