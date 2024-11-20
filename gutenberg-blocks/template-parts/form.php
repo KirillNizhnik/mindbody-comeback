@@ -44,6 +44,8 @@ if (isset($_GET['ads']) && $_GET['ads'] === 'true') {
     $ads= false;
 }
 
+$disclaimer = get_field('mindbody_disclaimer', $id);
+
 
 
 
@@ -79,6 +81,9 @@ if (isset($_GET['ads']) && $_GET['ads'] === 'true') {
         <button type="submit" class="submit-btn">CONTINUE</button>
     </form>
 </div>
+<div id="disclaimer" style="display: none;" data-content='<?= $disclaimer ?>' class="disclaimer">
+
+</div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet"/>
@@ -88,5 +93,6 @@ if (isset($_GET['ads']) && $_GET['ads'] === 'true') {
 <link rel="stylesheet" href="<?php echo plugin_dir_url(MINDBODY_PLUGIN_FILE); ?>assets/css/toast.css " type="text/css"/>
 
 <script src="<?php echo plugin_dir_url(MINDBODY_PLUGIN_FILE); ?>assets/js/form.js"></script>
+<script src="<?php echo plugin_dir_url(MINDBODY_PLUGIN_FILE); ?>assets/js/disclaimer.js"></script>
 
 

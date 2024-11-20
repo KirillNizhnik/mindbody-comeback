@@ -12,7 +12,6 @@ get_header(); ?>
         <div class="mindbody-inner">
             <?php
             the_content();
-
             ?>
         </div>
     </div>

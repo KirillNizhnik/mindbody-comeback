@@ -133,6 +133,23 @@ function register_location_acf_fields(): void
                     'return_format' => 'value',
                 ),
                 array(
+                    'key' => 'field_mindbody_disclaimer',
+                    'label' => 'Mindbody Disclaimer',
+                    'name' => 'mindbody_disclaimer',
+                    'type' => 'select',
+                    'instructions' => "Select a disclaimer from the list.",
+                    'choices' => array(
+                        1 => '7days for 14$',
+                        2 => '2 for $20',
+
+                    ),
+                    'required' => 0,
+                    'allow_null' => 1,
+                    'default_value' => '',
+                    'ui' => 1,
+                    'return_format' => 'value',
+                ),
+                array(
                     'key' => 'field_stuff_login',
                     'label' => 'Stuff Login',
                     'name' => 'stuff_login',
