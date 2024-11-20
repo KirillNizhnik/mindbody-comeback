@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let dataContent = disclaimerElement.getAttribute('data-content');
         console.log('Data content:', dataContent);
         const disclaimerElement = document.getElementById('comp-kp72821f');
+        console.log('Element:', disclaimerElement);
         disclaimerElement.innerHTML = dataContent;
 
 
