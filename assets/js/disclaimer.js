@@ -4,6 +4,10 @@ document.addEventListener('DOMContentLoaded', function() {
     if (disclaimerElement) {
         let dataContent = disclaimerElement.getAttribute('data-content');
         console.log('Data content:', dataContent);
+        const disclaimerElement = document.getElementById('comp-kp72821f');
+        disclaimerElement.innerHTML = dataContent;
+
+
     } else {
         console.log('Element with ID "disclaimer" not found');
     }
