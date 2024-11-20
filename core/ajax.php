@@ -191,7 +191,6 @@ function handle_single_payment()
     ];
 
     $response_check = checkout_shopping_cart($user_id, $location_id, $service_id,$services_amount, $credit_card_info, $staff_token , $api_key, $site_id, $app_name);
-//    var_dump($response_check, $response_check['success']);
     if ($response_check['success']){
         $response = mindbody_add_client_to_class($user_id, $training_id, $staff_token, $api_key, $site_id);
         $data_response = [
