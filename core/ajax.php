@@ -47,10 +47,28 @@ function get_calendar_classes_by_date(): void
 
         $classes = get_mindbody_classes_by_location($api_key, $site_id, $location_id, $start_date, $end_date);
         if (!empty($classes) && is_array($classes)) {
-            $html = '<div class="mindbody-calendar-time">';
+            $counter = 0;
+            foreach ($classes as $class){
+                if (isset($class['ClassDescription']['Id']) && isset($class['ClassDescription']['Name'])) {
+                    $class_description = $class['ClassDescription']['Id'];
+                    $class_name = $class['ClassDescription']['Name'];
+                } else {
+                    continue;
+                }
+                if (isset($class['ClassScheduleId'])) {
+                    $scheduleId = $class['ClassScheduleId'];
+                } else {
+                    continue;
+                }
+                if (!$class['IsAvailable']) {
+                    continue;
+                }
+                $counter ++;
+            }
+            $html = '<div class="mindbody-calendar-time  col=' . $counter . '">';
             $is_first = true;
-            $available_count = 0;
 
+            $available_count = 0;
             foreach ($classes as $class) {
                 $start_time = date('g:i A', strtotime($class['StartDateTime']));
                 $start_datetime = $class['StartDateTime'];
