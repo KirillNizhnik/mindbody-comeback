@@ -138,8 +138,29 @@ if (isset($_GET['ads']) && ($_GET['ads'] === 'true' || $_GET['ads'] === '1')) {
             <?php
             if (!empty($classes) && is_array($classes)) {
                 ?>
-                <div class="mindbody-calendar-time col-<?= count($classes) ?>">
+                <?php
+                $counter = 0;
+                foreach ($classes as $class){
+                    if (isset($class['ClassDescription']['Id']) && isset($class['ClassDescription']['Name'])) {
+                        $class_description = $class['ClassDescription']['Id'];
+                        $class_name = $class['ClassDescription']['Name'];
+                    } else {
+                        continue;
+                    }
+                    if (isset($class['ClassScheduleId'])) {
+                        $scheduleId = $class['ClassScheduleId'];
+                    } else {
+                        continue;
+                    }
+                    if (!$class['IsAvailable']) {
+                        continue;
+                    }
+                    $counter ++;
+                }
+                ?>
+                <div class="mindbody-calendar-time col-<?= $counter ?>">
                     <?php
+
                     $counter = 0;
                     foreach ($classes as $class) {
                         $start_time = date('g:i A', strtotime($class['StartDateTime']));
