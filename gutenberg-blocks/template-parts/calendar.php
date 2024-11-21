@@ -138,7 +138,7 @@ if (isset($_GET['ads']) && ($_GET['ads'] === 'true' || $_GET['ads'] === '1')) {
             <?php
             if (!empty($classes) && is_array($classes)) {
                 ?>
-                <div class="mindbody-calendar-time">
+                <div class="mindbody-calendar-time col-<?= count($classes) ?>">
                     <?php
                     $counter = 0;
                     foreach ($classes as $class) {
