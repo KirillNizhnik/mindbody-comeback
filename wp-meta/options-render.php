@@ -3,7 +3,7 @@
 function mindbody_update_locations_page(): void{
     echo '<h1>Update Locations</h1>';
     echo '<p>This page allows you to update locations for Mindbody integration.</p>';
-    echo '<button id="update-locations-btn" class="button button-primary">Update Locations</button>';
+    echo '<button disabled id="update-locations-btn" class="button button-primary">Update Locations</button>';
     echo '<div id="update-status"></div>';
 
     ?>
