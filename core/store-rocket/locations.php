@@ -103,7 +103,7 @@ function generateLocationForStoreRocket(
 
     if (!empty($map_link)) {
         $payload['callsToAction'] = array(
-            'SIGN UP OF TRAINING' => $map_link
+            'GET STARTED' => $map_link
         );
     }
 
@@ -193,7 +193,7 @@ function updateLocationForStoreRocket(
 
     if (!empty($map_link)) {
         $payload['callsToAction'] = array(
-            'SIGN UP OF TRAINING' => $map_link
+            'GET STARTED' => $map_link
         );
     }
 
