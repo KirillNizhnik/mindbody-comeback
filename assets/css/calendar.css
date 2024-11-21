@@ -195,13 +195,15 @@
 }
 
 .col-2{
-    grid-template-columns: repeat(2, 200px);
+    width: 100%;
+    grid-template-columns: repeat(2, 300px);
     justify-content: center;
     align-items: center;
 }
 
 .col-1{
-    grid-template-columns: repeat(1, 200px);
+    width: 100%;
+    grid-template-columns: repeat(1, 300px);
     justify-content: center;
     align-items: center;
 }
