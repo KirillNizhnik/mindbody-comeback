@@ -65,7 +65,7 @@ function get_calendar_classes_by_date(): void
                 }
                 $counter ++;
             }
-            $html = '<div class="mindbody-calendar-time  col=' . $counter . '">';
+            $html = '<div class="mindbody-calendar-time  col-' . $counter . '">';
             $is_first = true;
 
             $available_count = 0;
