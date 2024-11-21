@@ -185,6 +185,22 @@
     grid-template-columns: repeat(5, 1fr);
 }
 
+.col-4{
+    grid-template-columns: repeat(4, 1fr);
+
+}
+
+.col-3{
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.col-2{
+    grid-template-columns: repeat(2, 200px);
+}
+
+.col-1{
+    grid-template-columns: repeat(1, 200px);
+}
 
 
 .time-item{
