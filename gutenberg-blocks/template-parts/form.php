@@ -52,6 +52,8 @@ if ($disclaimer === '1'){
 }else{
     $disclaimer = '';
 }
+
+$title = get_the_title($id);
 ?>
 
 
@@ -60,7 +62,7 @@ if ($disclaimer === '1'){
     <img src="<?= plugin_dir_url(MINDBODY_PLUGIN_FILE) . 'assets/images/isi-elite.svg'; ?>" class="logo"
          alt="ISI Elite Training">
     <div class="mindbody-form-text">
-        <div class="location">Location Name</div>
+        <div class="location"><?= $title ?></div>
         <div class="address"><?= get_field('location_address', $id) . ', ' . get_field('location_city', $id) ?></div>
         <?php if ($ads){ ?>
             <div class="heading"><?= $service_name ?></div>
