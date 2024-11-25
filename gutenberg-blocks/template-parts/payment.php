@@ -146,7 +146,7 @@ if (isset($_GET['ads']) && ($_GET['ads'] === 'true' || $_GET['ads'] === '1')) {
         <div class="payment-time">
             <div class="class-name"><?php echo $class_name ?></div>
             <div class="date"><?php echo $start_date_formatted; ?></div>
-            <div class="time">at <?php echo $start_time_formatted . ' - ' . $end_time_formatted; ?></div>
+            <div class="time">at <?php echo $start_time_formatted ?></div>
             <div class="change-time"><a href="<?= $training_redirect_url ?>">Change selected time</a>
             </div>
         </div>
