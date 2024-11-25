@@ -247,7 +247,7 @@ class MindBodyAPI
         $params = array_merge($defaultParams, $requestParams);
 
         $response = $this->executeRequest($url, $params);
-
+        var_dump($response);
         return $response['Memberships'] ?? null;
     }
 }
