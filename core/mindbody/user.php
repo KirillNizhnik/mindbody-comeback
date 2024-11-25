@@ -173,11 +173,8 @@ function hasUserActivity($user_id, $staff_token, $api_key, $site_id): bool
     }
 
     $info = getActiveClientMemberships($user_id, $staff_token, $api_key, $site_id);
-    if (!$info['Client']) {
-        $info = $info['Client'];
-        var_dump($info);
-        return true;
-    }
+    $client_trainin = $info['Client'];
+    var_dump($client_trainin);
 
     return false;
 }
