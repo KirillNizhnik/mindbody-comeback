@@ -205,8 +205,9 @@ function getActiveClientMemberships(string $clientId, string $staffToken, string
     ]);
 
     $response = curl_exec($curl);
+    echo "<pre>";
     var_dump($response);
-
+    echo "</pre>";
     if (curl_errno($curl)) {
         $error = curl_error($curl);
         error_log("CURL Error: $error");
