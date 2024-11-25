@@ -56,11 +56,11 @@ document.getElementById('locationForm').addEventListener('submit', function (e) 
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                toastr.success('User has no activity', 'Success', {
-                    positionClass: 'toast-bottom-right',
-                    closeButton: true,
-                    progressBar: true
-                });
+                // toastr.success('User has no activity', 'Success', {
+                //     positionClass: 'toast-bottom-right',
+                //     closeButton: true,
+                //     progressBar: true
+                // });
 
                 window.location.href = redirectUrl + "?location=" + locationId
                     + "&siteId=" + encodeURIComponent(siteId)
