@@ -172,55 +172,5 @@ function hasUserActivity($user_id, $staff_token, $api_key, $site_id): bool
         return true;
     }
 
-    $info = getClientInfo($user_id, $staff_token, $api_key, $site_id);
-
-
-
     return false;
-}
-
-function getClientInfo($user_id, $staff_token, $api_key, $site_id)
-{
-    $client_url = "https://api.mindbodyonline.com/public/v6/client/client";
-
-    $params = [
-        'clientId' => $user_id,
-    ];
-
-    $headers = [
-        'Authorization:' . $staff_token,
-        'Api-Key: ' . $api_key,
-        'Accept: application/json',
-        'SiteId: ' . $site_id,
-    ];
-
-    function executeCurlRequest($url, $params, $headers)
-    {
-        $curl = curl_init();
-        curl_setopt_array($curl, [
-            CURLOPT_URL => $url . '?' . http_build_query($params),
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => $headers,
-        ]);
-
-        $response = curl_exec($curl);
-        $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        curl_close($curl);
-
-        if ($httpcode === 200) {
-            return json_decode($response, true);
-        } else {
-            error_log("MindBody API Error ($httpcode): $response");
-            return null;
-        }
-    }
-
-    $client_result = executeCurlRequest($client_url, $params, $headers);
-    var_dump($client_result);
-    if ($client_result !== null && isset($client_result['Client'])) {
-        return $client_result['Client'];
-    }
-
-    error_log("Client not found or an error occurred.");
-    return null;
 }
