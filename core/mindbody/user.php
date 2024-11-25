@@ -173,7 +173,6 @@ function hasUserActivity($user_id, $staff_token, $api_key, $site_id): bool
     }
     $api = new MindBodyAPI($staff_token, $api_key, $site_id);
     $user_info = $api->getActiveClientMemberships($user_id);
-    var_dump($user_info);
     return false;
 }
 
@@ -193,7 +192,7 @@ class MindBodyAPI
     private function executeRequest(string $url, array $params): ?array
     {
         $headers = [
-            'Authorization: Bearer ' . $this->staffToken,
+            'Authorization:' . $this->staffToken,
             'Api-Key: ' . $this->apiKey,
             'Accept: application/json',
             'SiteId: ' . $this->siteId,
@@ -208,6 +207,7 @@ class MindBodyAPI
         ]);
 
         $response = curl_exec($curl);
+        var_dump($response);
 
         if (curl_errno($curl)) {
             $error = curl_error($curl);
@@ -225,6 +225,7 @@ class MindBodyAPI
         }
 
         $decodedResponse = json_decode($response, true);
+
         if (json_last_error() !== JSON_ERROR_NONE) {
             error_log("JSON Decode Error: " . json_last_error_msg());
             return null;
@@ -243,11 +244,9 @@ class MindBodyAPI
             'request.offset' => 0,
         ];
 
-        // Merge default parameters with provided ones
         $params = array_merge($defaultParams, $requestParams);
 
         $response = $this->executeRequest($url, $params);
-        var_dump($response);
         return $response['Memberships'] ?? null;
     }
 }
