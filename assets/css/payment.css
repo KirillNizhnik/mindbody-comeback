@@ -239,6 +239,8 @@
     text-transform: uppercase;
 }
 
+
+
 .mindbody-payment-form{
     margin-bottom: 40px;
 }
@@ -259,6 +261,10 @@
 
 
 @media (max-width: 600px) {
+
+    #calendar-date .slick-slide {
+        margin: 0 15px;
+    }
 
     .logo{
         width: 80%;
