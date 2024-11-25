@@ -215,7 +215,7 @@ class MindBodyAPI
         ]);
 
         $response = curl_exec($curl);
-
+        var_dump($response);
         if (curl_errno($curl)) {
             // Handle CURL errors
             $error = curl_error($curl);
@@ -229,6 +229,7 @@ class MindBodyAPI
 
         // Validate HTTP response code
         if ($httpCode !== 200) {
+
             error_log("MindBody API Error (HTTP $httpCode): $response");
             return null;
         }
