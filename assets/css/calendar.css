@@ -132,7 +132,7 @@
     flex-shrink: 0;
     align-self: stretch;
     border-radius: 1000px;
-    border: 1px solid #181818;
+    border: 1px solid #212121;
     aspect-ratio: 1 / 1;
     width: 100%;
     color: #181818;
@@ -235,7 +235,7 @@
 
 
 .time-item.active{
-    border: 1px solid #9F9F9F;
+    border: 1px solid #000;
     background: #94E522;
     color: #000000;
 }
