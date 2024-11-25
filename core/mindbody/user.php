@@ -173,7 +173,6 @@ function hasUserActivity($user_id, $staff_token, $api_key, $site_id): bool
     }
 
     $info = getClientInfo($user_id, $staff_token, $api_key, $site_id);
-    var_dump($info);
 
 
 
@@ -217,7 +216,7 @@ function getClientInfo($user_id, $staff_token, $api_key, $site_id)
     }
 
     $client_result = executeCurlRequest($client_url, $params, $headers);
-
+    var_dump($client_result);
     if ($client_result !== null && isset($client_result['Client'])) {
         return $client_result['Client'];
     }
