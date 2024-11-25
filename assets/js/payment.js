@@ -155,8 +155,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const locationId = formSessionBuy.getAttribute('data-location-id');
             const siteId = formSessionBuy.getAttribute('data-site-id');
             let redirectUrl = formSessionBuy.getAttribute('data-redirect-url');
-            if (!/^\d{16}$/.test(ccNumber)) {
-                alert("Please enter a valid 16-digit credit card number.");
+            if (!/^\d{15,16}$/.test(ccNumber)) {
+                alert("Please enter a valid 15 or 16-digit credit card number.");
                 return;
             }
             if (!/^\d{2}\/\d{2}$/.test(expiryDate)) {
