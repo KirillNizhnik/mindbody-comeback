@@ -181,20 +181,19 @@ function hasUserActivity($user_id, $staff_token, $api_key, $site_id): bool
 
 function getActiveClientMemberships(string $clientId, string $staffToken, string $apiKey, string $siteId, array $extraParams = []): ?array
 {
-    $url = 'https://api.mindbodyonline.com/public/v6/client/clientaccountbalances';
+    $url = 'https://api.mindbodyonline.com/public/v6/client/clientcompleteinfo';
 
     $params = array_merge([
         'request.clientId' => $clientId,
-        'request.crossRegionalLookup' => false,
         'request.limit' => 100,
         'request.offset' => 0,
     ], $extraParams);
 
     $headers = [
         'Authorization:' . $staffToken,
-        'Api-Key: ' . $apiKey,
+        'Api-Key:' . $apiKey,
         'Accept: application/json',
-        'SiteId: ' . $siteId,
+        'SiteId:' . $siteId,
     ];
 
     $curl = curl_init();
