@@ -172,7 +172,8 @@ function hasUserActivity($user_id, $staff_token, $api_key, $site_id): bool
         return true;
     }
 
-    getActiveClientMemberships($user_id, $staff_token, $api_key, $site_id);
+    $info = getActiveClientMemberships($user_id, $staff_token, $api_key, $site_id);
+    var_dump($info);
 
 
     return false;
@@ -205,9 +206,6 @@ function getActiveClientMemberships(string $clientId, string $staffToken, string
     ]);
 
     $response = curl_exec($curl);
-    echo "<pre>";
-    var_dump($response);
-    echo "</pre>";
     if (curl_errno($curl)) {
         $error = curl_error($curl);
         error_log("CURL Error: $error");
@@ -229,6 +227,6 @@ function getActiveClientMemberships(string $clientId, string $staffToken, string
         return null;
     }
 
-    return $decodedResponse['ClientMemberships'] ?? null;
+    return $decodedResponse;
 }
 
