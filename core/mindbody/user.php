@@ -255,6 +255,7 @@ class MindBodyAPI
         $params = ['clientId' => $clientId];
 
         $response = $this->executeRequest($url, $params);
+        var_dump($response);
 
         return $response['Client'] ?? null;
     }
