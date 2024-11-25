@@ -172,7 +172,7 @@ function hasUserActivity($user_id, $staff_token, $api_key, $site_id): bool
         return true;
     }
     $api = new MindBodyAPI($staff_token, $api_key, $site_id);
-    $user_info = $api->getClientInfo($user_id);
+    $user_info = $api->getActiveClientMemberships($user_id);
     var_dump($user_info);
     return false;
 }
@@ -190,13 +190,6 @@ class MindBodyAPI
         $this->siteId = $siteId;
     }
 
-    /**
-     * Executes a CURL request to the given URL with parameters and headers.
-     *
-     * @param string $url API endpoint URL.
-     * @param array $params Query parameters.
-     * @return array|null API response data or null on error.
-     */
     private function executeRequest(string $url, array $params): ?array
     {
         $headers = [
@@ -211,13 +204,12 @@ class MindBodyAPI
             CURLOPT_URL => $url . '?' . http_build_query($params),
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => $headers,
-            CURLOPT_FAILONERROR => true, // Automatically handle HTTP errors (4xx, 5xx)
+            CURLOPT_FAILONERROR => true,
         ]);
 
         $response = curl_exec($curl);
-        var_dump($response);
+
         if (curl_errno($curl)) {
-            // Handle CURL errors
             $error = curl_error($curl);
             error_log("CURL Error: $error");
             curl_close($curl);
@@ -227,14 +219,11 @@ class MindBodyAPI
         $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
 
-        // Validate HTTP response code
         if ($httpCode !== 200) {
-
             error_log("MindBody API Error (HTTP $httpCode): $response");
             return null;
         }
 
-        // Decode JSON response
         $decodedResponse = json_decode($response, true);
         if (json_last_error() !== JSON_ERROR_NONE) {
             error_log("JSON Decode Error: " . json_last_error_msg());
@@ -244,20 +233,21 @@ class MindBodyAPI
         return $decodedResponse;
     }
 
-    /**
-     * Fetches client information from the MindBody API.
-     *
-     * @param string $clientId The ID of the client.
-     * @return array|null Client information or null if not found or on error.
-     */
-    public function getClientInfo(string $clientId): ?array
+    public function getActiveClientMemberships(array $requestParams): ?array
     {
-        $url = "https://api.mindbodyonline.com/public/v6/client/client";
-        $params = ['clientId' => $clientId];
+        $url = 'https://api.mindbodyonline.com/public/v6/client/activeclientmemberships';
+
+        $defaultParams = [
+            'request.crossRegionalLookup' => false,
+            'request.limit' => 100,
+            'request.offset' => 0,
+        ];
+
+        // Merge default parameters with provided ones
+        $params = array_merge($defaultParams, $requestParams);
 
         $response = $this->executeRequest($url, $params);
-        var_dump($response);
 
-        return $response['Client'] ?? null;
+        return $response['Memberships'] ?? null;
     }
 }
