@@ -174,13 +174,14 @@ function hasUserActivity($user_id, $staff_token, $api_key, $site_id): bool
 
     getActiveClientMemberships($user_id, $staff_token, $api_key, $site_id);
 
+
     return false;
 }
 
 
 function getActiveClientMemberships(string $clientId, string $staffToken, string $apiKey, string $siteId, array $extraParams = []): ?array
 {
-    $url = 'https://api.mindbodyonline.com/public/v6/client/activeclientmemberships';
+    $url = 'https://api.mindbodyonline.com/public/v6/client/clientaccountbalances';
 
     $params = array_merge([
         'request.clientId' => $clientId,
@@ -205,7 +206,6 @@ function getActiveClientMemberships(string $clientId, string $staffToken, string
     ]);
 
     $response = curl_exec($curl);
-    var_dump($response);
 
     if (curl_errno($curl)) {
         $error = curl_error($curl);
@@ -228,6 +228,6 @@ function getActiveClientMemberships(string $clientId, string $staffToken, string
         return null;
     }
 
-    return $decodedResponse['Memberships'] ?? null;
+    return $decodedResponse['ClientMemberships'] ?? null;
 }
 
