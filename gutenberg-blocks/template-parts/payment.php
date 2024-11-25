@@ -181,6 +181,10 @@ if (isset($_GET['ads']) && ($_GET['ads'] === 'true' || $_GET['ads'] === '1')) {
         <?php if ($ads){ ?>
         <form data-site-id="<?= $site_id ?>" data-redirect-url="<?= get_field('mindbody_success_page','option') ?>" data-ajax-url="<?= admin_url('admin-ajax.php') ?>" data-user-id="<?= $user_id ?>" data-training-id="<?= $training_id ?>" data-class-id="<?= $class_id ?>" data-location-id="<?= $location_id ?>"
                 id="session-buy" action="" method="post">
+            <label for="cc-name"></label>
+
+            <input placeholder="Name on Credit Card" type="text" id="cc-name" name="cc-name" required>
+
             <label for="cc-number"></label><input placeholder="Credit Card Number" type="text" id="cc-number" name="cc-number" required>
 
             <div class="card-details">
@@ -194,8 +198,6 @@ if (isset($_GET['ads']) && ($_GET['ads'] === 'true' || $_GET['ads'] === '1')) {
                 </div>
             </div>
 
-            <label for="cc-name"></label>
-            <input placeholder="Name on Credit Card" type="text" id="cc-name" name="cc-name" required>
 
             <div class="total-and-submit">
                 <div class="total">
