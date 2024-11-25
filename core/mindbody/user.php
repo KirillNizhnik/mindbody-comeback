@@ -171,82 +171,63 @@ function hasUserActivity($user_id, $staff_token, $api_key, $site_id): bool
     if ($schedule_result !== null && isset($schedule_result['Classes']) && count($schedule_result['Classes']) > 0) {
         return true;
     }
-    $api = new MindBodyAPI($staff_token, $api_key, $site_id);
-    $user_info = $api->getActiveClientMemberships($user_id);
+
+    getActiveClientMemberships($user_id, $staff_token, $api_key, $site_id);
+
     return false;
 }
 
-class MindBodyAPI
+
+function getActiveClientMemberships(string $clientId, string $staffToken, string $apiKey, string $siteId, array $extraParams = []): ?array
 {
-    private string $staffToken;
-    private string $apiKey;
-    private string $siteId;
+    $url = 'https://api.mindbodyonline.com/public/v6/client/activeclientmemberships';
 
-    public function __construct(string $staffToken, string $apiKey, string $siteId)
-    {
-        $this->staffToken = $staffToken;
-        $this->apiKey = $apiKey;
-        $this->siteId = $siteId;
-    }
+    $params = array_merge([
+        'request.clientId' => $clientId,
+        'request.crossRegionalLookup' => false,
+        'request.limit' => 100,
+        'request.offset' => 0,
+    ], $extraParams);
 
-    private function executeRequest(string $url, array $params): ?array
-    {
-        $headers = [
-            'Authorization:' . $this->staffToken,
-            'Api-Key: ' . $this->apiKey,
-            'Accept: application/json',
-            'SiteId: ' . $this->siteId,
-        ];
+    $headers = [
+        'Authorization:' . $staffToken,
+        'Api-Key: ' . $apiKey,
+        'Accept: application/json',
+        'SiteId: ' . $siteId,
+    ];
 
-        $curl = curl_init();
-        curl_setopt_array($curl, [
-            CURLOPT_URL => $url . '?' . http_build_query($params),
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => $headers,
-            CURLOPT_FAILONERROR => true,
-        ]);
+    $curl = curl_init();
+    curl_setopt_array($curl, [
+        CURLOPT_URL => $url . '?' . http_build_query($params),
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_HTTPHEADER => $headers,
+        CURLOPT_FAILONERROR => true,
+    ]);
 
-        $response = curl_exec($curl);
-        var_dump($response);
+    $response = curl_exec($curl);
+    var_dump($response);
 
-        if (curl_errno($curl)) {
-            $error = curl_error($curl);
-            error_log("CURL Error: $error");
-            curl_close($curl);
-            return null;
-        }
-
-        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    if (curl_errno($curl)) {
+        $error = curl_error($curl);
+        error_log("CURL Error: $error");
         curl_close($curl);
-
-        if ($httpCode !== 200) {
-            error_log("MindBody API Error (HTTP $httpCode): $response");
-            return null;
-        }
-
-        $decodedResponse = json_decode($response, true);
-
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            error_log("JSON Decode Error: " . json_last_error_msg());
-            return null;
-        }
-
-        return $decodedResponse;
+        return null;
     }
 
-    public function getActiveClientMemberships(array $requestParams): ?array
-    {
-        $url = 'https://api.mindbodyonline.com/public/v6/client/activeclientmemberships';
+    $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    curl_close($curl);
 
-        $defaultParams = [
-            'request.crossRegionalLookup' => false,
-            'request.limit' => 100,
-            'request.offset' => 0,
-        ];
-
-        $params = array_merge($defaultParams, $requestParams);
-
-        $response = $this->executeRequest($url, $params);
-        return $response['Memberships'] ?? null;
+    if ($httpCode !== 200) {
+        error_log("MindBody API Error (HTTP $httpCode): $response");
+        return null;
     }
+
+    $decodedResponse = json_decode($response, true);
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        error_log("JSON Decode Error: " . json_last_error_msg());
+        return null;
+    }
+
+    return $decodedResponse['Memberships'] ?? null;
 }
+
