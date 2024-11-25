@@ -306,5 +306,12 @@
         font-size: 16px;
     }
 
+    .calendar-item-day{
+        font-size: 16px;
+    }
+    .calendar-item-date{
+        font-size: 14px;
+    }
+
 
 }
