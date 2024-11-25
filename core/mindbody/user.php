@@ -153,6 +153,7 @@ function hasUserActivity($user_id, $staff_token, $api_key, $site_id): bool
         $response = curl_exec($curl);
         $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
+        var_dump($response);
 
         if ($httpcode === 200) {
             return json_decode($response, true);
@@ -177,7 +178,6 @@ function hasUserActivity($user_id, $staff_token, $api_key, $site_id): bool
     if ($packages_result !== null && isset($packages_result['ClientPackages']) && count($packages_result['ClientPackages']) > 0) {
         return true;
     }
-    var_dump($packages_result);
 
     return false;
 }
