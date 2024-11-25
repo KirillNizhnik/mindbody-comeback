@@ -259,7 +259,7 @@ if (isset($_GET['ads']) && ($_GET['ads'] === 'true' || $_GET['ads'] === '1')) {
                 {
                     breakpoint: 480,
                     settings: {
-                        slidesToShow: 3
+                        slidesToShow: 4
                     }
                 }
             ]
