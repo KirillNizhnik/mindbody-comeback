@@ -171,6 +171,60 @@ function hasUserActivity($user_id, $staff_token, $api_key, $site_id): bool
     if ($schedule_result !== null && isset($schedule_result['Classes']) && count($schedule_result['Classes']) > 0) {
         return true;
     }
-
+    $api = new MindBodyAPI($staff_token, $api_key, $site_id);
+    $user_info = $api->getClientInfo($user_id);
+    var_dump($user_info);
     return false;
+}
+
+class MindBodyAPI
+{
+    private string $staffToken;
+    private string $apiKey;
+    private string $siteId;
+
+    public function __construct(string $staffToken, string $apiKey, string $siteId)
+    {
+        $this->staffToken = $staffToken;
+        $this->apiKey = $apiKey;
+        $this->siteId = $siteId;
+    }
+
+    private function executeRequest(string $url, array $params): ?array
+    {
+        $headers = [
+            'Authorization: Bearer ' . $this->staffToken,
+            'Api-Key: ' . $this->apiKey,
+            'Accept: application/json',
+            'SiteId: ' . $this->siteId,
+        ];
+
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => $url . '?' . http_build_query($params),
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => $headers,
+        ]);
+
+        $response = curl_exec($curl);
+        $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+
+        if ($httpcode === 200) {
+            return json_decode($response, true);
+        }
+
+        error_log("MindBody API Error ($httpcode): $response");
+        return null;
+    }
+
+    public function getClientInfo(string $clientId): ?array
+    {
+        $url = "https://api.mindbodyonline.com/public/v6/client/client";
+        $params = ['clientId' => $clientId];
+
+        $response = $this->executeRequest($url, $params);
+
+        return $response['Client'] ?? null;
+    }
 }
