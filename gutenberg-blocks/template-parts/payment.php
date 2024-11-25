@@ -123,6 +123,7 @@ if (isset($_GET['ads']) && ($_GET['ads'] === 'true' || $_GET['ads'] === '1')) {
 }
 
 
+$title = get_the_title($id);
 
 
 ?>
@@ -131,7 +132,7 @@ if (isset($_GET['ads']) && ($_GET['ads'] === 'true' || $_GET['ads'] === '1')) {
     <img src="<?= plugin_dir_url(MINDBODY_PLUGIN_FILE) . 'assets/images/isi-elite.svg'; ?>" class="logo"
          alt="ISI Elite Training">
     <div class="mindbody-payment-text">
-        <div class="location">Location</div>
+        <div class="location"><?= $title ?></div>
         <div class="address"><?php echo htmlspecialchars($full_address, ENT_QUOTES, 'UTF-8'); ?></div>
     </div>
     <div class="mindbody-payment-info">

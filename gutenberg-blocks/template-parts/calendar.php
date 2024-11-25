@@ -70,6 +70,9 @@ if (isset($_GET['ads']) && ($_GET['ads'] === 'true' || $_GET['ads'] === '1')) {
     $ads = '';
 }
 
+$title = get_the_title($id);
+
+
 
 ?>
 
@@ -77,7 +80,7 @@ if (isset($_GET['ads']) && ($_GET['ads'] === 'true' || $_GET['ads'] === '1')) {
     <img src="<?= plugin_dir_url(MINDBODY_PLUGIN_FILE) . 'assets/images/isi-elite.svg'; ?>" class="logo"
          alt="ISI Elite Training">
     <div class="mindbody-calendar-text">
-        <div class="location">Location Name</div>
+        <div class="location"><?= $title ?></div>
         <div class="address"><?= get_field('location_address', $id) . ', ' . get_field('location_city', $id) ?></div>
     </div>
     <div class="mindbody-calendar-container">
