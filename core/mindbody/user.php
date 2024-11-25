@@ -126,6 +126,7 @@ function hasUserActivity($user_id, $staff_token, $api_key, $site_id): bool
 
     $attendance_url = "https://api.mindbodyonline.com/public/v6/client/clientvisits";
     $schedule_url = "https://api.mindbodyonline.com/public/v6/client/clientschedule";
+    $packages_url = "https://api.mindbodyonline.com/public/v6/client/clientpackages";
 
     $params = [
         'clientId' => $user_id,
@@ -171,6 +172,12 @@ function hasUserActivity($user_id, $staff_token, $api_key, $site_id): bool
     if ($schedule_result !== null && isset($schedule_result['Classes']) && count($schedule_result['Classes']) > 0) {
         return true;
     }
+
+    $packages_result = executeCurlRequest($packages_url, $params, $headers);
+    if ($packages_result !== null && isset($packages_result['ClientPackages']) && count($packages_result['ClientPackages']) > 0) {
+        return true;
+    }
+    var_dump($packages_result);
 
     return false;
 }
