@@ -300,7 +300,9 @@
 
 @media (max-width: 600px) {
 
-
+    #calendar-date .slick-slide {
+        margin: 0 15px;
+    }
 
     .mindbody-calendar .logo{
         max-width: 300px;
