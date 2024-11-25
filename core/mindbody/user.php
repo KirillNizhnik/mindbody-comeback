@@ -190,6 +190,13 @@ class MindBodyAPI
         $this->siteId = $siteId;
     }
 
+    /**
+     * Executes a CURL request to the given URL with parameters and headers.
+     *
+     * @param string $url API endpoint URL.
+     * @param array $params Query parameters.
+     * @return array|null API response data or null on error.
+     */
     private function executeRequest(string $url, array $params): ?array
     {
         $headers = [
@@ -204,20 +211,44 @@ class MindBodyAPI
             CURLOPT_URL => $url . '?' . http_build_query($params),
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_FAILONERROR => true, // Automatically handle HTTP errors (4xx, 5xx)
         ]);
 
         $response = curl_exec($curl);
-        $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        curl_close($curl);
 
-        if ($httpcode === 200) {
-            return json_decode($response, true);
+        if (curl_errno($curl)) {
+            // Handle CURL errors
+            $error = curl_error($curl);
+            error_log("CURL Error: $error");
+            curl_close($curl);
+            return null;
         }
 
-        error_log("MindBody API Error ($httpcode): $response");
-        return null;
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+
+        // Validate HTTP response code
+        if ($httpCode !== 200) {
+            error_log("MindBody API Error (HTTP $httpCode): $response");
+            return null;
+        }
+
+        // Decode JSON response
+        $decodedResponse = json_decode($response, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            error_log("JSON Decode Error: " . json_last_error_msg());
+            return null;
+        }
+
+        return $decodedResponse;
     }
 
+    /**
+     * Fetches client information from the MindBody API.
+     *
+     * @param string $clientId The ID of the client.
+     * @return array|null Client information or null if not found or on error.
+     */
     public function getClientInfo(string $clientId): ?array
     {
         $url = "https://api.mindbodyonline.com/public/v6/client/client";
