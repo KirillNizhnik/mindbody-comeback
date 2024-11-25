@@ -263,7 +263,7 @@
 @media (max-width: 600px) {
 
     #calendar-date .slick-slide {
-        margin: 0 15px;
+        margin: 0 15px !important;
     }
 
     .logo{
