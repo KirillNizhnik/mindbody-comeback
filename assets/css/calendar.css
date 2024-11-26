@@ -156,7 +156,7 @@
 
 
 .mindbody-calendar .active-day .calendar-item-day {
-    border: 2px solid #9F9F9F;
+    border: 2px solid #2f2f2f;
     background: #94E522;
     color: #181818;
     margin: 0 auto;
@@ -235,7 +235,7 @@
 
 
 .time-item.active{
-    border: 2px solid #9F9F9F;
+    border: 2px solid #2f2f2f;
     background: #94E522;
     color: #000;
 }
@@ -245,7 +245,7 @@
     display: block;
     border-radius: 10px;
     background: #94E522;
-    border: 2px solid #9F9F9F;
+    border: 2px solid #2f2f2f;
     padding: 16px 24px;
     color: #181818;
     text-align: center;
