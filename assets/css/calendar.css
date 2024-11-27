@@ -241,6 +241,7 @@
 }
 
 .submit-btn-calendar{
+    cursor:pointer;
     margin: 30px auto 30px auto;
     display: block;
     border-radius: 10px;
