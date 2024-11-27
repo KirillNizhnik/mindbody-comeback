@@ -315,7 +315,7 @@ function checkActivity(){
     }
     $has_user_activity = hasUserActivity($user_id, $staff_token, $api_key, $site_id);
     if ($has_user_activity) {
-        wp_send_json_error(['message' => 'User has activity', 'user_id' => $user_id]);
+        wp_send_json_error(['message' => 'You already have an account.', 'user_id' => $user_id]);
     }else{
         wp_send_json_success(['message' => 'User has no activity', 'user_id' => $user_id]);
     }

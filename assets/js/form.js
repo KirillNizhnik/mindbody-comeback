@@ -70,7 +70,7 @@ document.getElementById('locationForm').addEventListener('submit', function (e) 
                     + "&phone=" + encodeURIComponent(phone)
                     + "&ads=" + ads;
             } else {
-                toastr.error('User has activity', 'Error', {
+                toastr.error('You already have an account.', 'Error', {
                     positionClass: 'toast-bottom-right',
                     closeButton: true,
                     progressBar: true
