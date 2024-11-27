@@ -49,6 +49,11 @@ document.getElementById('locationForm').addEventListener('submit', function (e) 
     formData.append('siteId', siteId)
     formData.append('locationId', locationId);
 
+    const submitButton = document.getElementById('submit-btn');
+    submitButton.disabled = true;
+    submitButton.classList.add('pulsing');
+
+
     fetch(ajaxUrl, {
         method: 'POST',
         body: formData
@@ -84,7 +89,12 @@ document.getElementById('locationForm').addEventListener('submit', function (e) 
                 closeButton: true,
                 progressBar: true
             });
+        })
+        .finally(() => {
+            submitButton.disabled = false;
+            submitButton.classList.remove('pulsing');
         });
+
 });
 
 document.addEventListener('DOMContentLoaded', function() {

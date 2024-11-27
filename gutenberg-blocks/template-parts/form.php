@@ -83,7 +83,7 @@ $title = get_the_title($id);
                 <input type="tel" pattern="\+1\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}" name="phone" id="phone" placeholder="Phone (+1...)" required>            </div>
         </div>
 
-        <button type="submit" class="submit-btn">CONTINUE</button>
+        <button type="submit" id="submit-btn" class="submit-btn">CONTINUE</button>
     </form>
 </div>
 <div id="disclaimer" style="display: none;" data-content='<?= $disclaimer ?>' class="disclaimer">
