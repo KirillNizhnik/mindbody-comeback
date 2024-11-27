@@ -171,6 +171,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert("Please enter a valid name on the credit card.");
                 return;
             }
+
+            submitButton.disabled = true;
+            submitButton.classList.add('pulsing');
+
             console.log(ccName, cvv, expiryDate, ccNumber);
 
             const formData = new FormData();
@@ -209,6 +213,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .catch(error => {
                     alert("There was an error processing your payment. Please try again.");
+                })
+                .finally(() => {
+                    submitButton.disabled = false;
+                    submitButton.classList.remove('pulsing');
                 });
         });
     } else {
