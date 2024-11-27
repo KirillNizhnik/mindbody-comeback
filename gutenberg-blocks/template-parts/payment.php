@@ -44,7 +44,7 @@ if (!is_email($email) || empty($phone)) {
     exit;
 }
 
-$training_redirect_url = get_field('mindbody_calendar_page', 'option') . '?location=' . $location_id . '&siteId' . $site_id . '&first_name=' . $first_name . '&last_name=' . $last_name . '&email=' . $email . '&phone=' . $phone;
+$training_redirect_url = get_field('mindbody_calendar_page', 'option') . '?location=' . $location_id . '&siteId=' . $site_id . '&first_name=' . $first_name . '&last_name=' . $last_name . '&email=' . $email . '&phone=' . $phone;
 if (!isset($_GET['class_id']) || !is_numeric($_GET['class_id'])) {
     wp_redirect($training_redirect_url);
     exit;
