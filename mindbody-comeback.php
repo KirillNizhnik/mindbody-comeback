@@ -43,6 +43,8 @@ require_once plugin_dir_path(__FILE__) . '/core/mindbody/allsites.php';
 require_once plugin_dir_path(__FILE__) . '/core/store-rocket/locations.php';
 require_once plugin_dir_path(__FILE__) . '/core/locations-post-type/locations-post-type.php';
 
+//shortcode
+require_once plugin_dir_path(__FILE__) . '/shortcode/form-shortcode.php';
 
 
 function mindbody_register_template($post_templates, $wp_theme, $post, $post_type) {
@@ -61,6 +63,9 @@ function mindbody_load_template($template) {
 }
 
 add_filter('template_include', 'mindbody_load_template');
+
+
+
 
 
 
