@@ -51,7 +51,9 @@ jQuery(document).ready(function($) {
     $('#submit-training').on('click', function(e) {
         e.preventDefault();
         console.log('click');
-
+        const button = $(this);
+        button.prop('disabled', true);
+        button.addClass('pulsing');
         let classId = $('.time-item.active').data('class-id');
         let descr_id = $('.time-item.active').data('description-id');
         let trainingId = $('.time-item.active').data('class-schedule-id');
@@ -127,7 +129,8 @@ jQuery(document).ready(function($) {
                     console.error(error);
                 })
                 .finally(() => {
-                    button.disabled = false;
+                    button.prop('disabled', false);
+                    button.removeClass('pulsing');
                 });
 
         }
