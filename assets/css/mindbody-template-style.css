@@ -1,8 +1,28 @@
+.pulsing {
+    animation: pulse 1.5s infinite;
+    background-color: #999;
+    color: #fff;
+    cursor: not-allowed;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    }
+    100% {
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+}
+
 .mindbody-container{
     max-width: 1440px;
     margin: 100px auto;
     padding: 0 40px 0 40px;
 }
+
 
 
 @media (max-width: 768px) {
