@@ -33,10 +33,10 @@
     margin-top: 80px;
     color: #181818;
     text-align: center;
-    font-family: "SF Pro Text", sans-serif;
+    font-family: "SF Pro Display", sans-serif;
     font-size: 24px;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 700;
     line-height: normal;
     text-transform: uppercase;
 }
@@ -167,7 +167,7 @@
 
     .mindbody-form .heading{
         margin-top: 20px;
-        font-size: 18px;
+        font-size: 20px;
 
     }
 
@@ -212,11 +212,11 @@
     }
 
     .mindbody-form .address {
-        font-size: 15px;
+        font-size: 14px;
     }
 
     .mindbody-form .heading {
-        font-size: 17px;
+        font-size: 19px;
     }
 
     .mindbody-form .subheading {
