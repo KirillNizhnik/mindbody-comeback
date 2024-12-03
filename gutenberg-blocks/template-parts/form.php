@@ -63,7 +63,7 @@ $title = get_the_title($id);
          alt="ISI Elite Training">
     <div class="mindbody-form-text">
         <div class="location">
-            <p class="welcome">WELCOME TO ISI® ELITE TRAININ</p>>
+            <p class="welcome">WELCOME TO ISI® ELITE TRAININ</p>
                 <span class="location-title-after-welcome"><?= $title ?></span>
         </div>
         <div class="address"><?= get_field('location_address', $id) . ', ' . get_field('location_city', $id) ?></div>
