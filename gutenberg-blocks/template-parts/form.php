@@ -62,13 +62,16 @@ $title = get_the_title($id);
     <img src="<?= plugin_dir_url(MINDBODY_PLUGIN_FILE) . 'assets/images/isi-elite.svg'; ?>" class="logo"
          alt="ISI Elite Training">
     <div class="mindbody-form-text">
-        <div class="location"><?= $title ?></div>
+        <div class="location">
+            <p class="welcome">WELCOME TO ISI® ELITE TRAININ</p>>
+                <span class="location-title-after-welcome"><?= $title ?></span>
+        </div>
         <div class="address"><?= get_field('location_address', $id) . ', ' . get_field('location_city', $id) ?></div>
         <?php if ($ads){ ?>
             <div class="heading"><?= $service_name ?></div>
 
         <?php }else{?>
-            <div class="heading">BOOK YOUR FIRST VISIT FOR FREE</div>
+            <div class="heading">BOOK YOUR FIRST VISIT ON US!</div>
             <div class="subheading">Start training for life with the best 50 minute, coach-led, strength-based workout</div>
         <?php } ?>
           </div>
