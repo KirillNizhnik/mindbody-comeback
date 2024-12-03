@@ -66,6 +66,7 @@ function mindbody_form_shortcode($atts) {
 
     <link rel="stylesheet" href="<?= esc_url(plugin_dir_url(MINDBODY_PLUGIN_FILE) . 'assets/css/form.css'); ?>" type="text/css" />
     <link rel="stylesheet" href="<?= esc_url(plugin_dir_url(MINDBODY_PLUGIN_FILE) . 'assets/css/toast.css'); ?>" type="text/css" />
+    <link rel="stylesheet" href="<?= esc_url(plugin_dir_url(MINDBODY_PLUGIN_FILE) . 'assets/css/step.css');?> " type="text/css"/>
     <script src="<?= esc_url(plugin_dir_url(MINDBODY_PLUGIN_FILE) . 'assets/js/form.js'); ?>"></script>
     <?php
 
