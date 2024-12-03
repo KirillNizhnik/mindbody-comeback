@@ -212,8 +212,9 @@
     }
 
     .mindbody-form .address {
-        margin-top: 24px;
         font-size: 14px;
+        max-width: 200px;
+        margin: 24px auto 0 auto;
     }
 
     .mindbody-form .heading {
