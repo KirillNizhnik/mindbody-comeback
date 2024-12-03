@@ -72,7 +72,7 @@ $title = get_the_title($id);
 
         <?php }else{?>
             <div class="heading">BOOK YOUR FIRST VISIT ON US!</div>
-            <div class="subheading">Start training for life with the best 50 minute, coach-led, strength-based workout</div>
+<!--            <div class="subheading">Start training for life with the best 50 minute, coach-led, strength-based workout</div>-->
         <?php } ?>
           </div>
     <form data-ads="<?= $ads ?>" data-site-id="<?= $site_id ?>" data-ajax-url="<?= admin_url('admin-ajax.php'); ?>" class="mindbody-form-form" id="locationForm" action="#" method="post" data-location-id="<?= $location_id ?>" data-redirect_url="<?= get_field('mindbody_calendar_page','option') ?>">
