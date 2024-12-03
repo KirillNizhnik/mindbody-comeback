@@ -69,12 +69,12 @@ $title = get_the_title($id);
         <div class="address"><?= get_field('location_address', $id) . ', ' . get_field('location_city', $id) ?></div>
         <?php if ($ads){ ?>
             <div class="heading"><?= $service_name ?></div>
-            <p class="step"><span class="step-green">step 1</span> of 2</p>
+            <p class="step"><span class="step-green">Step 1</span> of 3</p>
 
         <?php }else{?>
             <div class="heading">BOOK YOUR FIRST VISIT ON US!</div>
 <!--            <div class="subheading">Start training for life with the best 50 minute, coach-led, strength-based workout</div>-->
-            <p class="step"><span class="step-green">step 1</span> of 2</p>
+            <p class="step"><span class="step-green">Step 1</span> of 2</p>
         <?php } ?>
           </div>
     <form data-ads="<?= $ads ?>" data-site-id="<?= $site_id ?>" data-ajax-url="<?= admin_url('admin-ajax.php'); ?>" class="mindbody-form-form" id="locationForm" action="#" method="post" data-location-id="<?= $location_id ?>" data-redirect_url="<?= get_field('mindbody_calendar_page','option') ?>">
