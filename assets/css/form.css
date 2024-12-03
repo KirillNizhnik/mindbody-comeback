@@ -188,8 +188,9 @@
 
     .mindbody-form .form-group {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         gap: 17px;
+
     }
 
     .mindbody-form input {
