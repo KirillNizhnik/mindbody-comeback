@@ -68,6 +68,11 @@
     line-height: normal;
 }
 
+.location-title-after-welcome{
+    text-transform: uppercase;
+    color:#94E522;
+}
+
 .mindbody-form .mindbody-form-text{
     max-width: 547px;
     margin: 0 auto;
