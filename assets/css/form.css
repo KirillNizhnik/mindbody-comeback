@@ -1,3 +1,5 @@
+@import url('https://fonts.cdnfonts.com/css/sf-pro-display');
+
 @font-face {
     font-family: 'SfPro';
     src: url('../fonts/SFProText-Regular.ttf');
@@ -25,7 +27,6 @@
     font-weight: 500;
     font-style: normal;
 }
-
 
 
 .mindbody-form .heading{
@@ -60,10 +61,10 @@
     margin-top: 40px;
     color: #181818;
     text-align: center;
-    font-family: "SF Pro Text", sans-serif;
+    font-family: "SF Pro Display", sans-serif;
     font-size: 18px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 700;
     line-height: normal;
 }
 
