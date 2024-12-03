@@ -188,7 +188,7 @@
 
     .mindbody-form .form-group {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         gap: 17px;
 
     }
