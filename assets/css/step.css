@@ -2,13 +2,22 @@
 
 
 .step{
-    margin: 20px auto 0 auto;
+    margin: 10px auto 0 auto;
     font-family: 'SF Pro Display', sans-serif;
     font-weight: 400;
     font-size: 16px;
     color: #9F9F9F;
+    text-align: center;
 }
 
 .step-green{
     color: #94E522;
+}
+
+
+@media (max-width: 450px) {
+    .step{
+        font-size: 13px;
+    }
+
 }
