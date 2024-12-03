@@ -134,9 +134,9 @@ $title = get_the_title($id);
     <div class="mindbody-payment-text">
         <div class="location"><?= $title ?></div>
         <div class="address"><?php echo htmlspecialchars($full_address, ENT_QUOTES, 'UTF-8'); ?></div>
-        <p class="step"><span class="step-green">Step 3</span> of 3</p>
     </div>
     <div class="mindbody-payment-info">
+        <p class="step"><span class="step-green">Step 3</span> of 3</p>
         <div class="payment-discount">
             <?php if ($ads){ ?>
                 <?= $service_name ?>
