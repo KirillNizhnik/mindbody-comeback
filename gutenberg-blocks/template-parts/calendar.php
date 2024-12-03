@@ -84,6 +84,13 @@ $title = get_the_title($id);
         <div class="address"><?= get_field('location_address', $id) . ', ' . get_field('location_city', $id) ?></div>
     </div>
     <div class="mindbody-calendar-container">
+        <?php if ($ads){ ?>
+            <p class="step"><span class="step-green">Step 2</span> of 3</p>
+            <?php
+        }else{ ?>
+            <p class="step"><span class="step-green">Step 2</span> of 2</p>
+        <?php } ?>
+
         <h2 class="mindbody-calendar-title">
             Choose your day...
         </h2>
@@ -243,6 +250,8 @@ $title = get_the_title($id);
 
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+<link rel="stylesheet" href="<?php echo plugin_dir_url(MINDBODY_PLUGIN_FILE); ?>assets/css/step.css " type="text/css"/>
+
 
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 

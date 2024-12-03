@@ -239,6 +239,8 @@ $title = get_the_title($id);
 
 <link rel="stylesheet" href="<?php echo plugin_dir_url(MINDBODY_PLUGIN_FILE); ?>assets/css/payment.css"
       type="text/css"/>
+<link rel="stylesheet" href="<?php echo plugin_dir_url(MINDBODY_PLUGIN_FILE); ?>assets/css/step.css " type="text/css"/>
+
 <script src="<?php echo plugin_dir_url(MINDBODY_PLUGIN_FILE); ?>assets/js/payment.js">
 
 </script>
