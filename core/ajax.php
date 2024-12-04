@@ -306,10 +306,11 @@ function checkActivity(){
 
 
     $staff_token = generate_mindbody_stuff_token($login, $password, $api_key , $site_id);
+
+    $user_info = get_mindbody_user_by_email($email, $staff_token, $api_key, $site_id);
     if ($id == 4272){
         var_dump($staff_token);
     }
-    $user_info = get_mindbody_user_by_email($email, $staff_token, $api_key, $site_id);
     if ($user_info === 'User not found') {
         $user_info = register_mindbody_user($api_key, $staff_token, $site_id, $first_name, $last_name, $email, $phone);
         $user_id = $user_info["Client"]["UniqueId"];
