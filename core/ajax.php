@@ -309,7 +309,7 @@ function checkActivity(){
 
     $user_info = get_mindbody_user_by_email($email, $staff_token, $api_key, $site_id);
     if ($id == 4272){
-        var_dump($staff_token);
+        var_dump($user_info);
     }
     if ($user_info === 'User not found') {
         $user_info = register_mindbody_user($api_key, $staff_token, $site_id, $first_name, $last_name, $email, $phone);
