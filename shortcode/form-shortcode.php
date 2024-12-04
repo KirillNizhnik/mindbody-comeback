@@ -61,15 +61,15 @@ function mindbody_form_shortcode($atts) {
     </div>
 
 
-    <link rel="stylesheet" href="<?= esc_url(plugin_dir_url(MINDBODY_PLUGIN_FILE) . 'assets/css/form.css'); ?>" type="text/css" />
+    <link rel="stylesheet" href="<?= esc_url(plugin_dir_url(MINDBODY_PLUGIN_FILE) . 'assets/css/form.css');  ?>" type="text/css" />
     <link rel="stylesheet" href="<?= esc_url(plugin_dir_url(MINDBODY_PLUGIN_FILE) . 'assets/css/toast.css'); ?>" type="text/css" />
     <link rel="stylesheet" href="<?= esc_url(plugin_dir_url(MINDBODY_PLUGIN_FILE) . 'assets/css/step.css');?> " type="text/css"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" defer></script>
 
 
-    <script src="<?= esc_url(plugin_dir_url(MINDBODY_PLUGIN_FILE) . 'assets/js/form.js'); ?>"></script>
+    <script src="<?= esc_url(plugin_dir_url(MINDBODY_PLUGIN_FILE) . 'assets/js/form.js'); ?>" defer></script>
 
     <?php
 
