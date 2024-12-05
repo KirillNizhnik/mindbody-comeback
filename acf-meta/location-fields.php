@@ -15,7 +15,9 @@ function register_location_acf_fields(): void
                     'type' => 'text',
                     'instructions' => 'The unique site ID from Mindbody (filled during the import process).',
                     'required' => 1,
-                    'readonly' => 1,
+                    //'readonly' => 1,
+                    'readonly' => 0,
+
                 ),
                 array(
                     'key' => 'field_location_name',
@@ -24,7 +26,9 @@ function register_location_acf_fields(): void
                     'type' => 'text',
                     'instructions' => 'The name of the location (filled during the import process).',
                     'required' => 1,
-                    'readonly' => 1,
+//                    'readonly' => 1,
+                    'readonly' => 0,
+
                 ),
                 array(
                     'key' => 'field_location_address',
@@ -33,7 +37,9 @@ function register_location_acf_fields(): void
                     'type' => 'text',
                     'instructions' => 'The full address of the location (filled during the import process).',
                     'required' => 1,
-                    'readonly' => 1,
+//                    'readonly' => 1,
+                    'readonly' => 0,
+
                 ),
                 array(
                     'key' => 'field_location_city',
@@ -42,7 +48,9 @@ function register_location_acf_fields(): void
                     'type' => 'text',
                     'instructions' => 'The city where the location is situated (filled during the import process).',
                     'required' => 1,
-                    'readonly' => 1,
+//                    'readonly' => 1,
+                    'readonly' => 0,
+
                 ),
                 array(
                     'key' => 'field_location_state',
@@ -51,7 +59,9 @@ function register_location_acf_fields(): void
                     'type' => 'text',
                     'instructions' => 'The state/region of the location (filled during the import process).',
                     'required' => 1,
-                    'readonly' => 1,
+//                    'readonly' => 1,
+                    'readonly' => 0,
+
                 ),
                 array(
                     'key' => 'field_location_postal_code',
@@ -60,7 +70,9 @@ function register_location_acf_fields(): void
                     'type' => 'text',
                     'instructions' => 'The postal code for the location (filled during the import process).',
                     'required' => 1,
-                    'readonly' => 1,
+//                    'readonly' => 1,
+                    'readonly' => 0,
+
                 ),
                 array(
                     'key' => 'field_location_phone',
@@ -69,7 +81,9 @@ function register_location_acf_fields(): void
                     'type' => 'text',
                     'instructions' => 'The contact phone number for the location (filled during the import process).',
                     'required' => 1,
-                    'readonly' => 1,
+//                    'readonly' => 1,
+                    'readonly' => 0,
+
                 ),
                 array(
                     'key' => 'field_location_latitude',
@@ -77,7 +91,9 @@ function register_location_acf_fields(): void
                     'name' => 'location_latitude',
                     'type' => 'text',
                     'instructions' => 'Latitude of the location (filled during the import process).',
-                    'readonly' => 1,
+//                    'readonly' => 1,
+                    'readonly' => 0,
+
                 ),
                 array(
                     'key' => 'field_location_longitude',
@@ -85,7 +101,9 @@ function register_location_acf_fields(): void
                     'name' => 'location_longitude',
                     'type' => 'text',
                     'instructions' => 'Longitude of the location (filled during the import process).',
-                    'readonly' => 1,
+//                    'readonly' => 1,
+                    'readonly' => 0,
+
                 ),
                 array(
                     'key' => 'field_map_link',
@@ -93,7 +111,9 @@ function register_location_acf_fields(): void
                     'name' => 'map_link',
                     'type' => 'text',
                     'instructions' => 'Longitude of the location (filled during the import process)(coll to action).',
-                    'readonly' => 1,
+//                    'readonly' => 1,
+                    'readonly' => 0,
+
                 ),
                 array(
                     'key' => 'field_location_id',
@@ -101,7 +121,9 @@ function register_location_acf_fields(): void
                     'name' => 'location_id',
                     'type' => 'text',
                     'instructions' => 'The unique location ID from Mindbody (filled during the import process).',
-                    'readonly' => 1,
+//                    'readonly' => 1,
+                    'readonly' => 0,
+
                 ),
                 array(
                     'key' => 'field_store_rocket_location_id',
@@ -109,7 +131,9 @@ function register_location_acf_fields(): void
                     'name' => 'store_rocket_location_id',
                     'type' => 'text',
                     'instructions' => 'The unique location ID from Store Rocket (filled during the import process).',
-                    'readonly' => 1,
+//                    'readonly' => 1,
+                    'readonly' => 0,
+
                 ),
                 array(
                     'key' => 'field_ads_url',
@@ -117,7 +141,9 @@ function register_location_acf_fields(): void
                     'name' => 'ads_url',
                     'type' => 'text',
                     'instructions' => 'The URL for the ads (filled during the import process).',
-                    'readonly' => 1,
+//                    'readonly' => 1,
+                    'readonly' => 0,
+
                 ),
                 array(
                     'key' => 'field_package_dropdown',
