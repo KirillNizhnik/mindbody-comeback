@@ -55,7 +55,9 @@ function get_calendar_classes_by_date(): void
                 } else {
                     continue;
                 }
-                if ($class_name === 'IronKidz')
+                if ($class_name === 'IronKidz'){
+                    continue;
+                }
                 if (isset($class['ClassScheduleId'])) {
                     $scheduleId = $class['ClassScheduleId'];
                 } else {
