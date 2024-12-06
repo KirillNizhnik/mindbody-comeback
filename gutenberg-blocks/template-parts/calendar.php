@@ -199,7 +199,6 @@ $title = get_the_title($id);
                         echo '<div class="time-item ' . $active_class . '" ' .
                             'data-class-id="' . $scheduleId . '" ' .
                             'data-class-name="' . $class_name . '" ' .
-
                             'data-class-schedule-id="' . $class['Id'] . '" ' .
                             'data-description-id="' . $class_description . '" ' .
                             'data-start-datetime="' . htmlspecialchars($start_datetime, ENT_QUOTES, 'UTF-8') . '" ' .

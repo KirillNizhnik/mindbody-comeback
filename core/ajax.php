@@ -94,6 +94,7 @@ function get_calendar_classes_by_date(): void
 
                 $html .= '<div class="time-item ' . $active_class . '" ' .
                     'data-class-id="' . $scheduleId . '" ' .
+                    'data-class-name="' . $class_name . '" ' .
                     'data-class-schedule-id="' . $class['Id'] . '"' .
                     'data-description-id="' . $class_description . '" ' .
                     'data-class-name="' . htmlspecialchars($class_name, ENT_QUOTES, 'UTF-8') . '" ' .
