@@ -32,12 +32,14 @@ require_once plugin_dir_path(__FILE__) . '/wp-meta/options-render.php';
 //core
 require_once plugin_dir_path(__FILE__) . '/core/util.php';
 require_once plugin_dir_path(__FILE__) . '/core/ajax.php';
+require_once plugin_dir_path(__FILE__) . '/core/appointment-ajax.php';
 require_once plugin_dir_path(__FILE__) . '/core/mindbody/locations.php';
 require_once plugin_dir_path(__FILE__) . '/core/mindbody/classes.php';
 require_once plugin_dir_path(__FILE__) . '/core/mindbody/token.php';
 require_once plugin_dir_path(__FILE__) . '/core/mindbody/user.php';
 require_once plugin_dir_path(__FILE__) . '/core/mindbody/service.php';
 require_once plugin_dir_path(__FILE__) . '/core/mindbody/allsites.php';
+require_once plugin_dir_path(__FILE__) . '/core/mindbody/appointment.php';
 
 
 require_once plugin_dir_path(__FILE__) . '/core/store-rocket/locations.php';

@@ -1,0 +1,121 @@
+@import url('https://fonts.cdnfonts.com/css/sf-pro-display');
+
+@font-face {
+    font-family: 'SfPro';
+    src: url('../fonts/SFProText-Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF Pro Text';
+    src: url('../fonts/SFProText-Bold.ttf');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF Pro Text';
+    src: url('../fonts/SFProText-Semibold.ttf');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF Pro Text';
+    src: url('../fonts/SFProText-Medium.ttf');
+    font-weight: 500;
+    font-style: normal;
+}
+
+
+
+.appointment-success{
+    max-width: 800px;
+    margin: 200px auto 0 auto;
+}
+
+
+.appointment-success-logo{
+    display: flex;
+    justify-content: center;
+}
+
+.appointment-success-logo img{
+    max-width: 400px;
+}
+
+.see-you-soon{
+    text-align: center;
+    display: block;
+    margin: 40px auto 0 auto;
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.appointment-confirmation{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+}
+
+.appointment-confirmation-img{
+    max-width: 40px;
+
+}
+
+.appointment-details{
+    margin: 5px auto 0px auto;
+    width: fit-content;
+    display: block;
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+
+.appointment-descr{
+    margin: 40px auto 0 auto;
+    display: block;
+    max-width: 500px;
+    text-align: center;
+}
+
+.add-to-calendar{
+    margin: 40px auto 0 auto;
+    display: block;
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 13px;
+    color: #000;
+    font-style: normal;
+    font-weight: 600;
+    padding: 20px 57px;
+    border-radius: 10px;
+    background: #94E522;
+    cursor: pointer;
+    width: fit-content;
+}
+
+@media(max-width: 450px) {
+    .appointment-success-logo img{
+        max-width: 300px;
+    }
+
+    .see-you-soon{
+        font-size: 37px;
+    }
+
+    .appointment-success{
+        max-width: 800px;
+        margin: 100px auto 0 auto;
+    }
+
+}

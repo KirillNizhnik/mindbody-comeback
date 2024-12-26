@@ -1,0 +1,475 @@
+@import url('https://fonts.cdnfonts.com/css/sf-pro-display');
+
+@font-face {
+    font-family: 'SfPro';
+    src: url('../fonts/SFProText-Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF Pro Text';
+    src: url('../fonts/SFProText-Bold.ttf');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF Pro Text';
+    src: url('../fonts/SFProText-Semibold.ttf');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF Pro Text';
+    src: url('../fonts/SFProText-Medium.ttf');
+    font-weight: 500;
+    font-style: normal;
+}
+
+
+
+
+.noneClick{
+    cursor: none;
+
+}
+.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.continue-button{
+    cursor: pointer;
+}
+
+.loader {
+    position:absolute;
+    top: 44%;
+    left: 49%;
+    border: 1px solid #94E522 ;
+    border-radius: 50%;
+    border-top:  #f3f3f3;
+    width: 40px;
+    height: 40px;
+    -webkit-animation: spin 1s linear infinite; /* Safari */
+    animation: spin 1s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loader-hide{
+    display: none;
+}
+
+
+.appointment-calendar{
+    max-width: 800px;
+    margin: 200px auto 0 auto;
+}
+
+.appointment-calendar-logo{
+    display: flex;
+    justify-content: center;
+}
+
+.appointment-calendar-logo img{
+    max-width: 400px;
+}
+
+.congrats-text{
+    color: #94E522;
+}
+.congrats{
+    text-align: center;
+    display: block;
+    margin: 40px auto 0 auto;
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.congrats-long-text{
+    text-align: center;
+    display: block;
+    margin: 10px auto 0 auto;
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+
+.appointment-calendar{
+    max-width: 600px;
+    margin: 20px auto 0 auto;
+}
+
+.appointment-calendar-form{
+    margin-top: 20px;
+}
+
+.appointment-type-select{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+
+/* Appointment Button */
+.appointment-type-button{
+    width: 200px;
+    padding: 28px 44px;
+    color: #242424;
+    border-radius: 15px;
+    border: 3px solid #ACACAC;
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.appointment-type-button:hover{
+    color: #242424;
+    border-radius: 15px;
+    border: 3px solid #242424;
+}
+
+.active-appointment-type{
+    color: #242424;
+    border-radius: 15px;
+    border: 3px solid #242424;
+    background: #94E622;
+    cursor: auto;
+    pointer-events: none;
+}
+
+.date-slider{
+    margin-top: 40px;
+    height: 100px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.slick-slide{
+    cursor: pointer;
+}
+
+.day-name-block{
+    width: 70px;
+    height: 70px;
+    padding: 15px;
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 18px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1000px;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+}
+
+.day-number-block{
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 16px;
+
+}
+
+.date-container-slide{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.active-appointment-date{
+    pointer-events:none;
+    cursor: unset;
+}
+
+.active-appointment-date .day-name-block{
+    background: #94E622;
+    border: 2px solid #000000;
+
+}
+
+#prev-btn{
+    position: absolute;
+    color: black;
+    top: 25px;
+    left: -20px;
+    z-index: 10000;
+    cursor: pointer;
+
+}
+
+#next-btn{
+    position: absolute;
+    color: black;
+    top: 25px;
+    right: -20px;
+    z-index: 10000;
+    cursor: pointer;
+}
+
+.appointment-date-select{
+    position: relative !important;
+
+}
+
+.time-slider{
+    max-width: 800px;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px 24px;
+    flex-wrap: wrap;
+}
+
+.time-slide{
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    width: 130px;
+    font-size: 16px;
+    font-family: "SF Pro Display", sans-serif;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 1px solid #9F9F9F;
+    font-weight: 500;
+}
+
+.active-appointment-time{
+    background: #94E622;
+    border: 2px solid #000000;
+    pointer-events: none;
+    cursor: unset;
+}
+
+
+.continue-button{
+
+}
+
+.appointment-continue-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.continue-button {
+    margin: 40px auto auto auto;
+    padding: 15px 35px;
+    background: #94E622;
+    border-radius: 8px;
+    border: 2px solid #000000;
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.time-not-found{
+    margin-top: 30px;
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    color: #000000;
+    text-align: center;
+}
+
+.time-title{
+    margin-top: 45px;
+    text-align: center;
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+
+
+
+@media (max-width: 769px) {
+    .date-slider {
+        max-width: 470px;
+        margin: 30px auto 0 auto;
+    }
+
+    .congrats {
+        font-size: 30px;
+    }
+
+    .congrats-long-text {
+        font-size: 16px;
+    }
+
+    .appointment-type-button {
+        width: 170px;
+        padding: 15px 26px;
+    }
+
+
+    #prev-btn {
+        top: 25px;
+        left: 20px;
+    }
+
+    #next-btn {
+        top: 25px;
+        right: 20px;
+    }
+
+    .time-slide{
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        width: 110px;
+        font-size: 14px;
+        font-family: "SF Pro Display", sans-serif;
+        cursor: pointer;
+        border-radius: 10px;
+        border: 1px solid #9F9F9F;
+        font-weight: 500;
+    }
+}
+
+@media (max-width: 600px) {
+    #prev-btn{
+        top: 25px;
+        left: 1%;
+    }
+
+    #next-btn{
+        top: 25px;
+        right: 1%;
+    }
+
+    .date-slider{
+    max-width: 400px;
+    margin: 30px auto 0 auto;
+    }
+
+    .time-title {
+        margin-top: 30px;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+    .date-slider{
+        max-width: 310px;
+        margin: 30px auto 0 auto;
+    }
+
+
+
+}
+
+@media(max-width: 450px) {
+    .appointment-calendar-logo img{
+        max-width: 320px;
+        margin: 30px auto 0 auto;
+
+    }
+
+    .see-you-soon{
+        font-size: 37px;
+    }
+
+    .appointment-success{
+        max-width: 800px;
+        margin: 100px auto 0 auto;
+    }
+
+    .date-slider{
+        max-width: 270px;
+        margin: 30px auto 0 auto;
+    }
+
+    .day-name-block{
+        width: 55px;
+        height: 55px;
+    }
+
+    .time-slide{
+        width: 150px;
+    }
+
+}
+
+@media (max-width: 380px) {
+
+
+
+    .congrats{
+        font-size: 25px;
+    }
+    .date-slider{
+        max-width: 270px;
+        margin: 30px auto 0 auto;
+    }
+
+    .day-name-block{
+        width: 50px;
+        height: 50px;
+        padding: 5px;
+    }
+
+    .congrats-long-text{
+        font-size: 14px;
+    }
+
+    .appointment-type-button{
+        width: 150px;
+        padding: 15px 20px;
+        font-size: 18px;
+
+    }
+
+
+    .time-slide{
+        width: 130px;
+        gap: 15px 15px;
+    }
+
+
+}
+
+@media (max-width: 365px) {
+    #prev-btn{
+        top: 25px;
+        left: -4%;
+    }
+
+    #next-btn{
+        top: 25px;
+        right: -4%;
+    }
+}
+
+
+
+
+

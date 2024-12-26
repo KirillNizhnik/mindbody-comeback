@@ -66,4 +66,32 @@ if( function_exists('acf_register_block_type') ) {
         'icon'              => 'smiley',
         'keywords'          => array('success', 'confirmation'),
     ));
+
+    acf_register_block_type(array(
+        'name'              => 'appointment_form_block',
+        'title'             => __('Appointment Form Block'),
+        'description'       => __('A custom block for displaying appointment form.'),
+        'render_template'   => plugin_dir_path(__FILE__) . 'template-parts/appointment-form.php',
+        'category'          => 'mindbody-blocks',
+        'icon'              => 'smiley',
+        'keywords'          => array('form', 'appointment'),
+    ));
+    acf_register_block_type(array(
+        'name'              => 'appointment_calendar_block',
+        'title'             => __('Appointment Calendar Block'),
+        'description'       => __('A custom block for displaying appointment calendar.'),
+        'render_template'   => plugin_dir_path(__FILE__) . 'template-parts/appointment-calendar.php',
+        'category'          => 'mindbody-blocks',
+        'icon'              => 'smiley',
+        'keywords'          => array('сalendar', 'appointment'),
+    ));
+    acf_register_block_type(array(
+        'name'              => 'appointment_success_block',
+        'title'             => __('Appointment Success Block'),
+        'description'       => __('A custom block for displaying appointment success.'),
+        'render_template'   => plugin_dir_path(__FILE__) . 'template-parts/appointment-success.php',
+        'category'          => 'mindbody-blocks',
+        'icon'              => 'smiley',
+        'keywords'          => array('success', 'appointment'),
+    ));
 }

@@ -9,6 +9,17 @@ function register_location_acf_fields(): void
             'title' => 'Location Fields',
             'fields' => array(
                 array(
+                    'key' => 'field_vip_switcher',
+                    'label' => 'VIP Status',
+                    'name' => 'vip_status',
+                    'type' => 'true_false',
+                    'instructions' => 'Toggle this switch to mark as VIP.',
+                    'default_value' => 0,
+                    'ui' => 1,
+                    'ui_on_text' => 'VIP',
+                    'ui_off_text' => 'Regular',
+                ),
+                array(
                     'key' => 'field_site_id',
                     'label' => 'Location Site Id',
                     'name' => 'site_id',
@@ -94,6 +105,14 @@ function register_location_acf_fields(): void
                     'type' => 'text',
                     'instructions' => 'Longitude of the location (filled during the import process)(coll to action).',
                     'readonly' => 1,
+                ),
+                array(
+                    'key' => 'field_appointment_link',
+                    'label' => 'Appointment Link',
+                    'name' => 'appointment_link',
+                    'type' => 'text',
+                    'instructions' => 'The link to the appointment page.',
+                    'readonly' => 0,
                 ),
                 array(
                     'key' => 'field_location_id',
