@@ -90,7 +90,7 @@
     display: block;
     max-width: 500px;
     text-align: center;
-    font-size: 13px;
+    font-size: 16px;
     font-family: "SF Pro Display Regular", sans-serif;
     line-height: 1.4em;
 }
@@ -126,6 +126,10 @@
 
     .appointment-details {
         font-size: 16px;
+    }
+
+    .appointment-descr {
+        font-size: 13px;
     }
 
 }
