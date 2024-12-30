@@ -81,8 +81,7 @@ $title = get_the_title($id);
             YOU'RE IN!
         </p>
         <p class="congrats-long-text">
-            Be the first to know about our Grand Opening updates, founding membership rates, free outdoor workouts, and
-            complete membership details. Get on the list below!
+            Select a time below to speak to our team on how you can gain access to our limited prelaunch memberships and be the first off the waitlist when we release our next tier!
         </p>
     </div>
     <div data-user-id="<?= $user_id ?>" data-location-id="<?= $location_id ?>" data-site-id="<?= $site_id ?>"

@@ -1,3 +1,55 @@
+@import url(https://db.onlinewebfonts.com/c/7a6f2630cebd5e0ea712848621f9502e?family=SF+Pro+Display+Black);
+
 .heading-appointment{
-    font-size: 28px !important;
+    font-size: 40px !important;
+}
+
+.welcome{
+    font-family: 'SF Pro Display Black', sans-serif;
+    font-weight: 600;
+}
+
+.location-title-after-welcome{
+    font-family: 'SF Pro Display Black', sans-serif;
+    font-weight: 600;
+}
+
+.mindbody-form .heading {
+    font-weight: 900;
+    font-family: 'SF Pro Display Black', sans-serif;
+}
+
+@media (max-width: 600px) {
+
+    .heading-appointment{
+        font-size: 30px !important;
+    }
+
+    .mindbody-form .heading {
+        margin-top: 90px !important;
+        font-size: 31px !important;
+        font-weight: 900;
+    }
+
+    .step {
+        font-size: 18px;
+    }
+}
+
+
+@media (max-width: 450px) {
+
+    .heading-appointment {
+        font-size: 25px !important;
+    }
+}
+
+@media (max-width: 397px) {
+
+    .mindbody-form .heading {
+        margin-top: 90px !important;
+        font-size: 26px !important;
+        font-weight: 900;
+    }
+
 }

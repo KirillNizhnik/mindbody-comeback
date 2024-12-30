@@ -1,4 +1,6 @@
 @import url('https://fonts.cdnfonts.com/css/sf-pro-display');
+@import url(https://db.onlinewebfonts.com/c/7a6f2630cebd5e0ea712848621f9502e?family=SF+Pro+Display+Black);
+
 
 @font-face {
     font-family: 'SfPro';
@@ -27,6 +29,8 @@
     font-weight: 500;
     font-style: normal;
 }
+
+
 
 
 
@@ -94,18 +98,19 @@
     text-align: center;
     display: block;
     margin: 40px auto 0 auto;
-    font-family: "SF Pro Display", sans-serif;
+    font-family: "SF Pro Display Black", sans-serif;
     font-size: 40px;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 500;
 }
 
 .congrats-long-text{
+    max-width: 430px;
     text-align: center;
     display: block;
     margin: 10px auto 0 auto;
     font-family: "SF Pro Display", sans-serif;
-    font-size: 18px;
+    font-size: 17px;
     font-style: normal;
     font-weight: 400;
 }
@@ -389,7 +394,7 @@
 
 @media(max-width: 450px) {
     .appointment-calendar-logo img{
-        max-width: 320px;
+        max-width: 250px;
         margin: 30px auto 0 auto;
 
     }
@@ -417,14 +422,23 @@
         width: 150px;
     }
 
+    .time-slider{
+        margin-top: 15px;
+    }
+
+    .congrats-long-text{
+        max-width: 300px;
+        font-size: 14px;
+    }
+
 }
 
-@media (max-width: 380px) {
+@media (max-width: 400px) {
 
 
 
     .congrats{
-        font-size: 25px;
+        font-size: 28px;
     }
     .date-slider{
         max-width: 270px;
@@ -448,16 +462,39 @@
 
     }
 
+    .time-title {
+        font-size: 21px;
+    }
+
+    .time-slider{
+        gap: 10px;
+    }
 
     .time-slide{
-        width: 130px;
-        gap: 15px 15px;
+        width: 100px;
+        gap: 10px 10px;
     }
 
 
 }
 
+@media (max-width: 380px) {
+
+
+    .congrats {
+        font-size: 25px;
+    }
+}
+
 @media (max-width: 365px) {
+
+
+        .time-slide {
+            width: 130px;
+            gap: 10px 10px;
+        }
+
+
     #prev-btn{
         top: 25px;
         left: -4%;

@@ -186,7 +186,7 @@ jQuery(document).ready(function ($) {
                 const slotDiv = document.createElement('div');
                 slotDiv.classList.add('time-slide');
 
-                slotDiv.textContent = slot.start;
+                slotDiv.textContent = convertTo12HourFormat(slot.start);
 
                 slotDiv.setAttribute('data-start', slot.start);
                 slotDiv.setAttribute('data-end', slot.end);
@@ -208,6 +208,13 @@ jQuery(document).ready(function ($) {
             });
 
 
+    }
+
+    function convertTo12HourFormat(time24) {
+        const [hours, minutes] = time24.split(':');
+        const hours12 = (hours % 12) || 12;
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        return `${hours12}:${minutes} ${ampm}`;
     }
 
     function getAjaxTimesSlots() {
