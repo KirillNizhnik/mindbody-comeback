@@ -196,6 +196,11 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    color: #000;
+}
+
+.day-name-block:focus {
+    color: #000;
 }
 
 .day-number-block{
@@ -208,6 +213,11 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    color: #000;
+}
+
+.day-number-block:focus {
+    color: #000;
 }
 
 .date-container-slide{
