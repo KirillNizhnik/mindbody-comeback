@@ -45,10 +45,6 @@
     cursor: not-allowed;
 }
 
-.continue-button{
-    cursor: pointer;
-}
-
 .loader {
     position:absolute;
     top: 44%;
@@ -300,11 +296,6 @@
     cursor: unset;
 }
 
-
-.continue-button{
-
-}
-
 .appointment-continue-button{
     display: flex;
     justify-content: center;
@@ -321,6 +312,19 @@
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: #000;
+}
+
+.continue-button:focus {
+    color: #000;
 }
 
 .time-not-found{
