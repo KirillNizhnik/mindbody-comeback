@@ -7,7 +7,8 @@ $event_description = "Our team is excited to meet you! Due to the demand of the 
 $locationId = isset($_GET['locationId']) ? intval($_GET['locationId']) : null;
 $siteId = isset($_GET['siteId']) ? intval($_GET['siteId']) : null;
 $sessionTypeId = isset($_GET['sessionTypeId']) ? intval($_GET['sessionTypeId']) : null;
-$event_date = isset($_GET['date']) ? $_GET['date'] : null; // Формат: m-d-Y
+$event_date = isset($_GET['date']) ? str_replace('-', '/', $_GET['date']) : null; // Input format: m-d-Y, output format: m/d/y to make strtotime work correct with US date format
+if( !is_null($event_date) ) $event_date = date( 'l, F jS', strtotime($event_date) );
 $startTime = isset($_GET['startTime']) ? $_GET['startTime'] : null; // Формат: H:i
 $endTime = isset($_GET['endTime']) ? $_GET['endTime'] : null; // Формат: H:i
 $workerName = isset($_GET['workerName']) ? $_GET['workerName'] : null;
@@ -15,7 +16,7 @@ $workerId = isset($_GET['workerId']) ? intval($_GET['workerId']) : null;
 $userId = isset($_GET['userId']) ? intval($_GET['userId']) : null;
 
 
-$event_time = convertTimeTo12HourFormat($startTime) . ' - ' . convertTimeTo12HourFormat($endTime);
+$event_time = convertTimeTo12HourFormat($startTime);
 
 
 $post_id = get_post_id_by_mindbody_location_id_and_site_id($locationId, $siteId);
@@ -74,7 +75,7 @@ $calendar_link .= '&sf=true&output=xml';
         </span>
     </div>
     <div class="appointment-details">
-        <?= strtoupper($event_date) . ' @ ' . $event_time; ?>
+        <?= is_null($event_date) ? $event_time : strtoupper($event_date) . ' @ ' . $event_time; ?>
     </div>
     <div class="appointment-descr">
         <?= $event_description; ?>
