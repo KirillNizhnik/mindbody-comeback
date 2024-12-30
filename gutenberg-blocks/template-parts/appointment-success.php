@@ -37,11 +37,9 @@ function convertTimeTo12HourFormat($time) {
 
 
 $startDateTime = DateTime::createFromFormat('Y-m-d\TH:i:s', $_GET['startServerTime']);
-if (!$startDateTime) {
-    echo "Неверный формат startServerTime.";
-    exit;
-}
-
+if(!$startDateTime):
+    echo "Incorrect format of startServerTime.";
+else:
 $durationMinutes = 30;
 
 $endDateTime = clone $startDateTime;
@@ -86,4 +84,4 @@ $calendar_link .= '&sf=true&output=xml';
 
 <link rel="stylesheet" href="<?php echo plugin_dir_url(MINDBODY_PLUGIN_FILE); ?>assets/css/appointment-success.css" type="text/css"/>
 
-
+<?php endif; ?>
