@@ -127,7 +127,7 @@
 
 .appointment-type-select{
     display: flex;
-    gap: 10px;
+    gap: 10px 25px;
     justify-content: center;
 }
 
@@ -151,6 +151,10 @@
     color: #242424;
     border-radius: 15px;
     border: 3px solid #242424;
+}
+
+.appointment-type-button:focus {
+    outline: none;
 }
 
 .active-appointment-type{
@@ -185,12 +189,25 @@
     border-radius: 1000px;
     border: 1px solid #000000;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .day-number-block{
     font-family: "SF Pro Display", sans-serif;
     font-size: 16px;
-
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .date-container-slide{
@@ -245,6 +262,10 @@
     align-items: center;
     gap: 16px 24px;
     flex-wrap: wrap;
+}
+
+.time-slider:focus {
+    outline: none;
 }
 
 .time-slide{
@@ -308,6 +329,15 @@
     font-family: "SF Pro Display", sans-serif;
     font-size: 25px;
     font-weight: 600;
+}
+
+.type-title{
+    margin: 45px 0;
+    text-align: center;
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 25px;
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
 
@@ -377,6 +407,10 @@
 
     .time-title {
         margin-top: 30px;
+    }
+
+    .type-title {
+        margin: 30px 0;
     }
 
 }
@@ -463,6 +497,10 @@
     }
 
     .time-title {
+        font-size: 21px;
+    }
+
+    .type-title {
         font-size: 21px;
     }
 

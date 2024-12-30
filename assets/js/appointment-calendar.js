@@ -39,6 +39,7 @@ jQuery(document).ready(function ($) {
                     });
                     appointmentTypeSelect.append(button);
                 });
+                appointmentTypeSelect.before('<div class="type-title">Select your meeting preference</div>');
             })
             .catch(function (error) {
                 console.error('Error generating appointment type buttons:', error);
