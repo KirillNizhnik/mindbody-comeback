@@ -81,7 +81,7 @@ $title = get_the_title($id);
             YOU'RE IN!
         </p>
         <p class="congrats-long-text">
-            Select a time below to speak to our team on how you can gain access to our limited prelaunch memberships and be the first off the waitlist when we release our next tier!
+            Select a time below to speak to our team on how you can gain access to our limited prelaunch memberships and be the first off the waitlist when we release our next pricing tier!
         </p>
     </div>
     <div data-user-id="<?= $user_id ?>" data-location-id="<?= $location_id ?>" data-site-id="<?= $site_id ?>"
