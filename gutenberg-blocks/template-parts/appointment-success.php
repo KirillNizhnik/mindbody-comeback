@@ -15,26 +15,12 @@ $workerName = isset($_GET['workerName']) ? $_GET['workerName'] : null;
 $workerId = isset($_GET['workerId']) ? intval($_GET['workerId']) : null;
 $userId = isset($_GET['userId']) ? intval($_GET['userId']) : null;
 
-
-$event_time = convertTimeTo12HourFormat($startTime);
-
+$event_time = 'Invalid Time';
+if( $event_time_formated_obj = DateTime::createFromFormat('H:i', $startTime) )
+    $event_time = $event_time_formated_obj->format('g:i A');
 
 $post_id = get_post_id_by_mindbody_location_id_and_site_id($locationId, $siteId);
 $title = get_the_title($post_id);
-
-
-function convertTimeTo12HourFormat($time) {
-    // Создаём объект DateTime из строки времени
-    $dateTime = DateTime::createFromFormat('H:i', $time);
-
-    if ($dateTime) {
-        return $dateTime->format('g:i A'); // Например, '8:00 AM'
-    } else {
-        return 'Invalid Time';
-    }
-}
-
-
 
 $startDateTime = DateTime::createFromFormat('Y-m-d\TH:i:s', $_GET['startServerTime']);
 if(!$startDateTime):
