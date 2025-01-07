@@ -8,13 +8,20 @@ get_header(); ?>
 
 <link rel="stylesheet" href="<?php echo plugin_dir_url(MINDBODY_PLUGIN_FILE); ?>assets/css/mindbody-template-style.css" type="text/css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <div class="mindbody-container">
+    <div class="mindbody-container mindbody-container-hidden">
         <div class="mindbody-inner">
             <?php
             the_content();
             ?>
         </div>
     </div>
+
+    <script type="text/javascript">
+        window.onload = function(){
+            let el = document.querySelector('.mindbody-container.mindbody-container-hidden');
+            el.classList.remove('mindbody-container-hidden');
+        }
+    </script>
 
 
 <?php get_footer(); ?>
