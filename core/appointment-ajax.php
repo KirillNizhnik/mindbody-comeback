@@ -237,7 +237,7 @@ function create_appointment($site_id, $location_id, $session_type_id, $date, $ti
         $startDateTime = DateTime::createFromFormat($inputFormat, $dateTimeString);
         $errors = DateTime::getLastErrors();
         if ($errors['warning_count'] > 0 || $errors['error_count'] > 0) {
-            throw new Exception("Некорректный формат даты или времени: $dateTimeString");
+            throw new Exception("Incorrect time format: $dateTimeString");
         }
 
         $endDateTime = clone $startDateTime;
@@ -257,6 +257,7 @@ function create_appointment($site_id, $location_id, $session_type_id, $date, $ti
         'ClientId' => $user_id,
         'LocationId' => $location_id,
         'SessionTypeId' => $session_type_id,
+        'SendEmail' => true,
     ];
 
     $ch = curl_init($url);
@@ -273,7 +274,7 @@ function create_appointment($site_id, $location_id, $session_type_id, $date, $ti
     if (curl_errno($ch)) {
         $error_msg = curl_error($ch);
         curl_close($ch);
-        error_log("cURL ошибка: " . $error_msg);
+        error_log("cURL error: " . $error_msg);
         return false;
     }
 
