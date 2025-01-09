@@ -46,7 +46,7 @@ function mindbody_appointment_form_shortcode($atts) {
 <!--                <p class="welcome">WELCOME TO ISI® ELITE TRAINING</p>-->
 <!--                <span class="location-title-after-welcome">--><?php //= $title ?><!--</span>-->
 <!--            </div>-->
-            <div class="heading heading-appointment">GET ON THE WAITLIST!</div>
+<!--            <div class="heading heading-appointment">GET ON THE WAITLIST!</div>-->
             <p class="step" style="color:#000000; ">Be the first to know about our Grand Opening updates, founding membership rates, free outdoor workouts, and complete membership details. Get on the list below!</p>
         </div>
         <form  data-site-id="<?= $site_id ?>" data-ajax-url="<?= admin_url('admin-ajax.php'); ?>" class="mindbody-form-form" id="locationForm" action="#" method="post" data-location-id="<?= $location_id ?>" data-redirect_url="<?= get_field('mindbody_appointment_calendar_page','option') ?>">
