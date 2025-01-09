@@ -46,6 +46,7 @@ require_once plugin_dir_path(__FILE__) . '/core/store-rocket/locations.php';
 require_once plugin_dir_path(__FILE__) . '/core/locations-post-type/locations-post-type.php';
 
 //shortcode
+require_once plugin_dir_path(__FILE__) . '/shortcode/appointment-form-shortcode.php';
 require_once plugin_dir_path(__FILE__) . '/shortcode/form-shortcode.php';
 
 
