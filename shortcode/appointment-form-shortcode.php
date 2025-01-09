@@ -41,14 +41,14 @@ function mindbody_appointment_form_shortcode($atts) {
     <div class="mindbody-form">
 <!--        <img src="--><?php //= plugin_dir_url(MINDBODY_PLUGIN_FILE) . 'assets/images/logo-2.svg'; ?><!--" class="logo"-->
 <!--             alt="ISI Elite Training">-->
-<!--        <div class="mindbody-form-text">-->
+        <div class="mindbody-form-text">
 <!--            <div class="location">-->
 <!--                <p class="welcome">WELCOME TO ISI® ELITE TRAINING</p>-->
 <!--                <span class="location-title-after-welcome">--><?php //= $title ?><!--</span>-->
 <!--            </div>-->
-<!--            <div class="heading heading-appointment">GET ON THE WAITLIST!</div>-->
-<!--            <p class="step" style="color:#000000; ">Be the first to know about our Grand Opening updates, founding membership rates, free outdoor workouts, and complete membership details. Get on the list below!</p>-->
-<!--        </div>-->
+            <div class="heading heading-appointment">GET ON THE WAITLIST!</div>
+            <p class="step" style="color:#000000; ">Be the first to know about our Grand Opening updates, founding membership rates, free outdoor workouts, and complete membership details. Get on the list below!</p>
+        </div>
         <form  data-site-id="<?= $site_id ?>" data-ajax-url="<?= admin_url('admin-ajax.php'); ?>" class="mindbody-form-form" id="locationForm" action="#" method="post" data-location-id="<?= $location_id ?>" data-redirect_url="<?= get_field('mindbody_appointment_calendar_page','option') ?>">
             <div class="form-groups">
                 <div class="form-group">
